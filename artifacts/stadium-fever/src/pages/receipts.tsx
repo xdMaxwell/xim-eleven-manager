@@ -78,6 +78,29 @@ function ReceiptCard({ receipt, onClaim, onShare }: { receipt: Receipt, onClaim:
           </div>
         </div>
 
+        {receipt.summary && (
+          <div className="mb-6">
+            <div className="flex items-center justify-between border-b-4 border-black pb-2 mb-3">
+              <div className="font-mono text-[10px] bg-black text-white px-2 py-1 inline-block">MATCH SUMMARY</div>
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[10px] text-gray-500">IMPACT GRADE</span>
+                <span className="font-mono text-2xl bg-black text-white px-3 py-1 border-2 border-black">{receipt.summary.matchImpactGrade}</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 font-mono">
+              <SummaryStat label="Stadium Output" value={`+${receipt.summary.stadiumOutput} PP`} />
+              <SummaryStat label="Roar Combo" value={`${receipt.summary.roarCombo}%`} />
+              <SummaryStat label="Heat Gained" value={`+${receipt.summary.heatGained}`} />
+              <SummaryStat label="Fatigue" value={`${receipt.summary.fatigue}`} negative />
+              <SummaryStat
+                label="Mutation Roll"
+                value={receipt.summary.mutation}
+                accent={receipt.summary.mutation === "Mutated" ? "#8b5cf6" : receipt.summary.mutation === "Spark" ? "#f59e0b" : undefined}
+              />
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <div className="font-mono text-[10px] bg-black text-white px-2 py-1 inline-block mb-3">ASSETS</div>
@@ -139,6 +162,15 @@ function ReceiptCard({ receipt, onClaim, onShare }: { receipt: Receipt, onClaim:
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function SummaryStat({ label, value, negative, accent }: { label: string; value: string; negative?: boolean; accent?: string }) {
+  return (
+    <div className="bg-gray-100 border-2 border-black p-2">
+      <div className="text-[9px] text-gray-500 uppercase mb-1">{label}</div>
+      <div className="text-base" style={{ color: accent ? accent : negative ? "#dc2626" : "#000000" }}>{value}</div>
     </div>
   );
 }

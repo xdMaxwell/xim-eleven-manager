@@ -1,2 +1,3 @@
 - [Tailwind v4 CSS gotchas](tailwind-v4-css.md) — `@apply` can't reference custom non-utility classes; font `@import url()` must precede `@import "tailwindcss"`.
 - [Stadium Fever content rules](stadium-fever-content-rules.md) — banned betting words (incl. "multiplier"), no official IP, no emojis; run rg scan before finishing copy changes
+- [Timed viewer lifecycle](match-viewer-lifecycle.md) — auto-advancing screens must clear deferred finish-timeout + mounted-guard before navigating/mutating, or late timers redirect from the wrong screen

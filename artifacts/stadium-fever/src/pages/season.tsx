@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { SEASON_LEADERBOARD } from "../lib/constants";
 
 export default function Season() {
   const PHASES = [
@@ -41,6 +42,22 @@ export default function Season() {
         <p className="font-mono text-sm text-gray-400">
           Game first. Token later. Every match creates heat. Your stadium captures it.
         </p>
+      </div>
+
+      <div className="pixel-panel p-6 bg-black">
+        <h3 className="font-mono text-xl text-white uppercase border-b-4 border-white pb-2 mb-4">Season Leaders</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {SEASON_LEADERBOARD.map((entry) => (
+            <div key={entry.id} className="bg-[#0a0f1c] border-4 p-3 flex flex-col gap-2" style={{ borderColor: entry.color }}>
+              <div className="font-mono text-[9px] text-gray-400 uppercase">{entry.label}</div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-white shrink-0" style={{ backgroundColor: entry.color, imageRendering: "pixelated" }} />
+                <div className="font-mono text-[10px] text-white uppercase truncate">{entry.holder}</div>
+              </div>
+              <div className="font-mono text-lg" style={{ color: entry.color }}>{entry.value}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="pixel-panel p-6 bg-[#0a1128]">

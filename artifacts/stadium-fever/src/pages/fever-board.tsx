@@ -91,7 +91,7 @@ export default function FeverBoard() {
 }
 
 function FormationModal({ event, onClose }: { event: { id: string, name: string }, onClose: () => void }) {
-  const { equipped, deployFormation, roarPower } = useGameState();
+  const { equipped, startMatch, roarPower } = useGameState();
   const [, setLocation] = useLocation();
   const [deploying, setDeploying] = useState(false);
 
@@ -101,11 +101,11 @@ function FormationModal({ event, onClose }: { event: { id: string, name: string 
     if (activeCards.length < 2) return;
     setDeploying(true);
     setTimeout(() => {
-      deployFormation(event.name, activeCards);
+      startMatch(event.name, activeCards);
       setDeploying(false);
       onClose();
-      setLocation("/receipts");
-    }, 2000);
+      setLocation("/fever-match");
+    }, 1200);
   };
 
   return (

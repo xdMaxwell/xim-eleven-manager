@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useCallback } from "react";
 import { INITIAL_CARDS, CountryCard } from "./constants";
+import { MatchSummary } from "./match";
 
 type Phase = "Preseason" | "Kickoff" | "Mining Live" | "Fever Live" | "Final Run";
 
@@ -9,7 +10,13 @@ export type Receipt = {
   formation: CountryCard[];
   rewards: { pitchPoints: number; heat?: number; mutation?: string };
   cardImpact: Record<string, { stat: "Heat" | "Form" | "Fatigue"; change: number }>;
+  summary?: MatchSummary;
   claimed: boolean;
+};
+
+export type PendingMatch = {
+  event: string;
+  formation: CountryCard[];
 };
 
 type GameState = {
@@ -22,6 +29,7 @@ type GameState = {
   ownedCards: CountryCard[];
   packs: { starter: number; fever: number };
   receipts: Receipt[];
+  pendingMatch: PendingMatch | null;
 };
 
 type GameContextType = GameState & {
@@ -32,7 +40,9 @@ type GameContextType = GameState & {
   unequipCard: (slotIndex: number) => void;
   upgradeCard: (cardId: string) => boolean;
   overchargeCard: (cardId: string) => { result: string; message: string } | null;
-  deployFormation: (event: string, formation: CountryCard[]) => void;
+  startMatch: (event: string, formation: CountryCard[]) => void;
+  clearPendingMatch: () => void;
+  deployFormation: (event: string, formation: CountryCard[], summary?: MatchSummary) => string;
   claimReceipt: (receiptId: string) => void;
 };
 
@@ -46,6 +56,7 @@ const INITIAL_STATE: GameState = {
   ownedCards: INITIAL_CARDS,
   packs: { starter: 1, fever: 0 },
   receipts: [],
+  pendingMatch: null,
 };
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -161,37 +172,53 @@ export function GameProvider({ children }: { children: ReactNode }) {
     return resultPayload;
   }, []);
 
-  const deployFormation = useCallback((event: string, formation: CountryCard[]) => {
+  const startMatch = useCallback((event: string, formation: CountryCard[]) => {
+    setState((s) => ({ ...s, pendingMatch: { event, formation } }));
+  }, []);
+
+  const clearPendingMatch = useCallback(() => {
+    setState((s) => ({ ...s, pendingMatch: null }));
+  }, []);
+
+  const deployFormation = useCallback((event: string, formation: CountryCard[], summary?: MatchSummary) => {
+    const receiptId = Math.random().toString();
     setState((s) => {
-      const rewardPoints = Math.floor(Math.random() * 500) + 300;
+      const rewardPoints = summary ? summary.stadiumOutput : Math.floor(Math.random() * 500) + 300;
       const receipt: Receipt = {
-        id: Math.random().toString(),
+        id: receiptId,
         event,
         formation,
-        rewards: { pitchPoints: rewardPoints },
+        rewards: {
+          pitchPoints: rewardPoints,
+          heat: summary?.heatGained,
+          mutation: summary?.mutation,
+        },
         cardImpact: {},
+        summary,
         claimed: false,
       };
-      
+
       formation.forEach(c => {
         receipt.cardImpact[c.id] = {
           stat: "Fatigue",
-          change: -1,
+          change: summary ? summary.fatigue : -1,
         };
       });
 
-      return { ...s, receipts: [receipt, ...s.receipts] };
+      return { ...s, receipts: [receipt, ...s.receipts], pendingMatch: null };
     });
+    return receiptId;
   }, []);
 
   const claimReceipt = useCallback((receiptId: string) => {
     setState((s) => {
       const rec = s.receipts.find(r => r.id === receiptId);
       if (!rec || rec.claimed) return s;
-      
+
       return {
         ...s,
         pitchPoints: s.pitchPoints + rec.rewards.pitchPoints,
+        heat: s.heat + (rec.rewards.heat ?? 0),
         receipts: s.receipts.map(r => r.id === receiptId ? { ...r, claimed: true } : r)
       };
     });
@@ -208,6 +235,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
         unequipCard,
         upgradeCard,
         overchargeCard,
+        startMatch,
+        clearPendingMatch,
         deployFormation,
         claimReceipt,
       }}

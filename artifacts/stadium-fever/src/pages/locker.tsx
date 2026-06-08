@@ -10,6 +10,7 @@ export default function Locker() {
   
   const [selected, setSelected] = useState<CountryCard | null>(ownedCards[0] || null);
   const [overchargeResult, setOverchargeResult] = useState<{result: string, message: string} | null>(null);
+  const [showScout, setShowScout] = useState(false);
 
   const isEquipped = selected ? equipped.some(c => c?.id === selected.id) : false;
   const equippedIndex = selected ? equipped.findIndex(c => c?.id === selected.id) : -1;
@@ -81,13 +82,41 @@ export default function Locker() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Selected Card Focus */}
-        <div className="pixel-panel p-8 flex flex-col items-center justify-center bg-[#0a0f1c] min-h-[400px]">
+        <div className="pixel-panel p-8 flex flex-col items-center gap-6 bg-[#0a0f1c] min-h-[400px]">
           {selected ? (
-            <div className="scale-110">
-              <CardComponent card={selected} size="lg" />
-            </div>
+            <>
+              <div className="scale-110 mt-4">
+                <CardComponent card={selected} size="lg" />
+              </div>
+
+              <div className="w-full mt-2">
+                <button
+                  onClick={() => setShowScout((v) => !v)}
+                  className="pixel-btn bg-black text-white border-gray-500 w-full py-2 text-xs flex items-center justify-between px-3"
+                >
+                  <span>SCOUT STATS</span>
+                  <span className="font-mono">{showScout ? "[-]" : "[+]"}</span>
+                </button>
+
+                {showScout && selected.scout && (
+                  <div className="mt-3 bg-black border-2 border-gray-700 p-3 flex flex-col gap-2">
+                    <ScoutBar label="Attack" value={selected.scout.attack} color="#ef4444" />
+                    <ScoutBar label="Defense" value={selected.scout.defense} color="#3b82f6" />
+                    <ScoutBar label="Tempo" value={selected.scout.tempo} color="#22c55e" />
+                    <ScoutBar label="Stamina" value={selected.scout.stamina} color="#eab308" />
+                    <ScoutBar label="Spirit" value={selected.scout.spirit} color="#f59e0b" />
+                    <ScoutBar label="Chaos" value={selected.scout.chaos} color="#8b5cf6" />
+                  </div>
+                )}
+                {showScout && !selected.scout && (
+                  <div className="mt-3 bg-black border-2 border-gray-700 p-3 font-mono text-[10px] text-gray-500">
+                    No scout report on file.
+                  </div>
+                )}
+              </div>
+            </>
           ) : (
-            <div className="font-mono text-gray-500 text-xl">NO ASSET SELECTED</div>
+            <div className="font-mono text-gray-500 text-xl my-auto">NO ASSET SELECTED</div>
           )}
         </div>
 
@@ -155,6 +184,24 @@ export default function Locker() {
         </div>
 
       </div>
+    </div>
+  );
+}
+
+function ScoutBar({ label, value, color }: { label: string; value: number; color: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="font-mono text-[9px] text-gray-400 uppercase w-16 shrink-0">{label}</span>
+      <div className="flex-1 h-3 bg-gray-900 border border-gray-700 flex gap-px p-px">
+        {Array.from({ length: 10 }).map((_, i) => (
+          <div
+            key={i}
+            className="flex-1"
+            style={{ backgroundColor: i < value ? color : "transparent", imageRendering: "pixelated" }}
+          />
+        ))}
+      </div>
+      <span className="font-mono text-[9px] text-white w-5 text-right">{value}</span>
     </div>
   );
 }

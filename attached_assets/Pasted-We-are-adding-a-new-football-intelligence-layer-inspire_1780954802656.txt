@@ -1,0 +1,185 @@
+We are adding a new football intelligence layer inspired by open football simulation/match viewer concepts.
+
+Do not copy any real player names, real clubs, real logos, real jerseys, or official football IP.
+
+Keep our visual direction:
+2D pixel football arcade world.
+
+Add a new major screen/flow:
+FEVER MATCH VIEWER
+
+Current flow:
+Fever Arena -> Deploy Formation -> Receipt
+
+New flow:
+Fever Arena -> Deploy Formation -> Fever Match Viewer -> Match Receipt
+
+Purpose:
+The user should watch a short pixel football match impact sequence before receiving rewards.
+This should make the product feel more like a football game, not just a dashboard.
+
+Build this frontend-only with fake scripted data.
+No backend.
+No real match API.
+No real teams.
+No betting/prediction language.
+
+FEVER MATCH VIEWER REQUIREMENTS
+
+Visual:
+- large pixel football pitch in the center
+- top scoreboard
+- two abstract sides: HOME FEVER vs AWAY CHAOS
+- no real country flags, no official crests
+- use colored abstract team markers
+- moving pixel dots for players
+- small ball dot with shadow
+- side panel for deployed cards
+- side panel for live impact log
+- bottom timeline with event markers
+- heat meter
+- roar meter
+- pixel-style UI, dense, playful, animated
+
+Animation:
+- players move between scripted positions
+- ball moves through scripted frames
+- event popups appear over pitch
+- scoreboard/timer ticks forward
+- live badge blinks
+- heat meter pulses when event triggers
+- floating text for rewards:
+  +120 Pitch Points
+  +1 Heat
+  +1 Form
+  Mutation Roll
+- after 20-40 seconds or after clicking “Skip to Result”, go to Match Receipt
+
+Scripted fake match events:
+1. Kickoff
+2. Pass Chain
+3. Crowd Surge
+4. Shot Attempt
+5. Goal Heat Spike
+6. Defensive Wall
+7. Chaos Moment
+8. Mutation Roll
+9. Full Time Impact
+
+Event impact mapping:
+- Goal Heat Spike: +Heat and +Pitch Points
+- Pass Chain: +Roar combo
+- Crowd Surge: +Pitch Points
+- Defensive Wall: reduces Fatigue
+- Chaos Moment: mutation chance
+- Mutation Roll: either Miss / Spark / Mutated
+
+Add fake match data structure:
+const feverMatchScript = [
+  {
+    t: 0,
+    label: "Kickoff",
+    ball: [50, 50, 0],
+    players: [...]
+  },
+  {
+    t: 5,
+    label: "Pass Chain",
+    impact: "+40 Roar Combo"
+  },
+  {
+    t: 12,
+    label: "Crowd Surge",
+    impact: "+120 Pitch Points"
+  },
+  {
+    t: 20,
+    label: "Goal Heat Spike",
+    impact: "+2 Heat"
+  },
+  {
+    t: 30,
+    label: "Mutation Roll",
+    impact: "Missed"
+  }
+]
+
+Use this data to animate the pitch.
+
+STATS LAYER
+
+Add deeper stats to cards but do not overcomplicate UI.
+
+Current visible stats:
+- Roar
+- Form
+- Heat
+- Luck
+
+Add optional “Scout Stats” section:
+- Attack
+- Defense
+- Tempo
+- Stamina
+- Spirit
+- Chaos
+
+In Card Locker:
+- keep visible stats prominent
+- add a collapsible or secondary panel called “Scout Stats”
+- show small pixel stat bars
+
+In Match Receipt:
+Include a richer stats summary:
+- Stadium Output
+- Roar Combo
+- Heat Gained
+- Fatigue
+- Mutation Roll
+- Card Impact
+- Match Impact Grade
+
+Receipt example:
+Event: Night Match Fever
+Formation: Verde Nation / Azul Nation / Golden Nation
+Stadium Output: +820 Pitch Points
+Roar Combo: +14%
+Heat Gained: +2
+Fatigue: -1
+Mutation Roll: Miss
+Match Impact Grade: A-
+
+LEADERBOARD / SEASON STATS PREVIEW
+
+Add small season stats widgets:
+- Top Stadium Output
+- Top Fever Run
+- Top Country Heat
+- Top Mutation
+- Top Roar Card
+
+Keep these as fake static data for now.
+
+IMPORTANT WORDING RULES:
+Do not use:
+- bet
+- odds
+- wager
+- prediction
+- payout
+- win multiplier
+
+Use:
+- deploy
+- match impact
+- fever
+- output
+- roar
+- heat
+- formation
+- receipt
+- mutation
+
+SUCCESS CONDITION:
+After deploying formation, user should watch a short animated pixel football match sequence and then receive a Match Receipt.
+The app should feel more like a football game with stats and match events, not a static crypto dashboard.
