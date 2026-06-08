@@ -1,0 +1,1 @@
+- [Tailwind v4 CSS gotchas](tailwind-v4-css.md) — `@apply` can't reference custom non-utility classes; font `@import url()` must precede `@import "tailwindcss"`.

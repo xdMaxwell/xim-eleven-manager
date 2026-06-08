@@ -1,0 +1,290 @@
+The current prototype works structurally, but the visual direction is wrong. It still feels like a dark SaaS dashboard/admin panel. I need a full visual rebuild into a football game / arcade HUD.
+
+Do not focus on adding features. Focus on replacing the layout language.
+
+Keep the existing game logic and screens, but completely redesign the UI shell and screen layouts.
+
+Main goal:
+When the app opens, it should feel like a PS2 football game menu mixed with a crypto arcade, not a dashboard.
+
+Critical changes:
+1. Remove the left sidebar navigation.
+2. Replace it with:
+   - A top scoreboard HUD for resources.
+   - A bottom game-mode navigation bar.
+3. Make each screen a full visual “game scene”, not a web dashboard page.
+4. Use large football objects, stadium visuals, pitch lines, floodlights, crowd silhouettes, scoreboard panels, card benches, ticket stubs, and pack opening staging.
+5. Avoid empty dark panels.
+6. Avoid generic SaaS cards.
+7. Avoid centered blank layouts.
+8. Avoid thin minimalist UI.
+9. Make buttons chunky, arcade-like, glowing, and game-controller friendly.
+10. Add texture: grass lines, floodlight glow, subtle noise, scanlines, pitch markings, crowd dots.
+
+Do not use official football IP:
+- no FIFA logo
+- no World Cup logo
+- no real player images
+- no official team logos
+- no federation crests
+- no official jerseys
+
+Do not use betting language:
+- no bet
+- no odds
+- no wager
+- no prediction
+- no payout
+- no multiplier language
+
+Use this new visual structure:
+
+GLOBAL APP SHELL
+
+Top HUD:
+- Left: “STADIUM FEVER” working title
+- Center: scrolling ticker with fake match/event text:
+  “NIGHT MATCH FEVER LIVE • UNDERDOG NOISE ACTIVE • PACK DROP IN 02:14”
+- Right: resource chips:
+  Pitch Points, Roar Power, Heat, Phase
+- Style like a sports broadcast scoreboard.
+
+Bottom Navigation:
+- Stadium
+- Packs
+- Locker
+- Fever
+- Receipts
+- Season
+- Style like a console football game menu.
+- Big tabs, glowing active state, chunky hover.
+- No left sidebar.
+
+Global background:
+- Dark stadium night.
+- Add CSS-only floodlight radial gradients.
+- Add subtle crowd silhouette/dots.
+- Add pitch line patterns and grass texture using CSS gradients.
+- Add slight scanline/noise overlay.
+
+SCREEN 1: STADIUM HQ
+
+Redesign as a full football game home screen.
+
+Layout:
+- Full-width stadium scene.
+- Center: large CSS/HTML stadium bowl visual with pitch inside.
+- Behind it: floodlights and crowd silhouette.
+- Top-left within scene: stadium name “Neon Home Ground”
+- Badge: Level 1
+- Big Roar Meter as a circular or horizontal energy meter.
+- Main CTA near center/bottom: “CLAIM PITCH POINTS”
+- Bottom of scene: equipped card bench with 3 slots.
+- Right side: compact “Live Fever” broadcast panel with event preview.
+- Left side or lower-left: “Infrastructure” mini panel with upgrade stadium button.
+
+Make the stadium a real visual object using CSS shapes:
+- oval stands
+- green pitch
+- seating rings
+- small flags
+- floodlight beams
+- crowd glow
+
+No large empty rectangle with just text.
+
+Interactions:
+- Keep Claim Pitch Points.
+- Keep Upgrade Stadium.
+- Add animated floating “+450 PP” over the stadium when claimed.
+- Add light pulse on stadium when upgraded.
+
+SCREEN 2: PACKS
+
+Redesign as a tunnel/locker-room pack opening scene.
+
+Layout:
+- Background: dark tunnel with spotlight beams.
+- Center: one large 3D-style pack, not two flat cards.
+- Bottom: pack inventory carousel with Starter Pack and Fever Pack.
+- Right: “Possible Pulls” panel.
+- Left: “Pack Odds” should NOT be used. Instead call it “Pack Contents”.
+- Use terms:
+  Country Card
+  Stadium Part
+  Fever Ticket
+  Boost Item
+  Mutation Shard
+
+Interaction:
+- Button text: “RIP PACK”
+- Pack should shake/glow before reveal.
+- Reveal should show a big reward card with rarity.
+- Add “Add to Locker” and “Share Pull”.
+
+Visual:
+- pack foil shine using CSS gradients
+- spotlight glow
+- card reveal burst
+- no pricing-card layout
+
+SCREEN 3: LOCKER
+
+Redesign as a card locker / formation room.
+
+Layout:
+- Center-left: huge selected country card.
+- Bottom: horizontal card binder carousel/grid.
+- Right: stat board with Roar, Form, Heat, Luck.
+- Above bottom or beside card: 3 equipped slots shown as “Active Formation”.
+- Background: locker room/pitch hybrid, with subtle benches, pitch line, or stadium tunnel.
+
+Cards:
+- Make cards feel collectible.
+- Add rarity ribbons, thick frames, foil glow, diagonal shine.
+- Remove plain triangle symbol as the main visual.
+- Use abstract nation emblems made from CSS:
+  shield, sun, wave, mountain, star, flame, moon.
+- Keep names:
+  Verde Nation
+  Azul Nation
+  Golden Nation
+  Crimson Nation
+  Nordic Nation
+  Shadow Nation
+- Add small stat chips and card level badge.
+
+Interactions:
+- Keep select card.
+- Keep equip.
+- Keep upgrade.
+- Keep overcharge.
+- On overcharge, show arcade result overlay:
+  SUCCESS / GREAT SUCCESS / FAIL / MUTATION
+- Do not destroy cards.
+
+SCREEN 4: FEVER BOARD
+
+Redesign as a giant sports event board.
+
+Layout:
+- Top: huge “FEVER BOARD LIVE” scoreboard.
+- Below: one Featured Live Event large tile.
+- Right: Heat Meter and countdown.
+- Bottom/side: smaller event tiles for Underdog Noise, Floodlight Rush, Final Run Preview.
+- Include a mini pitch formation preview inside the featured event.
+- Show possible effects as chips:
+  + Pitch Points
+  + Heat
+  + Form
+  - Fatigue
+  ? Mutation
+
+Live events must feel like match-day chaos, not dashboard cards.
+
+CTA:
+- “ENTER FEVER”
+- Button should be large, blue/green arcade style.
+
+Formation Builder:
+- Use modal or full overlay.
+- Background: green pitch.
+- 2–4 large card slots placed on pitch.
+- User selects cards from bottom bench.
+- Show Total Roar Power.
+- Show “Deploy Formation” button.
+- After deploy, simulate settlement and route to Receipts.
+
+SCREEN 5: RECEIPTS
+
+Redesign as ticket/scoreboard result screen.
+
+Layout:
+- Center: big ticket stub receipt.
+- Left: stack of previous receipts.
+- Right: reward summary panel.
+- Top: event scoreboard result style.
+- Add confetti/light pulse if receipt is new.
+
+Receipt should show:
+- Event name
+- Formation used
+- Stadium Output
+- Card Impact
+- Mutation Roll
+- Claim Reward
+- Share Result
+
+Visual:
+- receipt should look like a physical ticket or scoreboard slip.
+- no generic table/list.
+
+SCREEN 6: SEASON
+
+Redesign as a tournament-style phase map.
+
+Layout:
+- Full screen horizontal journey/path.
+- Each phase is a stadium gate/checkpoint:
+  Preseason
+  Kickoff
+  Mining Live
+  Fever Live
+  Final Run
+- Current phase glows.
+- Future phases locked with gate/lock visuals.
+- Add side panel:
+  “Game first. Token later.”
+  “Every match creates heat. Your stadium captures it.”
+
+Locked features:
+- Marketplace: Locked
+- Token Claim: Locked
+- Live API: Locked
+- Premium Fever Events: Locked
+
+Visual:
+- not a roadmap.
+- make it feel like a game progression map.
+
+STYLE GUIDE
+
+Colors:
+- Background: near-black / dark green
+- Primary: neon green
+- Secondary: electric blue
+- Accent: gold
+- Danger/heat: red/orange
+- Mutations: purple
+
+Typography:
+- Use bold, condensed, sports/game-like headers.
+- Use monospace only for small HUD numbers, not everything.
+- Avoid generic default font feeling.
+
+Components:
+- Buttons: chunky, beveled, glowing
+- Panels: scoreboard-style with thick borders
+- Cards: collectible, thick frames, foil shine
+- Tabs: console menu style
+- Resource chips: scoreboard HUD style
+
+Animation:
+- hover glow
+- claim floating text
+- pack shake and reveal
+- card hover tilt
+- event tile pulse for LIVE
+- receipt reveal pulse
+- stadium light pulse
+
+Responsive:
+- Desktop first, but mobile should work.
+- On mobile, bottom nav remains sticky.
+- Cards and panels stack vertically.
+
+Important:
+Do not add wallet, backend, tokenomics, API, auth, or marketplace.
+This is still frontend-only visual prototype.
+Do not create a plain polished dashboard.
+Make the first screen visually exciting.

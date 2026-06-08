@@ -2,7 +2,7 @@ import { useGameState } from "../lib/game-state";
 import { Button } from "../components/ui/button";
 import { useToast } from "../hooks/use-toast";
 import { Receipt } from "../lib/game-state";
-import { Ticket, Share2, Coins, TrendingDown } from "lucide-react";
+import { Ticket, Share2, Sparkles } from "lucide-react";
 import { cn } from "../lib/utils";
 
 export default function Receipts() {
@@ -12,42 +12,45 @@ export default function Receipts() {
   const handleClaim = (id: string) => {
     claimReceipt(id);
     toast({
-      title: "Reward Claimed",
-      description: "Pitch Points added to balance.",
+      title: "FUNDS SECURED",
+      description: "Pitch Points added to HUD.",
     });
   };
 
   const handleShare = () => {
     toast({
-      title: "Receipt Shared",
-      description: "Link copied to clipboard.",
+      title: "COPIED TO CLIPBOARD",
+      description: "Receipt ID copied.",
     });
   };
 
   if (receipts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-[60vh] text-muted-foreground">
-        <Ticket className="w-16 h-16 mb-4 opacity-20" />
-        <h2 className="text-xl font-bold uppercase tracking-widest mb-2">No Receipts Yet</h2>
-        <p className="font-mono text-sm">Enter Fever events to generate match receipts.</p>
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+        <div className="w-24 h-24 bg-black border-4 border-dashed border-gray-700 rounded-xl flex items-center justify-center mb-6">
+          <Ticket className="w-10 h-10 text-gray-600" />
+        </div>
+        <h2 className="text-3xl font-black uppercase tracking-widest text-gray-500 mb-2">NO RECORDS FOUND</h2>
+        <p className="font-mono text-gray-600 text-sm">Deploy formations in Fever Board to generate match receipts.</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto pb-12 flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-black uppercase tracking-widest text-foreground flex items-center gap-3">
-          <Ticket className="text-accent w-8 h-8" /> Match Receipts
+    <div className="max-w-5xl mx-auto flex flex-col gap-8">
+      <div className="bg-black/80 border-b-4 border-white/20 p-6 flex items-center gap-4 shrink-0 rounded-t-xl">
+        <Ticket className="text-white w-8 h-8" />
+        <h1 className="text-3xl font-black uppercase tracking-widest text-white m-0 leading-none">
+          Match Receipts
         </h1>
-        <p className="text-muted-foreground font-mono text-sm">Results from your latest formations.</p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
-        {receipts.map(receipt => (
+      <div className="grid grid-cols-1 gap-8">
+        {receipts.map((receipt, index) => (
           <ReceiptCard 
             key={receipt.id} 
             receipt={receipt} 
+            isNew={index === 0 && !receipt.claimed}
             onClaim={() => handleClaim(receipt.id)}
             onShare={handleShare}
           />
@@ -57,77 +60,58 @@ export default function Receipts() {
   );
 }
 
-function ReceiptCard({ receipt, onClaim, onShare }: { receipt: Receipt, onClaim: () => void, onShare: () => void }) {
+function ReceiptCard({ receipt, isNew, onClaim, onShare }: { receipt: Receipt, isNew: boolean, onClaim: () => void, onShare: () => void }) {
   return (
-    <div className="bg-[#111] border border-border p-0 rounded-xl overflow-hidden flex flex-col md:flex-row relative">
-      {/* Ticket perforations effect */}
-      <div className="hidden md:flex flex-col justify-between absolute left-64 top-0 bottom-0 z-10 w-4 translate-x-[-50%] py-2">
-        {[...Array(12)].map((_, i) => (
-          <div key={i} className="w-4 h-4 rounded-full bg-background border border-border" />
-        ))}
-      </div>
-      <div className="hidden md:block absolute left-64 top-0 bottom-0 w-px border-l-2 border-dashed border-border z-0" />
-
-      {/* Left side - stub */}
-      <div className="p-6 bg-black/60 md:w-64 flex flex-col justify-between border-b md:border-b-0 md:border-r border-dashed border-border shrink-0">
-        <div>
-          <div className="text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Event</div>
-          <h3 className="font-black text-lg text-white uppercase leading-tight mb-4">{receipt.event}</h3>
-          
-          <div className="text-[10px] text-muted-foreground uppercase tracking-widest mb-1 mt-4">Receipt ID</div>
-          <p className="font-mono text-xs text-gray-500 truncate">{receipt.id}</p>
-        </div>
-        
-        <div className="mt-6">
-          <div className="text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Status</div>
-          <span className={cn(
-            "text-xs font-black px-2 py-1 rounded uppercase tracking-wider inline-block",
-            receipt.claimed ? "text-gray-400 bg-gray-800" : "text-accent bg-accent/10 border border-accent/30"
-          )}>
-            {receipt.claimed ? "Settled" : "Pending Claim"}
-          </span>
-        </div>
+    <div className={cn(
+      "flex flex-col md:flex-row relative bg-white text-black font-mono shadow-2xl transform transition-transform",
+      isNew ? "animate-in slide-in-from-top-4 fade-in duration-500" : "opacity-90"
+    )}>
+      
+      {/* Decorative stub edge (Left) */}
+      <div className="hidden md:flex flex-col justify-between w-6 bg-gray-200 border-r-2 border-dashed border-gray-400 overflow-hidden relative">
+         {[...Array(20)].map((_, i) => (
+           <div key={i} className="w-4 h-4 rounded-full bg-background absolute -left-2" style={{ top: `${i * 5}%` }} />
+         ))}
       </div>
 
-      {/* Right side - details */}
-      <div className="p-6 flex-1 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0wIDEwaDQwdjFINHoiIGZpbGw9IiMzMzMiIGZpbGwtb3BhY2l0eT0iMC4xIi8+Cjwvc3ZnPg==')]">
+      {/* Main Ticket Body */}
+      <div className="flex-1 p-6 md:p-8 flex flex-col justify-between border-b-2 md:border-b-0 md:border-r-2 border-dashed border-gray-300">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          
-          {/* Rewards */}
+        <div className="flex justify-between items-start border-b-4 border-black pb-4 mb-4">
           <div>
-            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest mb-3 border-b border-border pb-2">Stadium Output</h4>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center text-primary">
-                <Coins className="w-6 h-6" />
-              </div>
-              <div>
-                <div className="text-2xl font-black text-primary glow-text">+{receipt.rewards.pitchPoints}</div>
-                <div className="text-xs font-mono text-muted-foreground">Pitch Points</div>
-              </div>
+            <div className="text-[10px] font-black uppercase tracking-widest text-gray-500">EVENT LOG</div>
+            <h3 className="font-black font-sans text-3xl uppercase leading-none mt-1">{receipt.event}</h3>
+          </div>
+          <div className="text-right">
+            <div className="text-[10px] font-black uppercase tracking-widest text-gray-500">ID</div>
+            <div className="font-bold">{receipt.id.substring(2, 10).toUpperCase()}</div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+          <div>
+            <div className="text-[10px] font-black uppercase tracking-widest bg-black text-white inline-block px-2 py-0.5 mb-2">Formation Used</div>
+            <div className="flex flex-col gap-1">
+              {receipt.formation.map(c => (
+                <div key={c.id} className="text-sm font-bold flex items-center justify-between border-b border-gray-200 pb-1">
+                  <span>{c.name}</span>
+                  <span className="text-xs text-gray-500">LVL {c.level}</span>
+                </div>
+              ))}
             </div>
-            {receipt.rewards.mutation && (
-              <div className="mt-3 text-xs font-bold text-destructive uppercase tracking-widest px-2 py-1 bg-destructive/10 border border-destructive/20 inline-block rounded">
-                Mutation: {receipt.rewards.mutation}
-              </div>
-            )}
           </div>
 
-          {/* Impact */}
           <div>
-            <h4 className="text-[10px] text-muted-foreground uppercase tracking-widest mb-3 border-b border-border pb-2">Card Impact</h4>
-            <div className="flex flex-col gap-2">
+             <div className="text-[10px] font-black uppercase tracking-widest bg-black text-white inline-block px-2 py-0.5 mb-2">Card Impact</div>
+             <div className="flex flex-col gap-1">
               {Object.entries(receipt.cardImpact).map(([cardId, impact]) => {
                 const card = receipt.formation.find(c => c.id === cardId);
                 if (!card) return null;
                 return (
-                  <div key={cardId} className="flex items-center justify-between font-mono text-sm bg-black/40 px-3 py-1.5 rounded border border-white/5">
-                    <span className="text-white truncate pr-4" style={{ color: card.color }}>{card.name}</span>
-                    <span className="flex items-center gap-1 shrink-0">
-                      {impact.stat === "Fatigue" && <TrendingDown className="w-3 h-3 text-gray-500" />}
-                      <span className={impact.change < 0 ? "text-gray-400" : "text-green-400"}>
-                        {impact.change > 0 ? '+' : ''}{impact.change} {impact.stat}
-                      </span>
+                  <div key={cardId} className="text-sm font-bold flex items-center justify-between border-b border-gray-200 pb-1">
+                    <span className="truncate pr-2">{card.name}</span>
+                    <span className={impact.change < 0 ? "text-red-600" : "text-green-600"}>
+                      {impact.change > 0 ? '+' : ''}{impact.change} {impact.stat}
                     </span>
                   </div>
                 )
@@ -136,25 +120,63 @@ function ReceiptCard({ receipt, onClaim, onShare }: { receipt: Receipt, onClaim:
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="flex justify-end gap-4 border-t border-border pt-4">
-          <Button 
-            variant="outline"
-            onClick={onShare}
-            className="text-xs font-bold uppercase tracking-widest border-border text-foreground hover:bg-white/5"
-          >
-            <Share2 className="w-3 h-3 mr-2" /> Share
-          </Button>
+        <Barcode />
+      </div>
+
+      {/* Claim/Result Stub (Right) */}
+      <div className="w-full md:w-64 bg-gray-100 p-6 flex flex-col justify-between shrink-0">
+        <div>
+          <div className="text-center border-b-2 border-gray-300 pb-4 mb-4">
+            <div className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">STADIUM OUTPUT</div>
+            <div className="text-4xl font-black font-sans text-green-600">+{receipt.rewards.pitchPoints}</div>
+            <div className="text-xs font-bold mt-1">PITCH POINTS</div>
+          </div>
+          
+          {receipt.rewards.mutation && (
+             <div className="text-center text-purple-600 border-2 border-purple-600 p-2 font-bold text-xs uppercase bg-purple-100 mb-4 flex items-center justify-center gap-1">
+               <Sparkles className="w-3 h-3" /> {receipt.rewards.mutation}
+             </div>
+          )}
+
+          <div className="text-center mb-6">
+            <div className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">STATUS</div>
+            {receipt.claimed ? (
+               <div className="font-bold text-gray-400 border-2 border-gray-400 py-1 rounded">SETTLED</div>
+            ) : (
+               <div className="font-bold text-blue-600 border-2 border-blue-600 py-1 rounded animate-pulse">PENDING CLAIM</div>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
           {!receipt.claimed && (
             <Button 
               onClick={onClaim}
-              className="bg-accent hover:bg-accent/80 text-accent-foreground font-black uppercase tracking-widest text-xs px-6"
+              className="btn-arcade bg-green-600 text-white border-green-800 hover:bg-green-500 rounded-none h-12 w-full font-black text-lg"
             >
-              Claim Reward
+               CLAIM REWARD
             </Button>
           )}
+          <Button 
+            variant="outline"
+            onClick={onShare}
+            className="rounded-none border-2 border-black text-black font-black uppercase hover:bg-gray-200"
+          >
+            <Share2 className="w-4 h-4 mr-2" /> Share Result
+          </Button>
         </div>
       </div>
+
+    </div>
+  );
+}
+
+function Barcode() {
+  return (
+    <div className="flex h-8 w-full bg-white opacity-80 mix-blend-multiply">
+      {[...Array(40)].map((_, i) => (
+        <div key={i} className="h-full bg-black" style={{ width: `${Math.random() * 4 + 1}px`, marginRight: `${Math.random() * 3 + 1}px` }} />
+      ))}
     </div>
   );
 }

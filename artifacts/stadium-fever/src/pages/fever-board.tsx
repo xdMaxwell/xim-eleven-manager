@@ -5,62 +5,85 @@ import { Button } from "../components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../components/ui/dialog";
 import { CardComponent } from "../components/card-component";
 import { useLocation } from "wouter";
-import { AlertCircle, Lock, PlayCircle, ShieldCheck } from "lucide-react";
+import { AlertTriangle, Lock, Play, ShieldAlert } from "lucide-react";
 import { cn } from "../lib/utils";
 
 export default function FeverBoard() {
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
+  const { heat } = useGameState();
 
   return (
-    <div className="max-w-6xl mx-auto flex flex-col gap-8 pb-12">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-black uppercase tracking-widest text-foreground flex items-center gap-3">
-          <AlertCircle className="text-destructive w-8 h-8" /> Fever Board
-        </h1>
-        <p className="text-muted-foreground font-mono text-sm">Deploy formations to capture stadium output.</p>
+    <div className="max-w-6xl mx-auto flex flex-col gap-8">
+      
+      {/* Scoreboard Header */}
+      <div className="bg-black/90 border-4 border-destructive/50 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_0_30px_rgba(239,68,68,0.2)]">
+        <div className="flex items-center gap-4">
+          <AlertTriangle className="text-destructive w-12 h-12 animate-pulse" />
+          <div>
+            <h1 className="text-4xl md:text-5xl font-black uppercase tracking-widest text-white glow-text leading-none">
+              Fever Board
+            </h1>
+            <div className="text-destructive font-black uppercase tracking-widest text-sm mt-1">Live Broadcast Network</div>
+          </div>
+        </div>
+        
+        <div className="bg-black border-2 border-destructive/30 p-3 rounded-lg flex items-center gap-4 min-w-[200px]">
+          <div>
+            <div className="text-[10px] text-destructive uppercase font-black tracking-widest">Global Heat</div>
+            <div className="hud-numbers text-3xl text-white">{heat}</div>
+          </div>
+          <div className="flex-1 h-full border-l-2 border-destructive/20 pl-4 flex flex-col justify-center">
+            <div className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Next Refresh</div>
+            <div className="hud-numbers text-xl text-gray-300">02:14:59</div>
+          </div>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {EVENTS.map(event => (
-          <div 
-            key={event.id}
-            className={cn(
-              "border rounded-xl p-6 flex flex-col justify-between relative overflow-hidden transition-all",
-              event.status === "LIVE" ? "bg-card border-secondary/50 hover:border-secondary" : "bg-black/40 border-border opacity-70 grayscale"
-            )}
-          >
-            {event.status === "LIVE" && (
-              <div className="absolute top-0 right-0 w-32 h-32 bg-secondary opacity-10 blur-3xl rounded-full" />
-            )}
-            
-            <div className="flex justify-between items-start mb-6 z-10">
-              <h2 className="text-xl font-black uppercase tracking-widest text-white pr-4">
-                {event.name}
-              </h2>
-              <span className={cn(
-                "text-[10px] font-black px-2 py-1 rounded border uppercase tracking-widest",
-                event.status === "LIVE" ? "text-secondary border-secondary/50 bg-secondary/10 glow-text animate-pulse" : "text-muted-foreground border-border bg-black/40"
-              )}>
-                {event.status}
-              </span>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Featured Live Event (Takes up 2 cols on LG) */}
+        {EVENTS.filter(e => e.status === "LIVE").slice(0, 1).map(event => (
+          <div key={event.id} className="lg:col-span-2 bg-black/60 border-2 border-secondary rounded-xl p-1 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-secondary opacity-10 animate-pulse z-0 pointer-events-none" />
+            <div className="border-2 border-dashed border-secondary/50 rounded-lg p-6 h-full flex flex-col relative z-10 bg-black/40 backdrop-blur-sm">
+              <div className="flex justify-between items-start mb-4">
+                <h2 className="text-3xl font-black uppercase tracking-widest text-white glow-text">{event.name}</h2>
+                <span className="bg-secondary text-secondary-foreground px-3 py-1 rounded font-black text-xs uppercase tracking-widest animate-pulse">
+                  {event.status}
+                </span>
+              </div>
+              
+              <p className="text-sm font-mono text-gray-300 mb-6 flex-1 bg-black/50 p-4 rounded border border-white/10">
+                {event.rule}
+              </p>
+              
+              <div className="flex gap-2 mb-6 flex-wrap">
+                <Chip label="+ Pitch Points" color="bg-primary/20 text-primary border-primary/50" />
+                <Chip label="+ Heat" color="bg-destructive/20 text-destructive border-destructive/50" />
+                <Chip label="+ Form" color="bg-secondary/20 text-secondary border-secondary/50" />
+                <Chip label="? Mutation" color="bg-purple-500/20 text-purple-400 border-purple-500/50" />
+              </div>
+
+              <Button 
+                onClick={() => setSelectedEvent(event.id)}
+                className="btn-arcade w-full bg-secondary text-secondary-foreground border-blue-900 hover:bg-blue-400 py-8 text-2xl glow-blue"
+              >
+                <Play className="mr-2 w-6 h-6 fill-current" /> ENTER FEVER
+              </Button>
             </div>
-
-            <p className="text-sm text-gray-400 font-mono mb-8 z-10 leading-relaxed min-h-[3rem]">
-              {event.rule}
-            </p>
-
-            <Button 
-              disabled={event.status !== "LIVE"}
-              onClick={() => setSelectedEvent(event.id)}
-              className={cn(
-                "w-full font-black uppercase tracking-widest py-6 z-10",
-                event.status === "LIVE" ? "bg-secondary hover:bg-secondary/80 text-secondary-foreground glow-box" : "bg-muted text-muted-foreground"
-              )}
-            >
-              {event.status === "LIVE" ? <><PlayCircle className="w-4 h-4 mr-2" /> Enter Fever</> : <><Lock className="w-4 h-4 mr-2" /> Locked</>}
-            </Button>
           </div>
         ))}
+
+        {/* Smaller Events Stack */}
+        <div className="flex flex-col gap-4">
+          {EVENTS.filter(e => e.status === "LIVE").slice(1).map(event => (
+            <SmallEventCard key={event.id} event={event} onSelect={() => setSelectedEvent(event.id)} />
+          ))}
+          {EVENTS.filter(e => e.status !== "LIVE").map(event => (
+            <SmallEventCard key={event.id} event={event} locked />
+          ))}
+        </div>
+
       </div>
 
       {selectedEvent && (
@@ -69,6 +92,26 @@ export default function FeverBoard() {
           onClose={() => setSelectedEvent(null)} 
         />
       )}
+    </div>
+  );
+}
+
+function Chip({ label, color }: { label: string, color: string }) {
+  return <span className={cn("text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded border", color)}>{label}</span>;
+}
+
+function SmallEventCard({ event, locked, onSelect }: { event: any, locked?: boolean, onSelect?: () => void }) {
+  return (
+    <div className={cn(
+      "border-2 rounded-xl p-4 flex flex-col bg-black/80 backdrop-blur-sm",
+      locked ? "border-gray-800 opacity-60 grayscale" : "border-white/20 hover:border-white/50 cursor-pointer"
+    )} onClick={!locked ? onSelect : undefined}>
+      <div className="flex justify-between items-center mb-2">
+        <h3 className="font-black uppercase tracking-widest text-white text-lg truncate pr-2">{event.name}</h3>
+        {locked ? <Lock className="w-4 h-4 text-gray-500 shrink-0" /> : <div className="w-2 h-2 rounded-full bg-secondary animate-pulse shrink-0" />}
+      </div>
+      <p className="text-xs font-mono text-gray-400 line-clamp-2 mb-3">{event.rule}</p>
+      {locked && <div className="mt-auto text-[10px] font-black text-gray-500 uppercase tracking-widest">LOCKED</div>}
     </div>
   );
 }
@@ -88,68 +131,57 @@ function FormationModal({ event, onClose }: { event: { id: string, name: string 
       setDeploying(false);
       onClose();
       setLocation("/receipts");
-    }, 1500);
+    }, 2000);
   };
 
   return (
     <Dialog open={true} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-4xl bg-card border-border p-0 overflow-hidden">
-        <DialogHeader className="p-6 pb-0 border-b border-white/5 bg-black/40">
-          <DialogTitle className="text-2xl font-black uppercase tracking-widest text-secondary flex items-center gap-2">
-            <ShieldCheck className="w-6 h-6" /> Formation Builder
+      <DialogContent className="max-w-4xl bg-black border-4 border-white/20 p-0 overflow-hidden sm:rounded-2xl">
+        <DialogHeader className="p-4 bg-gray-900 border-b-2 border-white/10 flex flex-row items-center justify-between">
+          <DialogTitle className="text-2xl font-black uppercase tracking-widest text-white flex items-center gap-2">
+            <ShieldAlert className="text-secondary" /> DEPLOY FORMATION
           </DialogTitle>
-          <p className="text-xs text-muted-foreground font-mono mt-2 uppercase tracking-wider pb-4">Event: {event.name}</p>
+          <div className="bg-black px-3 py-1 rounded border border-white/20 text-xs font-mono text-gray-400 uppercase">
+            TARGET: {event.name}
+          </div>
         </DialogHeader>
 
-        <div className="p-6 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0iIzA4MWMyYSIvPgo8cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iNDAiIGZpbGw9IiMwZDIzM2MiLz4KPC9zdmc+')] bg-cover bg-center border-y border-white/10 relative">
+        {/* Green Pitch Area */}
+        <div className="relative p-8 min-h-[400px] flex flex-col items-center justify-center border-b-2 border-white/10"
+             style={{ background: "repeating-linear-gradient(0deg, #166534 0%, #166534 10%, #15803d 10%, #15803d 20%)" }}>
           
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-80" />
-          
-          <div className="relative z-10 flex flex-col items-center">
-            
-            <div className="bg-black/60 backdrop-blur-md border border-white/10 rounded-xl p-4 flex gap-8 mb-8 text-center min-w-[300px] justify-center">
-              <div>
-                <div className="text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Total Roar</div>
-                <div className="text-2xl font-black text-primary drop-shadow-[0_0_8px_rgba(34,197,94,0.5)]">{roarPower}</div>
-              </div>
-              <div>
-                <div className="text-[10px] text-muted-foreground uppercase tracking-widest mb-1">Assets</div>
-                <div className="text-2xl font-black text-white">{activeCards.length} / 4</div>
-              </div>
-            </div>
+          <div className="absolute inset-x-0 top-1/2 h-1 bg-white/30 -translate-y-1/2" />
+          <div className="absolute top-1/2 left-1/2 w-32 h-32 rounded-full border-4 border-white/30 -translate-x-1/2 -translate-y-1/2" />
 
-            <div className="flex gap-4 items-center justify-center min-h-[200px]">
-              {equipped.map((card, i) => (
-                <div key={i} className="flex-shrink-0">
-                  {card ? (
-                    <CardComponent card={card} size="sm" className="shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform -translate-y-4" />
-                  ) : (
-                    <div className="w-32 h-48 rounded-xl border-2 border-dashed border-white/20 bg-black/40 flex items-center justify-center">
-                      <span className="text-white/20 font-mono text-xs">SLOT {i + 1}</span>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-            
+          {/* Cards on Pitch */}
+          <div className="relative z-10 flex flex-wrap justify-center gap-4 md:gap-6 mt-8">
+            {equipped.map((card, i) => (
+              <div key={i} className="transform transition-transform hover:-translate-y-2">
+                {card ? (
+                  <CardComponent card={card} size="md" className="shadow-[0_20px_50px_rgba(0,0,0,0.8)] border-2 border-white/50" />
+                ) : (
+                  <div className="w-48 h-72 rounded-xl border-4 border-dashed border-white/30 bg-black/50 backdrop-blur-sm flex items-center justify-center text-white/50 font-black uppercase tracking-widest">
+                    EMPTY SLOT
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="absolute top-4 left-4 bg-black/80 border-2 border-primary/50 px-4 py-2 rounded-lg backdrop-blur-md">
+            <div className="text-[10px] text-primary uppercase font-black tracking-widest">Formation Roar</div>
+            <div className="hud-numbers text-3xl text-white">{roarPower}</div>
           </div>
         </div>
 
-        <div className="p-6 bg-black/40 flex justify-between items-center">
-          <div className="flex gap-4 text-xs font-mono text-muted-foreground">
-            <span className="text-primary">+ Pitch Points</span>
-            <span className="text-destructive">+ Heat</span>
-            <span className="text-secondary">+ Form</span>
-            <span className="text-gray-500">- Fatigue</span>
-          </div>
-
+        <div className="p-4 bg-gray-900 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="text-[10px] font-mono text-gray-500 uppercase">Requires minimum 2 assets to deploy.</div>
           <Button 
             onClick={handleDeploy} 
             disabled={activeCards.length < 2 || deploying}
-            size="lg"
-            className="bg-secondary hover:bg-secondary/80 text-secondary-foreground font-black uppercase tracking-widest px-8"
+            className={`btn-arcade py-6 px-12 text-xl ${deploying ? "bg-gray-700" : "btn-primary-arcade"}`}
           >
-            {deploying ? "Deploying..." : "Deploy Formation"}
+            {deploying ? "SIMULATING MATCH..." : "EXECUTE DEPLOYMENT"}
           </Button>
         </div>
       </DialogContent>
