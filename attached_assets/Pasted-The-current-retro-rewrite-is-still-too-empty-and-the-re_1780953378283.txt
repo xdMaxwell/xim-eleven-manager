@@ -1,0 +1,198 @@
+The current retro rewrite is still too empty and the retro football feeling is not strong enough.
+
+Main problem:
+It still feels like a sparse web interface with retro styling, not a real retro football game menu.
+
+New goal:
+Rebuild the UI into a denser, more playful, more maximalist retro arcade football interface.
+
+Important:
+Do not just polish.
+Increase visual density and scene complexity.
+
+We want:
+- PS1 / PS2 football game menu energy
+- anime football arcade energy
+- fake 3D / low-poly scene objects
+- dense HUD
+- decorative game UI
+- more objects on screen
+- more football atmosphere
+- less empty space
+
+We do NOT want:
+- empty gradient backgrounds
+- tiny isolated panels
+- minimalist retro
+- thin web UI
+- sparse layout
+- “web app with retro skin”
+
+VISUAL DENSITY RULE:
+For each main screen above the fold, include:
+1. one large hero object
+2. at least 2 to 4 support widgets/panels
+3. a ticker or active info strip
+4. decorative background elements
+5. a footer/status/menu strip
+6. more visible props/icons/details
+
+STYLE SHIFT:
+Change from minimal retro to maximalist retro arcade football.
+
+Use:
+- thicker borders
+- bevels
+- layered panels
+- inset frames
+- bright accent colors
+- chunkier buttons
+- decorative corners
+- icon labels
+- blink/pulse animations
+- scanline/noise texture
+- stronger sports/game presentation
+
+GLOBAL APP SHELL:
+Keep top HUD and bottom menu, but make them more crowded and more game-like.
+
+Top HUD should include:
+- title
+- phase
+- resource counters
+- active ticker
+- small alert/status chips
+
+Bottom bar should feel like a console sports menu with large icon tabs and a denser footer strip.
+
+Also add:
+- a thin scrolling ticker line
+- small decorative status text
+- stronger chrome around the viewport
+
+BACKGROUND:
+Replace plain empty gradient feel.
+Add layered atmosphere:
+- stadium/crowd silhouettes
+- pitch stripe overlays
+- light beams
+- subtle stars/noise/CRT effect
+- dark sports-arena ambience
+- decorative glows and framing elements
+
+PRIORITY SCREEN 1: STADIUM HQ
+This screen is still too empty.
+
+Requirements:
+- Make the central stadium/pitch 2x to 3x larger.
+- Turn it into a full scene, not a small isolated object.
+- Add crowd stands around it.
+- Add floodlight towers or visible light sources.
+- Add animated light sweep.
+- Add football props (bench, cones, mini tunnel, banners, pennants, small goal elements).
+- Add a live event panel on the right.
+- Add club/stadium info panel on the left.
+- Add a bottom active formation bench with 3 slots and visible card placeholders.
+- Add an infrastructure upgrade module area.
+- Add a stronger scoreboard/HUD look above the scene.
+
+The user must feel:
+“I am inside a football game home menu.”
+
+PRIORITY SCREEN 2: PACKS
+This screen is too small and too plain.
+
+Requirements:
+- Create a full “pack station” or “reward chamber” scene.
+- Make the main pack large and dominant.
+- Add unopened pack stacks or inventory rack.
+- Add a side contents panel.
+- Add blinking “PACK STATION” / “REWARD BAY” style signage.
+- Add pack shake + glow + reveal burst.
+- Add a bottom selector rail/carousel.
+- Add decorative chamber lighting and tunnel feel.
+
+Do NOT present packs like normal web cards.
+
+PRIORITY SCREEN 3: LOCKER
+Increase density and football identity.
+
+Requirements:
+- Add locker-room/tactics-room atmosphere.
+- Selected card should be larger.
+- Add active formation board.
+- Add more detailed stat bars and badge chips.
+- Add stronger emblem art and foil treatment.
+- Add operation panel with larger buttons/icons.
+- Add more detail in the card binder area.
+
+PRIORITY SCREEN 4: FEVER BOARD
+This still feels too much like a panel.
+
+Requirements:
+- Make one large featured event board in the middle.
+- Add a mini stadium/match preview or mini pitch inside the event.
+- Add side mission/event stack.
+- Add a digital countdown panel.
+- Add a vertical heat meter.
+- Add blinking LIVE markers and event chips.
+- Add a more broadcast-like event presentation.
+
+PRIORITY SCREEN 5: RECEIPTS
+The empty state is too dead.
+
+Requirements:
+- Build a receipt hall / ticket wall style layout.
+- If there are no receipts, still show a decorated empty scene:
+  - faded ticket wall
+  - placeholder pinned receipts
+  - copy saying receipts appear after fever events
+  - CTA button to go to Fever Board
+- If receipts exist, show:
+  - large main ticket
+  - receipt stack
+  - result summary panel
+  - reward output panel
+
+ANIMATION:
+Increase visible motion:
+- light sweep
+- button bounce/press
+- crowd shimmer
+- panel pulse
+- live badge blink
+- ticker scroll
+- card tilt
+- pack reveal burst
+- floating numbers
+- subtle idle movement on hero objects
+
+COLOR:
+Use a richer arcade football palette:
+- dark navy
+- deep green
+- electric blue
+- bright cyan
+- lime
+- gold/yellow
+- orange/red accents for live/heat
+- purple for mutation
+
+FOOTBALL IDENTITY:
+Add more football-specific detail:
+- scoreboard
+- formation board
+- bench slots
+- crowd strip
+- pitch lines
+- tunnel feel
+- stadium signage
+- pennants/banners
+- tactical panel
+- match ticket visual language
+
+Do not change the core fake gameplay logic.
+Only rebuild the visual presentation and scene density.
+
+Success condition:
+The app should feel like a dense retro football console game menu, not a sparse web app.
