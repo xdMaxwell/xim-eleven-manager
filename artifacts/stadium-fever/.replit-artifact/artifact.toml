@@ -1,6 +1,6 @@
 kind = "web"
 previewPath = "/"
-title = "Project Stadium Fever"
+title = "XIM — Eleven Manager"
 version = "1.0.0"
 id = "artifacts/stadium-fever"
 router = "path"

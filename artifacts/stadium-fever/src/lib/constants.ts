@@ -98,7 +98,7 @@ export const EVENTS = [
   {
     id: "e3",
     name: "Floodlight Rush",
-    status: "LOCKED",
+    status: "SETTLING",
     rule: "Stadiums with upgraded lights gain bonus output.",
   },
   {
@@ -107,6 +107,23 @@ export const EVENTS = [
     status: "LOCKED",
     rule: "Season leaderboard event.",
   },
+];
+
+// Flavor: possible pull types surfaced in the Packs room.
+export const PACK_REWARDS = [
+  "Abstract Nation Card",
+  "Stadium Part",
+  "Fever Ticket",
+  "Boost Item",
+  "Mutation Shard",
+];
+
+// Future features gated behind season progression (Season screen).
+export const LOCKED_FEATURES = [
+  "Marketplace",
+  "Token Claim",
+  "Live API",
+  "Premium Fever Events",
 ];
 
 export type LeaderboardEntry = {

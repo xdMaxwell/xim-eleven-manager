@@ -10,6 +10,7 @@ import StadiumHQ from "./pages/stadium-hq";
 import Packs from "./pages/packs";
 import Locker from "./pages/locker";
 import FeverBoard from "./pages/fever-board";
+import FormationBuilder from "./pages/formation-builder";
 import FeverMatch from "./pages/fever-match";
 import Receipts from "./pages/receipts";
 import Season from "./pages/season";
@@ -24,6 +25,7 @@ function Router() {
         <Route path="/packs" component={Packs} />
         <Route path="/locker" component={Locker} />
         <Route path="/fever" component={FeverBoard} />
+        <Route path="/formation" component={FormationBuilder} />
         <Route path="/fever-match" component={FeverMatch} />
         <Route path="/receipts" component={Receipts} />
         <Route path="/season" component={Season} />

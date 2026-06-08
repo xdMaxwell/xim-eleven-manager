@@ -1,0 +1,786 @@
+We need a full visual and brand rebuild of the current frontend.
+
+Do not just polish the existing UI.
+Do not just change colors, fonts, or borders.
+Do not reskin the old layout.
+
+This project is being renamed and repositioned.
+
+========================
+NEW BRAND
+=========
+
+Brand name:
+XIM
+
+Full product name:
+XIM — Eleven Manager
+
+Header display:
+XIM
+ELEVEN MANAGER
+
+Tagline:
+Build your stadium. Deploy your XI. Capture match-day heat.
+
+Product description:
+XIM is a football-crypto management arcade where users build a stadium, collect abstract nation cards, generate Pitch Points, deploy formations into live match-fever events, and evolve their club through match impact.
+
+Important positioning:
+This is NOT fantasy football.
+This is NOT betting.
+This is NOT a prediction market.
+This is NOT an NFT marketplace dashboard.
+This is NOT a SaaS admin panel.
+
+Core fantasy:
+The user is managing an underground football club that captures global match energy.
+
+Keep these core mechanics:
+
+* Stadium ownership
+* Pitch Points
+* Roar Power
+* Heat
+* Abstract Nation Cards
+* Packs
+* Locker
+* Fever Events
+* Formation Deployment
+* Tactical Match Viewer
+* Match Receipts
+* Stadium/Card upgrades
+* Season progression
+
+But rebuild the visual presentation from scratch.
+
+========================
+FINAL VISUAL DIRECTION
+======================
+
+The final direction is:
+
+PREMIUM MODERN FOOTBALL GAME UI
+
+Think:
+
+* Football Manager club HQ
+* Ultimate Team-style premium cards and packs
+* cinematic night stadium
+* modern football broadcast HUD
+* glossy sports panels
+* tactical match command center
+* 2.5D / fake 3D depth
+* stadium builder energy
+* crypto arcade resource loop
+
+Do NOT use:
+
+* pixel art
+* retro UI
+* pixel fonts
+* PS1/PS2 styling
+* terminal/dashboard layout
+* generic dark SaaS panels
+* empty centered cards
+* official FIFA branding
+* official World Cup branding
+* real player photos
+* real club crests
+* official jerseys
+* federation logos
+* betting words such as bet, odds, wager, payout, prediction
+
+Use:
+
+* cinematic stadium lighting
+* floodlights
+* grass/pitch texture
+* crowd silhouettes
+* modern cards with depth
+* glassy dark sports panels
+* bright lime, electric blue, gold, and orange accents
+* bold sports typography
+* big hero objects
+* strong CTAs
+* motion and atmosphere
+
+========================
+IMPORTANT EXECUTION RULE
+========================
+
+This must be a visual architecture rebuild.
+
+If the current UI has components like flat boxes, centered web panels, old pixel layouts, or dashboard-style cards, replace them.
+
+The app should feel like a premium football game web app, not a website with football labels.
+
+Every screen should feel like a football game scene.
+
+========================
+GLOBAL APP SHELL
+================
+
+Replace old header/nav with a modern sports game shell.
+
+TOP HUD:
+
+* Left: XIM logo
+* Below or next to logo: ELEVEN MANAGER
+* Center: live ticker
+* Right: resource counters
+
+Resource counters:
+
+* Pitch Points
+* Roar Power
+* Heat
+* Phase
+
+Ticker examples:
+
+* NIGHT MATCH FEVER LIVE
+* DEPLOY YOUR XI
+* PACK DROP READY
+* GAME FIRST. TOKEN LATER.
+* NO OFFICIAL BRANDS
+
+Top HUD style:
+
+* modern football broadcast scoreboard
+* dark translucent bar
+* sharp spacing
+* bright resource chips
+* subtle glow
+* not retro
+* not pixel
+
+BOTTOM NAV:
+Tabs:
+
+* Stadium
+* Packs
+* Locker
+* Fever
+* Match
+* Receipts
+* Season
+
+Style:
+
+* modern game mode selector
+* rounded dark buttons
+* active tab glow
+* icons + labels
+* bottom floating dock
+* clean premium game feel
+
+GLOBAL BACKGROUND:
+Use a cinematic stadium atmosphere:
+
+* dark stadium night
+* subtle crowd silhouettes
+* floodlight beams
+* soft haze
+* grass/pitch gradients
+* vignette
+* no empty plain black backgrounds
+
+========================
+SCREEN 1 — STADIUM HQ
+=====================
+
+Rebuild Stadium HQ completely.
+
+Goal:
+The user should instantly feel:
+“I own a football club HQ and stadium.”
+
+Layout:
+
+* Full-screen cinematic stadium scene
+* Stadium is the hero object
+* Left overlay: Club/Stadium info
+* Right overlay: Live Fever Event
+* Bottom: Active XI / formation bench
+* Lower right: Infrastructure upgrade module
+* Center/lower center: Claim Pitch Points CTA
+
+Required visual elements:
+
+* large stadium bowl or stadium interior
+* visible green pitch
+* stadium stands
+* floodlights
+* crowd glow
+* haze/light beams
+* grass foreground
+* tactical overlay lines
+* active squad/card slots
+
+Left overlay content:
+
+* XIM Club
+* Stadium name: Neon Home Ground
+* Level
+* Output status
+* Roar meter
+
+Right overlay content:
+
+* Live Fever Event
+* Event name: Night Match Fever
+* Short description: Deploy 2–4 assets to capture match-day heat.
+* CTA: Enter Fever
+
+Bottom formation bench:
+
+* 3 or 4 card slots
+* show equipped abstract nation cards if available
+* empty slots should look like football squad slots, not empty web cards
+
+Infrastructure module:
+
+* Stadium Level
+* Next upgrade
+* Bonus: +80 Roar Power
+* CTA: Upgrade Stadium
+
+Claim CTA:
+
+* Text: Claim Pitch Points
+* Should be large, satisfying, and integrated into the football scene
+
+Interactions:
+
+* Claim Pitch Points adds +450 Pitch Points
+* Show floating “+450 PP” animation over the pitch/stadium
+* Upgrade Stadium costs 500 PP
+* Upgrade increases stadium level and Roar Power
+* Stadium lights pulse on upgrade
+
+Animation:
+
+* light sweep across stadium
+* crowd glow pulse
+* live badge pulse
+* floating reward text
+* subtle stadium depth motion
+
+Do not:
+
+* show a small floating pitch in the middle of empty space
+* use pixel stadium
+* use retro fonts
+* use plain rectangular dashboard layout
+
+========================
+SCREEN 2 — PACKS
+================
+
+Rebuild Packs as a premium football reward room.
+
+Goal:
+It should feel like a football game pack opening room.
+
+Layout:
+
+* Center: large premium foil pack
+* Background: stadium tunnel / locker room / reward chamber
+* Left: pack inventory
+* Right: pack contents / possible rewards
+* Bottom: pack selector
+* Center CTA: Open Pack
+
+Pack visual:
+
+* large
+* glossy
+* 2.5D depth
+* foil shine
+* animated glow
+* spotlight beams
+
+Pack types:
+
+* Starter Pack
+* Fever Pack
+
+Contents:
+
+* Abstract Nation Card
+* Stadium Part
+* Fever Ticket
+* Boost Item
+* Mutation Shard
+
+Interaction:
+
+* Open Pack triggers:
+
+  1. pack shake
+  2. glow burst
+  3. reward reveal card
+* If reward is a card, add it to Locker
+* Show rarity:
+  Common
+  Rare
+  Epic
+  Mythic
+* Buttons:
+  Add to Locker
+  Share Pull
+
+Do not:
+
+* show packs as flat pricing cards
+* use pixel pack
+* use small centered box UI
+
+========================
+SCREEN 3 — LOCKER
+=================
+
+Rebuild Locker as a premium football card management room.
+
+Goal:
+Cards should feel like modern football game cards, not NFT tiles.
+
+Layout:
+
+* Left/center: large selected card
+* Right: card details and operations
+* Bottom: card collection carousel/grid
+* Top/bottom area: Active XI / formation slots
+
+Card names:
+
+* Verde Nation
+* Azul Nation
+* Golden Nation
+* Crimson Nation
+* Nordic Nation
+* Shadow Nation
+
+Card visual:
+
+* 3D hover tilt
+* glossy frame
+* rarity border
+* nation color identity
+* abstract emblem
+* stat chips
+* level badge
+* rarity badge
+* subtle foil shine
+
+Visible stats:
+
+* Roar
+* Form
+* Heat
+* Luck
+
+Scout Stats:
+
+* Attack
+* Defense
+* Tempo
+* Stamina
+* Spirit
+* Chaos
+
+Operations:
+
+* Equip Card
+* Upgrade
+* Overcharge
+
+Interactions:
+
+* Select card updates large preview
+* Equip card fills active XI slot
+* Upgrade costs 300 PP and increases stats
+* Overcharge costs 500 PP and randomly triggers:
+  Success: +2 Heat
+  Great Success: +3 Roar and +1 Luck
+  Fail: -1 Form
+  Mutation: add Mutated badge
+
+Important:
+Punishment must be light. Do not destroy cards.
+
+Do not:
+
+* use pixel card style
+* use NFT marketplace grid feel
+* use generic flat rectangles
+
+========================
+SCREEN 4 — FEVER BOARD
+======================
+
+Rebuild Fever Board as a modern football event command center.
+
+Goal:
+This should feel like live match-day operations.
+
+Layout:
+
+* Large featured live event
+* Side list of secondary events
+* Heat meter
+* Countdown timer
+* Event effect chips
+* Tactical formation preview
+* Large CTA: Enter Fever
+
+Featured event:
+Night Match Fever
+
+Description:
+Deploy your XI into match-day chaos to capture stadium output.
+
+Possible effects:
+
+* * Pitch Points
+* * Heat
+* * Form
+* * Fatigue
+* ? Mutation
+
+Secondary events:
+
+* Underdog Noise
+* Floodlight Rush
+* Final Run Preview
+
+Statuses:
+
+* LIVE
+* LOCKED
+* SETTLING
+
+Do not:
+
+* make this look like dashboard event cards
+* use betting language
+* use odds, wager, prediction, payout, multiplier
+
+Use:
+
+* Deploy
+* Formation
+* Match Impact
+* Stadium Output
+* Heat
+* Roar
+* Mutation
+
+========================
+SCREEN 5 — FORMATION BUILDER
+============================
+
+When user clicks Enter Fever, open a Formation Builder.
+
+Goal:
+This should feel like a football tactics screen.
+
+Layout:
+
+* Large green pitch
+* 2–4 formation slots
+* bottom card bench
+* total Roar Power
+* possible match impact list
+* deploy button
+
+CTA:
+Deploy XI
+
+Interaction:
+
+* User selects cards/assets
+* Total Roar Power updates
+* Deploy XI sends user into Match Viewer
+
+Do not:
+
+* call it betting
+* call it prediction
+* call it wager
+
+========================
+SCREEN 6 — MATCH VIEWER
+=======================
+
+Keep and rebuild the tactical match viewer.
+
+Goal:
+This should be one of the strongest football-feeling parts of the app.
+
+Visual:
+
+* large tactical pitch
+* modern sports broadcast overlay
+* moving player dots
+* ball movement
+* scoreboard
+* match timer
+* live impact log
+* deployed cards panel
+* heat meter
+* roar meter
+* event timeline
+* skip to result button
+
+Teams:
+Use abstract sides only:
+
+* Home Fever
+* Away Chaos
+
+Do not use real team names, flags, crests, or players.
+
+Fake scripted event sequence:
+
+1. Kickoff
+2. Pass Chain
+3. Crowd Surge
+4. Shot Attempt
+5. Goal Heat Spike
+6. Defensive Wall
+7. Chaos Moment
+8. Mutation Roll
+9. Full Time Impact
+
+Event impact mapping:
+
+* Goal Heat Spike: +Heat and +Pitch Points
+* Pass Chain: +Roar combo
+* Crowd Surge: +Pitch Points
+* Defensive Wall: reduces Fatigue
+* Chaos Moment: mutation chance
+* Mutation Roll: Miss / Spark / Mutated
+
+Interaction:
+
+* Match auto-plays for 20–40 seconds
+* User can click Skip to Result
+* After match ends, route to Match Receipt
+
+Animations:
+
+* player dots move
+* ball moves
+* event popups appear
+* heat meter pulses
+* impact log updates
+* floating rewards appear over pitch
+
+========================
+SCREEN 7 — RECEIPTS
+===================
+
+Rebuild Receipts as premium match result cards.
+
+Goal:
+This should feel like opening a post-match result summary.
+
+Layout:
+
+* Main large Match Receipt card
+* Previous receipts stack
+* Reward summary
+* Card impact
+* Match impact grade
+* Share result button
+* Claim reward button
+
+Receipt example:
+Event: Night Match Fever
+Formation: Verde Nation / Azul Nation / Golden Nation
+Stadium Output: +820 Pitch Points
+Roar Combo: +14%
+Heat Gained: +2
+Fatigue: -1
+Mutation Roll: Miss
+Match Impact Grade: A-
+
+Interactions:
+
+* Claim Reward adds rewards
+* Share Result shows copy success feedback
+
+Empty state:
+If no receipts exist, show a premium empty result room with CTA:
+Enter Fever
+
+Do not show a plain “No Records” screen.
+
+========================
+SCREEN 8 — SEASON
+=================
+
+Rebuild Season as a premium season progression screen.
+
+Goal:
+This should feel like tournament/season progression, not a roadmap.
+
+Phases:
+
+1. Preseason
+2. Kickoff
+3. Mining Live
+4. Fever Live
+5. Final Run
+
+Layout:
+
+* cinematic phase path
+* stadium gate checkpoints
+* locked future features
+* active phase glow
+* season stats widgets
+
+Locked features:
+
+* Marketplace: Locked
+* Token Claim: Locked
+* Live API: Locked
+* Premium Fever Events: Locked
+
+Copy:
+Game first. Token later.
+Every match creates heat. Your stadium captures it.
+
+Season stats widgets:
+
+* Top Stadium Output
+* Top Fever Run
+* Top Country Heat
+* Top Mutation
+* Top Roar Card
+
+========================
+DESIGN SYSTEM
+=============
+
+Create a consistent design system.
+
+Colors:
+
+* Background: deep navy / black
+* Primary: lime green
+* Secondary: electric blue
+* Accent: gold
+* Heat: orange/red
+* Mutation: purple
+* Text: white / cool gray
+
+Typography:
+
+* Bold modern sports headers
+* Clean readable body text
+* Avoid pixel and retro fonts
+
+Panels:
+
+* Glassy dark sports panels
+* Subtle blur
+* Soft borders
+* Inner glow
+* Depth shadows
+* Rounded corners
+* Stadium light reflections
+
+Buttons:
+
+* Chunky game buttons
+* strong hover states
+* subtle 3D depth
+* active press animation
+* no plain web buttons
+
+Cards:
+
+* 2.5D card depth
+* glossy frame
+* hover tilt
+* rarity glow
+* stat chips
+* level badges
+
+Animations:
+
+* stadium light sweep
+* crowd glow
+* ticker movement
+* pack shine
+* pack burst
+* card hover tilt
+* live badge pulse
+* heat meter pulse
+* reward float
+* receipt reveal
+
+========================
+ARCHITECTURE
+============
+
+Keep the app frontend-only.
+
+No backend.
+No wallet.
+No auth.
+No real API.
+No marketplace.
+No official IP.
+
+Use fake/static data.
+Use React state for interactions.
+Keep or refactor existing logic where useful.
+
+Recommended components:
+
+* AppShell
+* TopHud
+* BottomGameNav
+* StadiumHQ
+* StadiumHero
+* ResourceChip
+* PacksRoom
+* PremiumPack
+* PackReveal
+* LockerRoom
+* NationCard
+* CardDetails
+* FeverBoard
+* FormationBuilder
+* MatchViewer
+* MatchReceipt
+* SeasonProgress
+* Toast
+
+Clean up old unused pixel/retro CSS if it conflicts.
+
+========================
+QUALITY BAR
+===========
+
+When opening the app, the user must instantly understand:
+
+1. This is XIM — Eleven Manager.
+2. I own a stadium.
+3. My cards create Roar Power.
+4. Roar Power generates Pitch Points.
+5. I can deploy my XI into Fever events.
+6. Match impact creates receipts, stats, upgrades, and rewards.
+
+The app must feel like:
+A premium modern football game web app.
+
+It must NOT feel like:
+A dashboard, a retro experiment, a pixel game, or a crypto SaaS page.
+
+Rebuild accordingly.

@@ -1,6 +1,6 @@
-# Project Stadium Fever
+# XIM — Eleven Manager
 
-A frontend-only, clickable football-crypto arcade game prototype: own a neon stadium, open country-card packs, mine Pitch Points, deploy cards into Fever Board events, and collect match receipts.
+A frontend-only, clickable football-crypto management arcade prototype (brand: **XIM — Eleven Manager**, tagline "Build your stadium. Deploy your XI. Capture match-day heat."): own a neon stadium, open nation-card packs, mine Pitch Points, build a formation, deploy your XI into Fever events, watch a tactical match, and collect match receipts.
 
 ## Run & Operate
 

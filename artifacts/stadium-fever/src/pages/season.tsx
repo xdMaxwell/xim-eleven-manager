@@ -1,5 +1,5 @@
 import { Check, Lock, Map as MapIcon, Trophy, Star, ChevronRight } from "lucide-react";
-import { SEASON_LEADERBOARD } from "../lib/constants";
+import { SEASON_LEADERBOARD, LOCKED_FEATURES } from "../lib/constants";
 import { StadiumBackdrop } from "../components/stadium-backdrop";
 
 export default function Season() {
@@ -87,6 +87,24 @@ export default function Season() {
                   {entry.value}
                 </div>
               </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ============ LOCKED FEATURES ============ */}
+      <div className="glass rounded-3xl p-5 md:p-6">
+        <div className="flex items-center gap-2 mb-5">
+          <Lock className="w-5 h-5 text-muted-foreground" />
+          <h3 className="display text-xl text-white uppercase">Locked Features</h3>
+          <span className="chip ml-auto bg-white/5 border-white/10 text-muted-foreground">Coming Later</span>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {LOCKED_FEATURES.map((f) => (
+            <div key={f} className="rounded-2xl bg-black/30 border border-white/10 p-4 flex flex-col items-center text-center gap-2 opacity-70">
+              <Lock className="w-5 h-5 text-muted-foreground" />
+              <span className="display text-sm text-white/80 uppercase">{f}</span>
+              <span className="chip text-[9px] bg-white/5 border-white/10 text-muted-foreground">Locked</span>
             </div>
           ))}
         </div>

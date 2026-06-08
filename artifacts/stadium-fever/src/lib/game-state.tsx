@@ -30,6 +30,7 @@ type GameState = {
   packs: { starter: number; fever: number };
   receipts: Receipt[];
   pendingMatch: PendingMatch | null;
+  feverTarget: string | null;
 };
 
 type GameContextType = GameState & {
@@ -42,6 +43,7 @@ type GameContextType = GameState & {
   overchargeCard: (cardId: string) => { result: string; message: string } | null;
   startMatch: (event: string, formation: CountryCard[]) => void;
   clearPendingMatch: () => void;
+  setFeverTarget: (event: string | null) => void;
   deployFormation: (event: string, formation: CountryCard[], summary?: MatchSummary) => string;
   claimReceipt: (receiptId: string) => void;
 };
@@ -57,6 +59,7 @@ const INITIAL_STATE: GameState = {
   packs: { starter: 1, fever: 0 },
   receipts: [],
   pendingMatch: null,
+  feverTarget: null,
 };
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -180,6 +183,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, pendingMatch: null }));
   }, []);
 
+  const setFeverTarget = useCallback((event: string | null) => {
+    setState((s) => ({ ...s, feverTarget: event }));
+  }, []);
+
   const deployFormation = useCallback((event: string, formation: CountryCard[], summary?: MatchSummary) => {
     const receiptId = Math.random().toString();
     setState((s) => {
@@ -237,6 +244,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         overchargeCard,
         startMatch,
         clearPendingMatch,
+        setFeverTarget,
         deployFormation,
         claimReceipt,
       }}

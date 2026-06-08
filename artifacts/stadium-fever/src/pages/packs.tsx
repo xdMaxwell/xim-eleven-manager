@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useGameState } from "../lib/game-state";
-import { CountryCard } from "../lib/constants";
+import { CountryCard, PACK_REWARDS } from "../lib/constants";
 import { CardComponent } from "../components/card-component";
 import { useToast } from "../hooks/use-toast";
 import { StadiumBackdrop } from "../components/stadium-backdrop";
@@ -102,8 +102,14 @@ export default function Packs() {
             <div className="glass rounded-2xl p-4 flex-1">
               <div className="flex items-center gap-2 mb-3">
                 <Sparkles className="w-4 h-4 text-accent" />
-                <h3 className="display text-sm text-white uppercase text-glow-accent">Possible Contents</h3>
+                <h3 className="display text-sm text-white uppercase text-glow-accent">Possible Pulls</h3>
               </div>
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {PACK_REWARDS.map((r) => (
+                  <span key={r} className="chip bg-white/5 border-white/10 text-white/70 text-[10px]">{r}</span>
+                ))}
+              </div>
+              <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Card Rarity</div>
               <ul className="flex flex-col gap-2">
                 <li className="flex justify-between items-center bg-black/30 p-2 rounded-lg border border-white/5">
                   <span className="text-[11px] uppercase text-white/70">Common</span>

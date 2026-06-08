@@ -7,14 +7,16 @@ import {
   Flame,
   Receipt,
   Map,
+  Tv,
 } from "lucide-react";
 
 const TICKER_ITEMS = [
-  "Night Match Fever is live",
-  "Deploy formations to capture stadium output",
-  "Upgrade your ground for more Roar Power",
-  "Open packs to scout new nation cards",
+  "Night Match Fever live",
+  "Deploy your XI",
+  "Pack drop ready",
   "Game first. Token later.",
+  "No official brands",
+  "Capture match-day heat",
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -27,14 +29,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-40 shrink-0">
         <div className="glass-strong rounded-none border-x-0 border-t-0 px-3 md:px-6 py-2.5 flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="relative w-9 h-9 rounded-xl grid place-items-center bg-gradient-to-br from-primary to-emerald-600 glow-primary">
-              <Flame className="w-5 h-5 text-[#06210c]" />
+            <div className="relative w-9 h-9 md:w-10 md:h-10 rounded-xl grid place-items-center bg-gradient-to-br from-primary to-emerald-600 glow-primary">
+              <span className="display text-base md:text-lg text-[#06210c] leading-none">XI</span>
             </div>
             <div className="leading-none">
-              <div className="display text-lg md:text-xl tracking-tight">
-                <span className="text-primary text-glow-primary">STADIUM</span> <span className="text-white">FEVER</span>
-              </div>
-              <div className="text-[9px] uppercase tracking-[0.3em] text-muted-foreground hidden sm:block">Arcade Football Club</div>
+              <div className="display text-lg md:text-2xl tracking-tight text-white text-glow-primary">XIM</div>
+              <div className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Eleven Manager</div>
             </div>
           </Link>
 
@@ -77,11 +77,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       {/* BOTTOM NAV — game mode selector */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 px-3 pb-3 pointer-events-none">
-        <div className="pointer-events-auto max-w-[760px] mx-auto glass-strong rounded-2xl flex items-stretch justify-between gap-1 p-1.5">
+        <div className="pointer-events-auto max-w-[820px] mx-auto glass-strong rounded-2xl flex items-stretch justify-between gap-0.5 md:gap-1 p-1.5">
           <NavTab href="/" icon={<Home className="w-5 h-5" />} label="Stadium" />
           <NavTab href="/packs" icon={<PackageOpen className="w-5 h-5" />} label="Packs" badge={state.packs.starter + state.packs.fever} />
           <NavTab href="/locker" icon={<LayoutGrid className="w-5 h-5" />} label="Locker" />
           <NavTab href="/fever" icon={<Flame className="w-5 h-5" />} label="Fever" isLive />
+          <NavTab href="/fever-match" icon={<Tv className="w-5 h-5" />} label="Match" />
           <NavTab href="/receipts" icon={<Receipt className="w-5 h-5" />} label="Receipts" badge={unclaimed} />
           <NavTab href="/season" icon={<Map className="w-5 h-5" />} label="Season" />
         </div>

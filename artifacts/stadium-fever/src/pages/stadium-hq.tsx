@@ -3,13 +3,14 @@ import { useGameState } from "../lib/game-state";
 import { CardComponent } from "../components/card-component";
 import { StadiumBackdrop } from "../components/stadium-backdrop";
 import { EVENTS } from "../lib/constants";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useToast } from "../hooks/use-toast";
 import { Zap, ArrowUpCircle, ChevronRight, Plus } from "lucide-react";
 
 export default function StadiumHQ() {
-  const { stadiumLevel, roarPower, equipped, claimPoints, upgradeStadium } = useGameState();
+  const { stadiumLevel, roarPower, equipped, claimPoints, upgradeStadium, setFeverTarget } = useGameState();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   const [claimAnim, setClaimAnim] = useState(false);
   const [stadiumPulse, setStadiumPulse] = useState(false);
@@ -48,7 +49,7 @@ export default function StadiumHQ() {
           <div className="glass-strong rounded-2xl p-4 w-[200px] md:w-[260px] anim-reveal">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Home Ground</div>
+                <div className="text-[10px] uppercase tracking-[0.25em] text-primary">XIM Club</div>
                 <h2 className="display text-lg md:text-2xl text-white leading-none">Neon Home<br />Ground</h2>
               </div>
               <div className="shrink-0 w-12 h-12 rounded-xl grid place-items-center bg-gradient-to-br from-primary to-emerald-600 glow-primary">
@@ -79,9 +80,12 @@ export default function StadiumHQ() {
               </div>
               <h3 className="display text-lg md:text-2xl text-white leading-none mb-1">{liveEvent.name}</h3>
               <p className="text-[11px] text-muted-foreground leading-snug mb-3 line-clamp-2">{liveEvent.rule}</p>
-              <Link href="/fever">
-                <button className="btn btn-heat w-full text-sm">Enter Fever <ChevronRight className="w-4 h-4" /></button>
-              </Link>
+              <button
+                onClick={() => { setFeverTarget(liveEvent.name); setLocation("/formation"); }}
+                className="btn btn-heat w-full text-sm"
+              >
+                Enter Fever <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
           )}
         </div>
