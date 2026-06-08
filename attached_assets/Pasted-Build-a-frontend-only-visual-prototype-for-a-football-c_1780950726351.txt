@@ -1,0 +1,318 @@
+Build a frontend-only visual prototype for a football-crypto arcade web app.
+
+Working title: PROJECT STADIUM FEVER
+
+This is NOT a betting app, NOT fantasy football, NOT a prediction market, NOT a SaaS dashboard, NOT an NFT marketplace.
+
+Core concept:
+Users claim a stadium, open country packs, equip country cards, mine Pitch Points through Roar Power, deploy assets into live Fever Board events, receive Match Receipts, upgrade their stadium/cards, and loop back.
+
+The app should feel like:
+- PS2 football game menu
+- stadium arcade game
+- crypto-native mining/resource app
+- Ultimate Team-style packs/cards
+- dark stadium, floodlights, grass, scoreboard, glowing panels
+- energetic game UI, not corporate dashboard
+
+Do not use:
+- FIFA logo
+- World Cup logo
+- official team logos
+- official federation crests
+- real player images
+- official jerseys
+- betting language
+- odds
+- wager
+- payout
+- APY
+- staking
+- prediction wording
+
+Use:
+- React + Vite
+- CSS or Tailwind, whichever is cleaner
+- Frontend only
+- Fake/static data
+- React state for interactions
+- localStorage optional
+- No backend
+- No wallet connection
+- No real API
+- No authentication
+- No external image dependency required
+- Use CSS, gradients, inline SVG, emoji-style simple icons, or simple illustrated blocks for visuals
+
+The prototype must be clickable and game-like.
+
+Main navigation:
+1. Stadium HQ
+2. Packs
+3. Locker
+4. Fever Board
+5. Receipts
+6. Season
+
+Use a top or side game-style navigation bar, not a boring dashboard navbar.
+
+Global resources shown somewhere:
+- Pitch Points
+- Roar Power
+- Heat
+- Current Phase
+
+Initial fake user state:
+- Pitch Points: 1,250
+- Roar Power: 420
+- Heat: 12
+- Current Phase: Preseason
+- Stadium Level: 1
+- Equipped card slots: 3
+- User owns 6 country cards
+- User has 1 starter pack
+
+Important visual direction:
+Every screen must have one large football/game object:
+- Stadium HQ: giant stadium
+- Packs: large pack reveal
+- Locker: large selected card
+- Fever Board: scoreboard/event board
+- Formation modal/page: pitch formation
+- Receipts: ticket/scoreboard receipt
+- Season: tournament-style phase timeline
+
+Color/style:
+- Dark green/black stadium background
+- Neon green accents
+- Gold accents
+- Electric blue accents
+- Grass texture or pitch lines
+- Floodlight glow
+- Scoreboard panels
+- Card frames
+- Arcade-style buttons
+- Big numbers
+- Avoid white SaaS cards as main UI
+
+Build these screens:
+
+SCREEN 1: STADIUM HQ
+Purpose: main home screen.
+Must include:
+- Large stadium hero visual with floodlights and crowd silhouette
+- Stadium name: “Neon Home Ground”
+- Stadium Level
+- Roar Meter
+- Pitch Points balance
+- Claim Pitch Points button
+- Equipped country card slots
+- Live Fever Board preview panel
+- Season phase badge
+- Upgrade Stadium button
+
+Interactions:
+- Clicking “Claim Pitch Points” adds +450 Pitch Points and shows a temporary animated “+450 Pitch Points” feedback.
+- Clicking “Upgrade Stadium” costs 500 Pitch Points, increases Stadium Level by 1, increases Roar Power by 80, and shows feedback.
+- If not enough points, show a clean game-style warning.
+
+SCREEN 2: PACKS
+Purpose: dopamine pack opening.
+Must include:
+- Large pack in the center
+- “Starter Pack” and “Fever Pack” examples
+- Open Pack button
+- Pack reveal animation/transition
+- Reward card/result panel
+- Possible rewards:
+  - Country Card
+  - Stadium Part
+  - Fever Ticket
+  - Boost Item
+  - Mutation Shard
+
+Interactions:
+- Opening a pack reveals a random fake reward from a static list.
+- If reward is a card, add it to the user collection.
+- Show rarity: Common, Rare, Epic, Mythic.
+- Show “Add to Locker” and “Share Pull” buttons.
+- “Share Pull” can just copy a simple text or show fake success feedback.
+
+SCREEN 3: LOCKER
+Purpose: manage country cards.
+Must include:
+- Grid of user country cards
+- Large selected card preview
+- Stats:
+  - Roar
+  - Form
+  - Heat
+  - Luck
+- Rarity
+- Level
+- Equip button
+- Upgrade button
+- Overcharge button
+
+Card style:
+- Do not use real country flags or crests.
+- Use abstract nation-inspired card names/colors:
+  - Verde Nation
+  - Azul Nation
+  - Golden Nation
+  - Crimson Nation
+  - Nordic Nation
+  - Shadow Nation
+- Cards should look collectible and game-like with colored borders, rarity badges, and stat chips.
+
+Interactions:
+- Selecting a card updates the large preview.
+- Equip card fills one of the 3 equipped slots.
+- Upgrade card costs 300 Pitch Points, increases one or more stats.
+- Overcharge costs 500 Pitch Points and randomly does one of:
+  - Success: +2 Heat
+  - Great Success: +3 Roar and +1 Luck
+  - Fail: -1 Form
+  - Mutation: add “Mutated” badge
+- Keep punishment light. Do not destroy cards.
+
+SCREEN 4: FEVER BOARD
+Purpose: action board inspired by a sports board, but not prediction/betting.
+Must include:
+- Multiple live/locked/settling event tiles
+- Event statuses: LIVE, LOCKED, SETTLING
+- Countdown timers can be fake/static
+- Possible effects shown clearly
+- CTA: Enter Fever
+
+Example events:
+1. “Night Match Fever”
+   Status: LIVE
+   Rule: Deploy 2–4 assets. Stadium output may gain Pitch Points, Heat, Form, Fatigue, or Mutation.
+2. “Underdog Noise”
+   Status: LIVE
+   Rule: Low-level cards get extra mutation chance.
+3. “Floodlight Rush”
+   Status: LOCKED
+   Rule: Stadiums with upgraded lights gain bonus output.
+4. “Final Run Preview”
+   Status: LOCKED
+   Rule: Season leaderboard event.
+
+Interaction:
+- Clicking Enter Fever opens a Fan Formation builder.
+
+FAN FORMATION BUILDER
+Can be a modal or page section.
+Must include:
+- Green pitch layout
+- 2–4 card slots
+- User can select cards/assets
+- Shows total Roar Power
+- Shows possible effects:
+  + Pitch Points
+  + Heat
+  + Form
+  - Fatigue
+  ? Mutation
+- CTA: Deploy Formation
+
+When Deploy Formation is clicked:
+- Create a new active Fever Run.
+- Simulate settlement immediately or after a short fake loading animation.
+- Generate a Match Receipt with random results.
+- Navigate user to Receipts screen.
+
+Important:
+Do not use the words “bet”, “odds”, “wager”, “prediction”, “payout”, “win multiplier”.
+
+SCREEN 5: RECEIPTS
+Purpose: dopamine result/share screen.
+Must include:
+- Active/settled Match Receipts
+- Receipt visual like a ticket stub or scoreboard slip
+- Show formation used
+- Show event name
+- Show rewards
+- Show card changes
+- Show mutation result if any
+- Claim Reward button
+- Share Result button
+
+Example receipt result:
+- Event: Night Match Fever
+- Stadium Output: +820 Pitch Points
+- Card Impact:
+  - Verde Nation: +1 Heat
+  - Azul Nation: +1 Form
+  - Golden Nation: -1 Fatigue
+- Mutation Roll: Missed
+- Share copy: “My stadium mined 820 Pitch Points from Match Fever.”
+
+Interactions:
+- Claim Reward adds rewards to Pitch Points.
+- Share Result shows copied/success feedback.
+
+SCREEN 6: SEASON
+Purpose: show phased protocol structure.
+Must include a tournament-style timeline, not a boring roadmap.
+Phases:
+1. Preseason
+   Claim stadium, open starter pack, collect first cards.
+2. Kickoff
+   Stadium mining, pack opening, card upgrades.
+3. Mining Live
+   Daily claims, Roar Power boosts, stadium upgrades.
+4. Fever Live
+   Fever Board, Fan Formation, Match Receipts, mutation windows.
+5. Final Run
+   Leaderboard, season snapshot, rare cosmetics, token eligibility later.
+
+Show locked future features:
+- Marketplace: Locked
+- Token Claim: Locked
+- Live API: Locked
+- Premium Fever Events: Locked
+
+Add copy:
+“Game first. Token later.”
+“Every match creates heat. Your stadium captures it.”
+
+General UX:
+- Must be responsive for desktop and mobile.
+- Must look good immediately on first load.
+- Add micro-interactions: hover glow, button press, small claim animation, pack reveal animation, receipt reveal.
+- Use clear empty states.
+- Use readable fonts.
+- Avoid cramped layouts.
+- Avoid generic AI dashboard feel.
+
+Architecture:
+- Keep the code clean.
+- Use components:
+  - App
+  - Layout
+  - ResourceBar
+  - StadiumHQ
+  - Packs
+  - Locker
+  - FeverBoard
+  - FormationBuilder
+  - Receipts
+  - SeasonTimeline
+  - CardComponent
+  - Toast/Feedback component
+- Store fake data in a separate constants file if useful.
+- Make sure the app runs without errors.
+
+Final quality bar:
+When I open the app, it should feel like a football game menu mixed with a crypto arcade.
+The user should instantly understand:
+1. I own a stadium.
+2. My cards generate power.
+3. Power creates Pitch Points.
+4. I can enter Fever events.
+5. Events create receipts, upgrades, and rewards.
+6. I loop back stronger.
+
+Do not stop at a plain layout. Make it visually strong.

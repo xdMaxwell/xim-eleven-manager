@@ -1,6 +1,6 @@
-# [Project name]
+# Project Stadium Fever
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A frontend-only, clickable football-crypto arcade game prototype: own a neon stadium, open country-card packs, mine Pitch Points, deploy cards into Fever Board events, and collect match receipts.
 
 ## Run & Operate
 
