@@ -1,0 +1,259 @@
+We are dropping the pixel 2D direction and dropping the retro direction.
+
+The previous pixel/retro result is wrong. It feels cheap, stiff, and too far from a premium football product.
+
+New visual direction:
+MODERN 3D FOOTBALL ARCADE WEB APP.
+
+Think:
+- FIFA Online / Ultimate Team style card energy
+- Football Manager club HQ structure
+- modern stadium builder
+- cinematic night stadium
+- floodlights
+- glossy sports HUD
+- premium game UI
+- 2.5D / fake 3D depth
+- crypto arcade resource loop
+
+Do NOT use:
+- pixel art
+- retro font
+- PS1/PS2 UI
+- admin dashboard
+- SaaS panels
+- thin neon web cards
+- official FIFA / World Cup / federation IP
+- real player images
+- official crests / jerseys
+
+Keep the product concept:
+Users own a stadium, equip country cards, mine Pitch Points through Roar Power, enter Fever events, watch match impact, receive receipts, upgrade, open packs.
+
+But visually rebuild it as a premium modern football game interface.
+
+GLOBAL STYLE
+
+Use:
+- cinematic dark stadium background
+- floodlight beams
+- grass / pitch texture
+- crowd silhouettes
+- glassy dark sports panels
+- bright lime/green, electric blue, gold, orange heat accents
+- 3D-looking cards
+- large hero objects
+- chunky modern game buttons
+- bold sports typography
+- smooth animations
+
+Avoid:
+- pixel font
+- pixel borders
+- retro scanlines
+- empty dark screens
+- small centered panels
+- dashboard layout
+
+APP SHELL
+
+Top HUD:
+- STADIUM FEVER
+- Pitch Points
+- Roar Power
+- Heat
+- Phase
+- scrolling live ticker
+Style it like a modern football broadcast scoreboard.
+
+Bottom Navigation:
+- Stadium
+- Packs
+- Locker
+- Fever
+- Receipts
+- Season
+Style like a modern game mode selector, not a web navbar.
+
+SCREEN 1: STADIUM HQ
+
+Completely rebuild Stadium HQ as a cinematic stadium home screen.
+
+Must include:
+- large night stadium hero scene
+- visible pitch
+- floodlights
+- crowd glow
+- stadium name: Neon Home Ground
+- stadium level
+- Roar meter
+- Pitch Points claim area
+- active card slots
+- live Fever panel
+- infrastructure upgrade module
+
+Layout:
+- stadium scene dominates the screen
+- left: club/stadium info overlay
+- right: live fever event overlay
+- bottom: active formation card bench
+- center/bottom: Claim Pitch Points CTA
+
+The user should instantly feel:
+“I own a stadium.”
+
+Do not show a small pitch floating in empty space.
+Do not use pixel objects.
+Do not use retro typography.
+
+Interactions:
+- Claim Pitch Points adds +450 PP and shows floating reward animation
+- Upgrade Stadium costs 500 PP and pulses the stadium lights
+- Equipped cards appear as glossy mini cards on the bench
+
+SCREEN 2: PACKS
+
+Rebuild as premium pack opening room.
+
+Visual:
+- dark tunnel / locker room / stadium entrance
+- large 3D-style pack in center
+- foil/gloss shine
+- spotlight beams
+- reward burst
+- card reveal animation
+
+Layout:
+- center: big pack
+- left: pack inventory
+- right: pack contents
+- bottom: pack selector
+- CTA: OPEN PACK or RIP PACK
+
+Must feel like Ultimate Team-style pack opening, but without using official IP.
+
+SCREEN 3: LOCKER
+
+Rebuild as modern card locker.
+
+Visual:
+- selected card large and glossy
+- 3D card tilt on hover
+- rarity frame
+- stat chips
+- scout stats section
+- active formation slots
+- upgrade/overcharge controls
+
+Cards:
+Use abstract nation cards:
+- Verde Nation
+- Azul Nation
+- Golden Nation
+- Crimson Nation
+- Nordic Nation
+- Shadow Nation
+
+Cards should look like premium football game cards, not pixel cards and not NFT marketplace tiles.
+
+Stats:
+Visible:
+- Roar
+- Form
+- Heat
+- Luck
+
+Scout Stats:
+- Attack
+- Defense
+- Tempo
+- Stamina
+- Spirit
+- Chaos
+
+SCREEN 4: FEVER BOARD
+
+Rebuild as a modern live event command center.
+
+Visual:
+- big featured event panel
+- stadium/match background
+- live scoreboard
+- heat meter
+- countdown
+- event effect chips
+- formation preview
+- side event list
+
+CTA:
+- ENTER FEVER
+
+Do not make it look like dashboard cards.
+
+SCREEN 5: FEVER MATCH VIEWER
+
+Keep this feature, but make it modern tactical match style, not pixel.
+
+Visual:
+- large tactical pitch
+- moving dots/players
+- ball movement
+- scoreboard
+- live impact log
+- deployed cards panel
+- timeline
+- heat/roar meters
+
+Style:
+- modern tactical broadcast / Football Manager match viewer
+- clean but exciting
+- not pixel
+
+Flow:
+Fever Board -> Deploy Formation -> Match Viewer -> Match Receipt
+
+SCREEN 6: RECEIPTS
+
+Rebuild as premium match result card.
+
+Visual:
+- large ticket/scoreboard receipt
+- reward summary
+- card impact
+- match impact grade
+- share result
+- claim reward
+
+SCREEN 7: SEASON
+
+Rebuild as modern tournament/season path.
+
+Visual:
+- phase timeline
+- stadium gates
+- locked future features
+- season progression
+- “Game first. Token later.”
+- “Every match creates heat. Your stadium captures it.”
+
+ANIMATION
+
+Add:
+- stadium light sweep
+- crowd glow pulse
+- card hover tilt
+- pack shine and reveal burst
+- live badge pulse
+- ticker movement
+- floating rewards
+- match viewer motion
+- receipt reveal animation
+
+IMPORTANT
+
+Do not change core gameplay logic.
+Do not add backend, wallet, API, marketplace, or auth.
+Only rebuild visual direction away from pixel/retro into modern premium football game UI.
+
+Success condition:
+When opening the app, it should feel like a premium football game web app, not a dashboard, not pixel art, not retro UI.

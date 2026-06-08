@@ -2,82 +2,135 @@ import { useState } from "react";
 import { useGameState } from "../lib/game-state";
 import { EVENTS, CountryCard } from "../lib/constants";
 import { useLocation } from "wouter";
+import { CardComponent } from "../components/card-component";
+import { StadiumBackdrop } from "../components/stadium-backdrop";
+import { Flame, Lock, ChevronRight, Swords, X, Activity, Timer, Plus } from "lucide-react";
 
 export default function FeverBoard() {
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
   const { heat } = useGameState();
 
+  const liveEvents = EVENTS.filter(e => e.status === "LIVE");
+
   return (
-    <div className="flex flex-col gap-6 w-full pb-10">
-      
+    <div className="p-3 md:p-5 flex flex-col gap-4">
       {/* Scoreboard Header */}
-      <div className="pixel-panel p-6 bg-[#2a0808] flex flex-col md:flex-row justify-between items-center gap-6">
-        <div>
-          <h1 className="font-mono text-4xl text-destructive pixel-text-shadow uppercase mb-2">Fever Arena</h1>
-          <div className="bg-destructive text-white font-mono text-xs px-2 py-1 inline-block animate-blink">LIVE MATCHES</div>
-        </div>
-        <div className="bg-black border-4 border-destructive p-4 flex gap-8">
-          <div className="text-center">
-            <div className="font-mono text-[10px] text-gray-400 mb-1">HEAT</div>
-            <div className="font-mono text-3xl text-destructive">{heat}</div>
+      <div className="glass rounded-3xl p-4 md:p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl grid place-items-center bg-gradient-to-br from-destructive to-orange-700 glow-heat">
+            <Flame className="w-6 h-6 text-white" />
           </div>
-          <div className="w-1 bg-gray-800" />
-          <div className="text-center">
-            <div className="font-mono text-[10px] text-gray-400 mb-1">REFRESH</div>
-            <div className="font-mono text-xl text-white">02:14</div>
+          <div>
+            <h1 className="display text-2xl md:text-3xl text-white uppercase leading-none">Fever Arena</h1>
+            <div className="flex items-center gap-1.5 mt-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-destructive anim-live" />
+              <span className="text-[11px] uppercase tracking-widest text-destructive font-bold">Live Matches</span>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="bg-black/40 rounded-2xl border border-white/10 p-3 flex items-center gap-4 md:gap-6 min-w-[200px]">
+            <div className="text-center flex-1">
+              <div className="flex items-center justify-center gap-1 text-[10px] text-muted-foreground uppercase tracking-widest mb-0.5">
+                <Flame className="w-3 h-3 text-destructive" /> Heat
+              </div>
+              <div className="num text-2xl text-destructive text-glow-heat leading-none">{heat}</div>
+            </div>
+            <div className="w-px h-8 bg-white/10" />
+            <div className="text-center flex-1">
+              <div className="flex items-center justify-center gap-1 text-[10px] text-muted-foreground uppercase tracking-widest mb-0.5">
+                <Timer className="w-3 h-3" /> Refresh
+              </div>
+              <div className="num text-xl text-white leading-none">02:14</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Featured Live Event */}
-        <div className="lg:col-span-2 flex flex-col gap-6">
-          {EVENTS.filter(e => e.status === "LIVE").slice(0, 1).map(event => (
-            <div key={event.id} className="pixel-panel p-8 bg-[#0a1526] flex flex-col h-full border-blue-500">
-              <div className="flex justify-between items-start mb-6">
-                <h2 className="font-mono text-3xl text-secondary uppercase">{event.name}</h2>
-              </div>
-              <div className="bg-black border-2 border-blue-900 p-6 mb-8 flex-1">
-                <p className="font-mono text-white text-lg leading-relaxed">{event.rule}</p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="font-mono text-xs bg-primary text-black px-2 py-1">PP YIELD</span>
-                  <span className="font-mono text-xs bg-destructive text-white px-2 py-1">HEAT YIELD</span>
-                  <span className="font-mono text-xs bg-purple-600 text-white px-2 py-1">MUTATION</span>
+        <div className="lg:col-span-2 flex flex-col gap-4">
+          {liveEvents.slice(0, 1).map(event => (
+            <div key={event.id} className="relative w-full rounded-3xl overflow-hidden glass-strong min-h-[460px] flex flex-col">
+              <StadiumBackdrop intensity={1.2} />
+              
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+              <div className="relative z-10 flex-1 flex flex-col p-5 md:p-8">
+                <div className="flex justify-between items-start mb-auto">
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="chip bg-destructive/20 border-destructive/40 text-destructive anim-live">
+                        <span className="w-1.5 h-1.5 rounded-full bg-destructive" /> Live Event
+                      </span>
+                    </div>
+                    <h2 className="display text-3xl md:text-5xl text-white leading-tight uppercase text-glow-primary">{event.name}</h2>
+                  </div>
+                </div>
+
+                <div className="mt-8 space-y-6">
+                  <div className="glass rounded-2xl p-4 md:p-6 border-secondary/30">
+                    <div className="flex items-center gap-2 mb-2 text-secondary">
+                      <Activity className="w-4 h-4" />
+                      <span className="text-[11px] uppercase tracking-widest font-bold">Event Rules</span>
+                    </div>
+                    <p className="text-sm md:text-base text-white/90 leading-relaxed mb-4">{event.rule}</p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="chip bg-primary/10 border-primary/20 text-primary">Output Yield</span>
+                      <span className="chip bg-destructive/10 border-destructive/20 text-destructive">Heat Gain</span>
+                      <span className="chip bg-purple-500/10 border-purple-500/20 text-purple-400">Mutation Roll</span>
+                    </div>
+                  </div>
+
+                  <button 
+                    onClick={() => setSelectedEvent(event.id)}
+                    className="btn btn-primary w-full py-4 text-lg group"
+                  >
+                    <Swords className="w-5 h-5 mr-1" />
+                    Enter Fever
+                    <ChevronRight className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1" />
+                  </button>
                 </div>
               </div>
-              <button 
-                onClick={() => setSelectedEvent(event.id)}
-                className="pixel-btn pixel-btn-secondary text-2xl py-4 w-full"
-              >
-                TACTICAL DEPLOY
-              </button>
             </div>
           ))}
         </div>
 
         {/* Mission List */}
-        <div className="pixel-panel p-6 bg-black flex flex-col gap-4">
-          <h3 className="font-mono text-xl text-white uppercase border-b-4 border-white pb-2 mb-2">Missions</h3>
+        <div className="glass rounded-3xl p-4 flex flex-col gap-3">
+          <div className="flex items-center justify-between mb-2 px-2">
+            <h3 className="display text-lg text-white uppercase">Operations</h3>
+            <span className="text-[11px] text-muted-foreground uppercase tracking-widest">{EVENTS.length} Total</span>
+          </div>
           
-          <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-4">
+          <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-3">
             {EVENTS.slice(1).map(event => {
               const isLive = event.status === "LIVE";
               return (
-                <div key={event.id} className={`border-4 p-4 ${isLive ? 'border-secondary bg-[#0a1526] cursor-pointer hover:bg-[#10203a]' : 'border-gray-800 bg-gray-900 opacity-60'}`}
+                <button
+                  key={event.id}
                   onClick={() => isLive && setSelectedEvent(event.id)}
+                  disabled={!isLive}
+                  className={`w-full text-left rounded-2xl p-4 transition-all duration-300 border relative overflow-hidden group
+                    ${isLive 
+                      ? 'glass hover:bg-white/5 border-secondary/30 hover:border-secondary cursor-pointer' 
+                      : 'bg-black/20 border-white/5 opacity-60 cursor-not-allowed'
+                    }`}
                 >
-                  <div className="flex justify-between items-center mb-2">
-                    <h4 className="font-mono text-lg text-white uppercase truncate">{event.name}</h4>
-                    {isLive ? <div className="w-2 h-2 bg-destructive animate-blink" /> : <div className="font-mono text-[8px] text-gray-500">LOCKED</div>}
+                  <div className="relative z-10 flex justify-between items-start mb-2">
+                    <h4 className="display text-base text-white uppercase truncate pr-4">{event.name}</h4>
+                    {isLive ? (
+                      <div className="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(56,160,255,0.8)] shrink-0 mt-1.5" />
+                    ) : (
+                      <Lock className="w-4 h-4 text-muted-foreground shrink-0" />
+                    )}
                   </div>
-                  <p className="font-mono text-[10px] text-gray-400 line-clamp-2">{event.rule}</p>
-                </div>
+                  <p className="text-[11px] text-muted-foreground line-clamp-2 leading-relaxed">{event.rule}</p>
+                </button>
               );
             })}
           </div>
         </div>
-
       </div>
 
       {selectedEvent && (
@@ -109,49 +162,76 @@ function FormationModal({ event, onClose }: { event: { id: string, name: string 
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-      <div className="pixel-panel bg-black w-full max-w-4xl flex flex-col border-[8px] border-white">
-        <div className="p-6 border-b-4 border-white flex justify-between items-center bg-[#0a1526]">
-          <h2 className="font-mono text-2xl text-white uppercase">Deploy: {event.name}</h2>
-          <button onClick={onClose} className="font-mono text-xl text-white hover:text-destructive">X</button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={!deploying ? onClose : undefined} />
+      
+      <div className="glass-strong w-full max-w-3xl rounded-3xl overflow-hidden flex flex-col relative z-10 border border-white/20 shadow-[0_0_50px_-12px_rgba(0,0,0,1)]">
+        <div className="p-5 md:p-6 border-b border-white/10 flex justify-between items-center bg-white/[0.02]">
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">Deployment Protocol</div>
+            <h2 className="display text-2xl text-white uppercase leading-none">{event.name}</h2>
+          </div>
+          <button onClick={onClose} disabled={deploying} className="p-2 rounded-full hover:bg-white/10 transition-colors disabled:opacity-50 text-muted-foreground hover:text-white">
+            <X className="w-6 h-6" />
+          </button>
         </div>
 
-        {/* Pixel Pitch UI */}
-        <div className="p-8 bg-green-900 border-b-4 border-white relative min-h-[300px] flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,transparent,transparent_20px,rgba(0,0,0,0.1)_20px,rgba(0,0,0,0.1)_40px)]" />
-          <div className="absolute top-1/2 left-0 right-0 h-2 bg-white/30 -translate-y-1/2" />
-          <div className="absolute top-1/2 left-1/2 w-32 h-32 border-[8px] border-white/30 rounded-full -translate-x-1/2 -translate-y-1/2" />
+        {/* Formation UI */}
+        <div className="p-6 md:p-10 relative min-h-[340px] flex flex-col items-center justify-center overflow-hidden">
+          <StadiumBackdrop intensity={0.5} className="opacity-40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
 
-          <div className="relative z-10 flex gap-6">
+          <div className="relative z-10 flex flex-wrap justify-center gap-4 md:gap-6 w-full">
             {equipped.map((card, i) => (
-              <div key={i}>
+              <div key={i} className="flex-shrink-0">
                 {card ? (
-                  <div className="w-24 h-36 bg-black border-4 border-white flex flex-col items-center justify-center p-2 text-center" style={{borderColor: card.color}}>
-                    <span className="font-mono text-xs uppercase" style={{color: card.color}}>{card.name}</span>
-                    <span className="font-mono text-[10px] text-white mt-2">LVL {card.level}</span>
-                  </div>
+                  <CardComponent card={card} size="sm" tilt={!deploying} className={deploying ? "animate-pulse" : ""} />
                 ) : (
-                  <div className="w-24 h-36 border-4 border-dashed border-white/50 bg-black/50 flex items-center justify-center text-white/50 font-mono text-xs">
-                    SLOT {i+1}
+                  <div className="w-36 h-52 rounded-2xl border-2 border-dashed border-white/15 bg-white/[0.02] flex items-center justify-center text-center">
+                    <div className="flex flex-col items-center gap-2 text-white/30">
+                      <Plus className="w-6 h-6" />
+                      <span className="display text-xs uppercase">Slot {i + 1}</span>
+                    </div>
                   </div>
                 )}
               </div>
             ))}
           </div>
           
-          <div className="absolute top-4 left-4 bg-black border-2 border-white p-2 text-white font-mono text-[10px]">
-            ROAR: {roarPower}
+          <div className="absolute top-4 left-4 glass px-3 py-1.5 rounded-xl border-white/10 flex items-center gap-2">
+            <span className="text-[10px] uppercase tracking-widest text-secondary font-bold">Total Roar</span>
+            <span className="num text-lg text-white leading-none">{roarPower}</span>
           </div>
         </div>
 
-        <div className="p-6 bg-gray-900 flex justify-between items-center">
-          <div className="font-mono text-xs text-gray-400 uppercase">Requires 2+ assets</div>
+        <div className="p-5 md:p-6 bg-black/40 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/10">
+          <div className="flex items-center gap-2 text-sm">
+            {activeCards.length < 2 ? (
+              <span className="text-destructive flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-destructive" />
+                Requires minimum 2 assets
+              </span>
+            ) : (
+              <span className="text-primary flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                Formation Ready
+              </span>
+            )}
+          </div>
           <button 
             onClick={handleDeploy} 
             disabled={activeCards.length < 2 || deploying}
-            className={`pixel-btn py-3 px-8 text-xl ${deploying ? "bg-gray-700 text-gray-400" : "pixel-btn-primary"}`}
+            className={`btn w-full md:w-auto min-w-[200px] text-base py-3 ${deploying ? "bg-white/10 text-white/50 border-white/5 cursor-wait" : "btn-heat"}`}
           >
-            {deploying ? "SIMULATING..." : "EXECUTE"}
+            {deploying ? (
+              <span className="flex items-center justify-center gap-2">
+                <Activity className="w-4 h-4 animate-spin" /> Processing...
+              </span>
+            ) : (
+              <span className="flex items-center justify-center gap-2">
+                <Swords className="w-4 h-4" /> Execute Deployment
+              </span>
+            )}
           </button>
         </div>
       </div>

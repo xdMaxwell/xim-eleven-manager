@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useGameState } from "../lib/game-state";
 import { CardComponent } from "../components/card-component";
-import { PixelStadiumScene } from "../components/pixel-stadium-scene";
+import { StadiumBackdrop } from "../components/stadium-backdrop";
 import { EVENTS } from "../lib/constants";
 import { Link } from "wouter";
 import { useToast } from "../hooks/use-toast";
+import { Zap, ArrowUpCircle, ChevronRight, Plus } from "lucide-react";
 
 export default function StadiumHQ() {
   const { stadiumLevel, roarPower, equipped, claimPoints, upgradeStadium } = useGameState();
@@ -16,8 +17,8 @@ export default function StadiumHQ() {
   const handleClaim = () => {
     claimPoints();
     setClaimAnim(true);
-    setTimeout(() => setClaimAnim(false), 1000);
-    toast({ title: "+450 PP EXTRACTED", description: "Stadium roar converted successfully." });
+    setTimeout(() => setClaimAnim(false), 1300);
+    toast({ title: "+450 Pitch Points", description: "Stadium roar converted to output." });
   };
 
   const handleUpgrade = () => {
@@ -25,117 +26,134 @@ export default function StadiumHQ() {
     if (success) {
       setStadiumPulse(true);
       setTimeout(() => setStadiumPulse(false), 1000);
-      toast({ title: "STADIUM UPGRADED", description: `Level ${stadiumLevel + 1} unlocked. +80 Roar Power.` });
+      toast({ title: "Stadium upgraded", description: `Level ${stadiumLevel + 1} unlocked. +80 Roar Power.` });
     } else {
-      toast({ title: "INSUFFICIENT FUNDS", description: "Requires 500 Pitch Points.", variant: "destructive" });
+      toast({ title: "Not enough Pitch Points", description: "Requires 500 Pitch Points.", variant: "destructive" });
     }
   };
 
   const liveEvent = EVENTS.find((e) => e.status === "LIVE");
   const roarPct = Math.min(100, (roarPower / 1000) * 100);
+  const equippedCount = equipped.filter(Boolean).length;
 
   return (
-    <div className="relative w-full">
-      {/* ============ HERO STADIUM SCENE ============ */}
-      <div className="relative w-full h-[calc(100dvh-240px)] min-h-[470px] border-4 border-white overflow-hidden bg-[#05101e]" style={{ boxShadow: "6px 6px 0 #000" }}>
-        {/* Stadium fills everything above the touchline strip */}
-        <div className="absolute inset-x-0 top-0 bottom-[178px]">
-          <PixelStadiumScene level={stadiumLevel} pulse={stadiumPulse} />
-        </div>
+    <div className="p-3 md:p-5">
+      {/* ============ CINEMATIC HERO ============ */}
+      <div className="relative w-full h-[clamp(440px,64vh,620px)] rounded-3xl overflow-hidden glass">
+        <StadiumBackdrop pulse={stadiumPulse} intensity={1 + stadiumLevel * 0.12} />
 
-        {/* LEFT SIGNBOARD — Arcade Ground */}
-        <div className="absolute left-2 top-2 md:left-4 md:top-4 z-30 w-[170px] md:w-[200px]">
-          <div className="bg-[#0a1530] border-4 border-white p-3" style={{ boxShadow: "4px 4px 0 #000" }}>
-            <div className="flex items-center justify-between border-b-4 border-white pb-1 mb-2">
-              <h2 className="font-mono text-[11px] md:text-xs text-white uppercase leading-tight">Arcade<br />Ground</h2>
-              <div className="bg-primary text-black px-1.5 py-0.5 font-mono text-[10px] border-2 border-black">L{stadiumLevel}</div>
+        {/* top row: club identity + live event */}
+        <div className="absolute inset-x-0 top-0 z-30 flex items-start justify-between p-4 md:p-6 gap-3">
+          {/* club overlay */}
+          <div className="glass-strong rounded-2xl p-4 w-[200px] md:w-[260px] anim-reveal">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Home Ground</div>
+                <h2 className="display text-lg md:text-2xl text-white leading-none">Neon Home<br />Ground</h2>
+              </div>
+              <div className="shrink-0 w-12 h-12 rounded-xl grid place-items-center bg-gradient-to-br from-primary to-emerald-600 glow-primary">
+                <span className="display text-xl text-[#06210c]">L{stadiumLevel}</span>
+              </div>
             </div>
-            <div className="font-mono text-[8px] text-accent mb-1">ROAR {roarPower}/1000</div>
-            <div className="w-full h-3 bg-black border-2 border-gray-600 mb-2">
-              <div className="h-full bg-accent" style={{ width: `${roarPct}%` }} />
+            <div className="flex items-center justify-between text-[10px] uppercase tracking-wider mb-1">
+              <span className="text-secondary">Roar Power</span>
+              <span className="num text-secondary">{roarPower}/1000</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 bg-primary animate-blink" />
-              <span className="font-mono text-[8px] text-primary uppercase">Output: Stable</span>
+            <div className="h-2.5 rounded-full bg-black/50 overflow-hidden border border-white/10">
+              <div className="h-full rounded-full bg-gradient-to-r from-secondary to-cyan-300 transition-all duration-500" style={{ width: `${roarPct}%` }} />
+            </div>
+            <div className="flex items-center gap-1.5 mt-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-blink" />
+              <span className="text-[10px] uppercase tracking-wider text-primary">Output Stable</span>
             </div>
           </div>
-          {/* sign post */}
-          <div className="w-2 h-5 bg-gray-600 mx-auto" />
-        </div>
 
-        {/* RIGHT SIGNBOARD — Live Fever Event */}
-        {liveEvent && (
-          <div className="absolute right-2 top-2 md:right-4 md:top-4 z-30 w-[170px] md:w-[200px]">
-            <div className="bg-[#0a1530] border-4 border-destructive p-3" style={{ boxShadow: "4px 4px 0 #000" }}>
-              <div className="flex items-center gap-1.5 mb-2">
-                <div className="w-2 h-2 bg-destructive animate-blink" />
-                <span className="font-mono text-[8px] text-destructive uppercase">Live Fever Event</span>
+          {/* live fever overlay */}
+          {liveEvent && (
+            <div className="glass-strong rounded-2xl p-4 w-[200px] md:w-[260px] anim-reveal" style={{ animationDelay: "0.1s" }}>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="chip bg-destructive/20 border-destructive/40 text-destructive anim-live">
+                  <span className="w-1.5 h-1.5 rounded-full bg-destructive" /> Live
+                </span>
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Fever Event</span>
               </div>
-              <div className="font-mono text-[11px] md:text-xs text-white uppercase leading-tight mb-2">{liveEvent.name}</div>
+              <h3 className="display text-lg md:text-2xl text-white leading-none mb-1">{liveEvent.name}</h3>
+              <p className="text-[11px] text-muted-foreground leading-snug mb-3 line-clamp-2">{liveEvent.rule}</p>
               <Link href="/fever">
-                <button className="pixel-btn pixel-btn-destructive w-full py-2 text-[10px] hq-bob">ENTER</button>
+                <button className="btn btn-heat w-full text-sm">Enter Fever <ChevronRight className="w-4 h-4" /></button>
               </Link>
             </div>
-            <div className="w-2 h-5 bg-gray-600 mx-auto" />
-          </div>
-        )}
+          )}
+        </div>
 
-        {/* ============ TOUCHLINE FOREGROUND — bench + booth + extract ============ */}
-        <div className="absolute bottom-0 left-0 right-0 h-[178px] z-30 bg-[#070d18] border-t-4 border-white px-2 md:px-3 py-2 flex gap-2 md:gap-3">
-
-          {/* Formation Bench (dugout) */}
-          <div className="flex-1 min-w-0 bg-[#0a1530] border-4 border-[#33508a] p-2 flex flex-col">
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="font-mono text-[9px] md:text-[10px] text-secondary uppercase">Active Formation</span>
-              <Link href="/locker" className="font-mono text-[8px] text-white/70 hover:text-white underline">EDIT</Link>
+        {/* center claim CTA */}
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-6 md:bottom-8 z-30 flex flex-col items-center">
+          {claimAnim && (
+            <div className="absolute -top-4 left-1/2 num text-3xl text-primary text-glow-primary anim-reward pointer-events-none whitespace-nowrap">
+              +450 PP
             </div>
-            <div className="flex gap-2 justify-center flex-1">
-              {equipped.slice(0, 3).map((card, i) => (
-                <div key={i} className="h-[118px] w-[80px] overflow-hidden">
-                  {card ? (
-                    <div className="origin-top-left scale-[0.62]">
-                      <CardComponent card={card} size="sm" />
-                    </div>
-                  ) : (
-                    <div className="h-full w-full border-4 border-dashed border-gray-600 bg-black flex flex-col items-center justify-center text-gray-500 font-mono">
-                      <span className="text-[11px]">P{i + 1}</span>
-                      <span className="text-[7px] mt-1">EMPTY</span>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+          )}
+          <button onClick={handleClaim} className="btn btn-primary text-base md:text-lg px-8 py-4 glow-primary group">
+            <Zap className="w-5 h-5" /> Claim Pitch Points
+          </button>
+          <span className="num text-[11px] text-white/60 uppercase tracking-widest mt-2">+450 per claim</span>
+        </div>
+      </div>
 
-          {/* Upgrade Booth */}
-          <div className="bg-[#1a1206] border-4 border-accent p-2 flex flex-col justify-between w-[150px] md:w-[180px] shrink-0">
+      {/* ============ TOUCHLINE ROW ============ */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 mt-4">
+        {/* formation bench */}
+        <div className="glass rounded-2xl p-4 md:p-5">
+          <div className="flex items-center justify-between mb-4">
             <div>
-              <div className="font-mono text-[9px] md:text-[10px] text-accent uppercase mb-1">Upgrade Booth</div>
-              <div className="flex justify-between font-mono text-[8px] text-white">
-                <span>LVL {stadiumLevel}</span>
-                <span className="text-primary">NEXT {stadiumLevel + 1}</span>
-              </div>
-              <div className="font-mono text-[7px] text-white/60 mt-0.5">+80 ROAR / LEVEL</div>
+              <h3 className="display text-lg text-white uppercase">Active Formation</h3>
+              <p className="text-[11px] text-muted-foreground">{equippedCount} of 3 nation cards deployed on the bench</p>
             </div>
-            <button onClick={handleUpgrade} className="pixel-btn pixel-btn-accent w-full py-2 text-[10px] flex flex-col items-center">
-              <span>INSTALL</span>
-              <span className="text-[7px] mt-0.5">COST 500 PP</span>
-            </button>
+            <Link href="/locker">
+              <button className="btn btn-ghost text-xs py-2 px-3">Edit Squad</button>
+            </Link>
           </div>
-
-          {/* Extract Machine */}
-          <div className="relative bg-[#06200f] border-4 border-primary p-2 flex flex-col justify-between w-[160px] md:w-[210px] shrink-0">
-            <div className="font-mono text-[9px] md:text-[10px] text-primary uppercase mb-1">Pitch Extractor</div>
-            <button onClick={handleClaim} className="pixel-btn pixel-btn-primary w-full flex-1 text-sm md:text-lg leading-tight">
-              <span className="animate-float block">EXTRACT<br />PITCH POINTS</span>
-            </button>
-            {claimAnim && (
-              <div className="absolute left-1/2 top-2 text-primary font-mono text-2xl pixel-outline hq-reward whitespace-nowrap pointer-events-none z-40">
-                +450 PP
-              </div>
+          <div className="flex gap-4 justify-center md:justify-start flex-wrap">
+            {equipped.slice(0, 3).map((card, i) =>
+              card ? (
+                <CardComponent key={i} card={card} size="sm" />
+              ) : (
+                <Link key={i} href="/locker" className="w-36 h-52 rounded-2xl border-2 border-dashed border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-primary/40 transition-colors grid place-items-center text-center group">
+                  <div className="flex flex-col items-center gap-2 text-muted-foreground group-hover:text-primary">
+                    <Plus className="w-7 h-7" />
+                    <span className="display text-sm uppercase">Slot {i + 1}</span>
+                    <span className="text-[10px] uppercase tracking-wider">Empty</span>
+                  </div>
+                </Link>
+              )
             )}
           </div>
+        </div>
 
+        {/* infrastructure upgrade module */}
+        <div className="glass rounded-2xl p-4 md:p-5 flex flex-col">
+          <div className="flex items-center gap-2 mb-3">
+            <ArrowUpCircle className="w-5 h-5 text-accent" />
+            <h3 className="display text-lg text-white uppercase">Infrastructure</h3>
+          </div>
+          <div className="rounded-xl bg-black/30 border border-white/10 p-3 mb-4 flex-1">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Current</span>
+              <span className="chip text-white">Level {stadiumLevel}</span>
+            </div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Next tier</span>
+              <span className="chip text-primary border-primary/30">Level {stadiumLevel + 1}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Bonus</span>
+              <span className="num text-secondary text-sm">+80 Roar</span>
+            </div>
+          </div>
+          <button onClick={handleUpgrade} className="btn btn-accent w-full">
+            Upgrade Stadium
+            <span className="num text-[11px] opacity-80">500 PP</span>
+          </button>
         </div>
       </div>
     </div>

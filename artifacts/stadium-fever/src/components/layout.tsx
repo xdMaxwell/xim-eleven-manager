@@ -1,86 +1,100 @@
 import { Link, useLocation } from "wouter";
 import { useGameState } from "../lib/game-state";
-import { 
-  Trophy, 
-  PackageOpen, 
-  SquareAsterisk, 
-  Activity, 
-  Ticket, 
-  Map
+import {
+  Home,
+  PackageOpen,
+  LayoutGrid,
+  Flame,
+  Receipt,
+  Map,
 } from "lucide-react";
+
+const TICKER_ITEMS = [
+  "Night Match Fever is live",
+  "Deploy formations to capture stadium output",
+  "Upgrade your ground for more Roar Power",
+  "Open packs to scout new nation cards",
+  "Game first. Token later.",
+];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const state = useGameState();
+  const unclaimed = state.receipts.filter((r) => !r.claimed).length;
 
   return (
     <div className="min-h-[100dvh] flex flex-col relative text-foreground">
-      {/* TOP HUD - Pixel Style */}
-      <header className="w-full bg-[#0a1128] border-b-4 border-white flex flex-col z-40 shrink-0 pixel-border-sm">
-        
-        {/* Main Status Strip */}
-        <div className="flex flex-col xl:flex-row items-center justify-between px-4 py-3 gap-4">
-          <div className="flex items-center gap-4">
-            <h1 className="text-xl md:text-2xl font-mono text-white pixel-text-shadow">
-              <span className="text-primary">STADIUM</span> FEVER
-            </h1>
-            <div className="hidden md:flex flex-col gap-1">
-              <div className="bg-black border-2 border-white px-2 py-1 text-[8px] font-mono uppercase text-secondary flex items-center gap-2">
-                <div className="w-2 h-2 bg-secondary animate-blink" />
-                PHASE: {state.phase}
-              </div>
+      {/* TOP HUD — broadcast scoreboard */}
+      <header className="sticky top-0 z-40 shrink-0">
+        <div className="glass-strong rounded-none border-x-0 border-t-0 px-3 md:px-6 py-2.5 flex items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3 shrink-0 group">
+            <div className="relative w-9 h-9 rounded-xl grid place-items-center bg-gradient-to-br from-primary to-emerald-600 glow-primary">
+              <Flame className="w-5 h-5 text-[#06210c]" />
             </div>
-          </div>
-          
-          {/* Resource Bars */}
-          <div className="flex items-center gap-3 overflow-x-auto w-full xl:w-auto hide-scrollbar">
-            <ResourceBar label="PP" value={state.pitchPoints} color="bg-primary" textColor="text-primary" />
-            <ResourceBar label="ROAR" value={state.roarPower} color="bg-accent" textColor="text-accent" />
-            <ResourceBar label="HEAT" value={state.heat} color="bg-destructive" textColor="text-destructive" />
+            <div className="leading-none">
+              <div className="display text-lg md:text-xl tracking-tight">
+                <span className="text-primary text-glow-primary">STADIUM</span> <span className="text-white">FEVER</span>
+              </div>
+              <div className="text-[9px] uppercase tracking-[0.3em] text-muted-foreground hidden sm:block">Arcade Football Club</div>
+            </div>
+          </Link>
+
+          <div className="flex items-center gap-2 md:gap-3 overflow-x-auto hide-scrollbar">
+            <Stat label="Pitch Points" value={state.pitchPoints} cls="text-primary" />
+            <Stat label="Roar" value={state.roarPower} cls="text-secondary" />
+            <Stat label="Heat" value={state.heat} cls="text-destructive" />
+            <div className="hidden md:flex items-center gap-2 chip border-white/15">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-blink" />
+              <span className="uppercase text-[10px] tracking-widest text-muted-foreground">{state.phase}</span>
+            </div>
           </div>
         </div>
 
-        {/* Ticker */}
-        <div className="w-full bg-black border-t-2 border-gray-800 py-1 overflow-hidden flex items-center">
-          <div className="bg-primary text-black font-mono text-[8px] px-2 py-1 shrink-0 z-20 border-r-2 border-white">
-            TICKER
+        {/* live ticker */}
+        <div className="bg-black/60 backdrop-blur border-b border-white/10 flex items-center overflow-hidden">
+          <div className="flex items-center gap-1.5 shrink-0 bg-destructive text-white px-3 py-1 text-[10px] font-display font-extrabold uppercase tracking-wider anim-live">
+            <span className="w-1.5 h-1.5 rounded-full bg-white" /> Live
           </div>
-          <div className="animate-marquee text-accent font-mono text-[10px] uppercase ml-4">
-            <span className="text-white mx-4">+++</span> NIGHT MATCH FEVER LIVE <span className="text-white mx-4">+++</span> DEPLOY SQUADS <span className="text-white mx-4">+++</span> UPGRADE STADIUM FOR MORE ROAR <span className="text-white mx-4">+++</span> NO OFFICIAL BRANDS <span className="text-white mx-4">+++</span>
+          <div className="overflow-hidden flex-1">
+            <div className="animate-marquee whitespace-nowrap flex">
+              {[0, 1].map((dup) => (
+                <span key={dup} className="flex shrink-0">
+                  {TICKER_ITEMS.map((t, i) => (
+                    <span key={i} className="num text-xs uppercase tracking-wide text-muted-foreground px-6 py-1">
+                      <span className="text-accent mr-6">/</span>{t}
+                    </span>
+                  ))}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </header>
 
-      {/* MAIN CONTENT */}
-      <main className="flex-1 overflow-y-auto pb-32 md:pb-40 relative z-20">
-        <div className="p-4 md:p-6 xl:p-10 w-full max-w-[1400px] mx-auto">
-          {children}
-        </div>
+      {/* MAIN */}
+      <main className="flex-1 overflow-y-auto pb-28 md:pb-32 relative z-20">
+        <div className="w-full max-w-[1440px] mx-auto">{children}</div>
       </main>
 
-      {/* BOTTOM NAV - Pixel Console Style */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-[#0a1128] border-t-4 border-white z-50">
-        <div className="max-w-[1200px] mx-auto flex items-end justify-between gap-1 overflow-x-auto hide-scrollbar px-2 pt-2 pb-2">
-          <NavTab href="/" icon={<Trophy className="w-6 h-6 md:w-8 md:h-8" />} label="HQ" />
-          <NavTab href="/packs" icon={<PackageOpen className="w-6 h-6 md:w-8 md:h-8" />} label="PACKS" badge={state.packs.starter + state.packs.fever} />
-          <NavTab href="/locker" icon={<SquareAsterisk className="w-6 h-6 md:w-8 md:h-8" />} label="LOCKER" />
-          <NavTab href="/fever" icon={<Activity className="w-6 h-6 md:w-8 md:h-8" />} label="FEVER" isLive />
-          <NavTab href="/receipts" icon={<Ticket className="w-6 h-6 md:w-8 md:h-8" />} label="RECEIPTS" badge={state.receipts.filter(r=>!r.claimed).length} />
-          <NavTab href="/season" icon={<Map className="w-6 h-6 md:w-8 md:h-8" />} label="SEASON" />
+      {/* BOTTOM NAV — game mode selector */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 px-3 pb-3 pointer-events-none">
+        <div className="pointer-events-auto max-w-[760px] mx-auto glass-strong rounded-2xl flex items-stretch justify-between gap-1 p-1.5">
+          <NavTab href="/" icon={<Home className="w-5 h-5" />} label="Stadium" />
+          <NavTab href="/packs" icon={<PackageOpen className="w-5 h-5" />} label="Packs" badge={state.packs.starter + state.packs.fever} />
+          <NavTab href="/locker" icon={<LayoutGrid className="w-5 h-5" />} label="Locker" />
+          <NavTab href="/fever" icon={<Flame className="w-5 h-5" />} label="Fever" isLive />
+          <NavTab href="/receipts" icon={<Receipt className="w-5 h-5" />} label="Receipts" badge={unclaimed} />
+          <NavTab href="/season" icon={<Map className="w-5 h-5" />} label="Season" />
         </div>
       </nav>
     </div>
   );
 }
 
-function ResourceBar({ label, value, color, textColor }: { label: string, value: number, color: string, textColor: string }) {
+function Stat({ label, value, cls }: { label: string; value: number; cls: string }) {
   return (
-    <div className="flex items-center bg-black border-2 border-white p-1 shrink-0 min-w-[100px]">
-      <div className={`px-1.5 py-0.5 ${color} text-black font-mono text-[8px] uppercase mr-2 border border-black`}>
-        {label}
-      </div>
-      <div className={`font-mono text-sm ${textColor} ml-auto`}>
-        {value.toLocaleString()}
-      </div>
+    <div className="shrink-0 px-2.5 md:px-3 py-1 rounded-xl bg-white/[0.04] border border-white/10 text-right min-w-[74px]">
+      <div className="text-[8px] uppercase tracking-widest text-muted-foreground leading-none mb-0.5">{label}</div>
+      <div className={`num text-base md:text-lg leading-none ${cls}`}>{value.toLocaleString()}</div>
     </div>
   );
 }
@@ -88,34 +102,26 @@ function ResourceBar({ label, value, color, textColor }: { label: string, value:
 function NavTab({ href, icon, label, isLive, badge }: { href: string; icon: React.ReactNode; label: string; isLive?: boolean; badge?: number }) {
   const [location] = useLocation();
   const isActive = location === href || (href !== "/" && location.startsWith(href));
-  
+
   return (
-    <Link 
-      href={href} 
-      className={`relative flex flex-col items-center justify-center p-2 md:px-4 md:py-3 transition-all min-w-[70px] md:min-w-[100px] shrink-0 border-2 active:translate-y-1
-      ${isActive 
-        ? "bg-secondary text-black border-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.2)] -translate-y-2" 
-        : "bg-black text-gray-400 border-gray-700 hover:bg-gray-900"
+    <Link
+      href={href}
+      className={`relative flex-1 flex flex-col items-center justify-center gap-1 py-2 rounded-xl transition-all duration-200 min-w-0
+      ${isActive
+        ? "bg-gradient-to-b from-primary to-emerald-600 text-[#06210c] glow-primary -translate-y-0.5"
+        : "text-muted-foreground hover:text-white hover:bg-white/5"
       }`}
     >
       {badge ? (
-        <div className="absolute -top-2 -right-2 bg-destructive text-white text-[10px] font-mono w-5 h-5 flex items-center justify-center border-2 border-white z-20">
+        <span className="absolute top-0.5 right-1/2 translate-x-4 bg-destructive text-white text-[9px] num min-w-4 h-4 px-1 grid place-items-center rounded-full border border-black/30 z-10">
           {badge}
-        </div>
+        </span>
       ) : null}
-      
       {isLive && !badge && (
-        <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-destructive text-white text-[8px] font-mono px-1 py-0.5 border border-white animate-blink">
-          LIVE
-        </div>
+        <span className="absolute top-1 right-1/2 translate-x-3.5 w-1.5 h-1.5 rounded-full bg-destructive anim-live" />
       )}
-
-      <div className={`${isActive ? "animate-float" : ""}`}>
-        {icon}
-      </div>
-      <span className="text-[8px] md:text-[10px] font-mono uppercase mt-1">
-        {label}
-      </span>
+      {icon}
+      <span className="text-[9px] md:text-[10px] font-display font-bold uppercase tracking-wide truncate w-full text-center">{label}</span>
     </Link>
   );
 }

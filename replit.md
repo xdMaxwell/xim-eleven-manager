@@ -22,15 +22,29 @@ A frontend-only, clickable football-crypto arcade game prototype: own a neon sta
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- All game code lives in `artifacts/stadium-fever/` (frontend-only React+Vite app, no backend).
+- Design system / theme: `src/index.css` (single source of truth — fonts, color tokens, `glass`/`btn`/`chip`/`num`/`fcard` utilities, animations).
+- Shared components: `src/components/` — `card-component.tsx` (premium 3D nation card), `stadium-backdrop.tsx` (cinematic night-stadium scene), `layout.tsx` (HUD + bottom nav shell).
+- Pages (7 screens): `src/pages/` — `stadium-hq`, `packs`, `locker`, `fever-board`, `fever-match`, `receipts`, `season`.
+- Game logic & data (source of truth): `src/lib/game-state.tsx` (Context + all state actions), `src/lib/constants.ts` (cards/events/leaderboard data), `src/lib/match.ts` (match engine: keyframes, events, summary).
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Frontend-only prototype: all state is in-memory React Context (`game-state.tsx`); no backend, no persistence, fake data only.
+- Routing via `wouter`, base-path-aware through `import.meta.env.BASE_URL` (the artifact is served under a path prefix).
+- Visual direction is **modern premium 3D football arcade** (FIFA Ultimate Team / Football Manager HQ energy) — the earlier pixel/retro direction was fully removed.
+- The Fever Match Viewer drives a `requestAnimationFrame` master clock; `finish()` calls `deployFormation()` then navigates to `/receipts`. Keep this flow intact when editing.
+- Leaf artifacts typecheck without `noUnusedLocals`, so `tsc` will not catch unused imports — verify manually / via code review after visual rewrites.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+A clickable football-crypto arcade prototype where you own a neon night stadium and:
+- Claim Pitch Points and upgrade your stadium for more Roar Power (Stadium HQ).
+- Open country-card packs to scout new nation cards (Packs).
+- Manage, upgrade, and overcharge cards, and set a 3-card formation (Locker).
+- Deploy your formation into live Fever events (Fever Board) and watch a broadcast-style match play out (Fever Match Viewer).
+- Collect match-result receipts with rewards and impact grades, then claim them (Receipts).
+- Track season progression and leaderboards (Season).
 
 ## User preferences
 
