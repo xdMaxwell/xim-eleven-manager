@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "euwKqJZc1Ocq-q86BUW4X"
+uri = "file://artifacts/stadium-fever/public/stadium-bg.png"
+type = "image"
+title = "Pixel art football stadium"
+
+[[generated]]
+id = "azLSQpRhYziuQsJvrrAYs"
+uri = "file://artifacts/stadium-fever/public/locker-bg.png"
+type = "image"
+title = "Pixel art locker room"
+
+[[generated]]
+id = "EoLOtXfbPRoq52QB_D7iM"
+uri = "file://artifacts/stadium-fever/public/pack-bg.png"
+type = "image"
+title = "Pixel art pack machine"

@@ -1,0 +1,250 @@
+We are pivoting the visual direction.
+
+Drop the previous retro PS1/PS2 style direction.
+New direction: 2D pixel football arcade.
+
+Important:
+This is not a dashboard.
+This is not a modern web app with a skin.
+This should feel like a 2D pixel football game world running in the browser.
+
+Core vibe:
+- pixel football arcade
+- stadium base builder
+- football management game
+- match-day event room
+- crypto-native resource loop
+- playful and alive
+- visually dense
+- easy to understand
+
+Do NOT use:
+- FIFA branding
+- World Cup branding
+- official logos
+- real player images
+- official jerseys
+- modern dashboard layout
+- empty centered sections
+- generic web cards
+
+Use:
+- 2D pixel art style UI and scene-building
+- top-down / isometric-lite pixel environments
+- pixel panels
+- chunky pixel buttons
+- scene-based layouts
+- dense environment details
+- animated small objects
+
+Keep the current fake game logic, but fully redesign the presentation.
+
+NEW WORLD STRUCTURE
+Treat each section as a room/zone in a pixel football game:
+
+1. Stadium Base
+2. Pack Booth
+3. Card Locker
+4. Fever Arena
+5. Receipt Hall
+6. Season Map
+
+The app should feel like navigating game rooms, not website pages.
+
+GLOBAL APP SHELL
+Keep:
+- top HUD
+- bottom menu
+
+But redesign them in pixel style.
+
+TOP HUD:
+- STADIUM FEVER title
+- Pitch Points
+- Roar Power
+- Heat
+- Phase
+- scrolling ticker
+
+Style:
+- pixel scoreboard / sports HUD
+- chunky panels
+- strong outlines
+- small animated indicators
+
+BOTTOM MENU:
+- STADIUM
+- PACKS
+- LOCKER
+- FEVER
+- RECEIPTS
+- SEASON
+
+Style:
+- pixel arcade menu tabs
+- icon + label
+- active tab glows
+- feels like a game console menu
+
+BACKGROUND:
+Not plain gradient.
+Create layered pixel atmosphere:
+- stadium night sky or arena wall
+- crowd strips
+- pitch texture
+- decorative signs
+- subtle ambient movement
+
+PRIORITY SCREEN 1: STADIUM BASE
+Completely rebuild the home screen as a pixel stadium base.
+
+Requirements:
+- large pixel stadium scene in the center
+- visible pitch
+- seating/crowd
+- floodlights
+- small animated crowd/light movement
+- stadium name label
+- claim points button integrated as part of the world/UI
+- active formation bench
+- infrastructure upgrade panel
+- live Fever widget
+- supporting football props like banners, cones, tunnel, signboards
+
+The user should instantly feel:
+“This is my football stadium base.”
+
+Add animations:
+- crowd flicker
+- floodlight pulse
+- floating +450 PP on claim
+- little sparkle or pulse on upgrade
+- active formation slot glow
+
+PRIORITY SCREEN 2: PACK BOOTH
+Rebuild the packs page as a pixel reward booth / pack machine room.
+
+Requirements:
+- large pack machine or arcade reward booth
+- big pack in center
+- blinking machine lights
+- pack inventory rack or small inventory box
+- side contents panel
+- reward reveal hatch or burst area
+- pack selector at bottom
+- button: OPEN PACK or RIP PACK
+
+This must feel like an arcade machine, not product cards.
+
+PRIORITY SCREEN 3: CARD LOCKER
+Rebuild as a pixel locker/training room.
+
+Requirements:
+- selected card display stand
+- card storage shelf or binder area
+- active formation board
+- upgrade station
+- overcharge station
+- stat panel
+- more football room detail
+
+Cards:
+- still use abstract nation cards
+- make them pixel-collectible
+- stronger iconography/emblems
+- thick borders
+- level badge
+- rarity badge
+- stat chips
+
+Use names:
+- Verde Nation
+- Azul Nation
+- Golden Nation
+- Crimson Nation
+- Nordic Nation
+- Shadow Nation
+
+PRIORITY SCREEN 4: FEVER ARENA
+Rebuild Fever Board into a pixel live-event room.
+
+Requirements:
+- big event scoreboard
+- featured live event in the center
+- mini tactical pitch
+- event timer
+- heat meter
+- secondary events
+- blinking LIVE label
+- deploy formation CTA
+
+This should feel like a football operations/event room.
+
+FORMATION BUILDER
+Make this feel like a tactics screen:
+- pixel pitch
+- placement slots
+- bottom bench
+- total roar power
+- deploy button
+- small impact animation before routing to receipts
+
+PRIORITY SCREEN 5: RECEIPT HALL
+Rebuild receipts into a pixel ticket/results room.
+
+Requirements:
+- ticket wall
+- pinned receipts
+- reward board
+- claim area
+- if empty, still show a decorated room with an empty board and CTA to enter fever
+
+PRIORITY SCREEN 6: SEASON MAP
+Rebuild season into a pixel progression map.
+
+Requirements:
+- world map / route map
+- phase checkpoints:
+  Preseason
+  Kickoff
+  Mining Live
+  Fever Live
+  Final Run
+- locked gates
+- glowing active phase
+- side copy:
+  “Game first. Token later.”
+  “Every match creates heat. Your stadium captures it.”
+
+ANIMATION RULES
+Add small pixel-game style motion:
+- blinking lights
+- crowd flicker
+- panel pulse
+- ticker movement
+- button bounce
+- reward sparkle
+- card hover pulse
+- live badge blink
+
+STYLE GUIDE
+Make the UI feel:
+- fun
+- football-first
+- degen but clean
+- readable
+- game-like
+- dense
+- playful
+
+Not:
+- empty
+- corporate
+- sterile
+- dashboard-like
+
+Do not add backend or new platform features.
+Only rebuild the visual concept into a 2D pixel football arcade world.
+
+Success condition:
+The app should feel like a pixel football game base/menu, not a web dashboard.
