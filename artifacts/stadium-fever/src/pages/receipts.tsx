@@ -2,8 +2,7 @@ import { useGameState } from "../lib/game-state";
 import { Button } from "../components/ui/button";
 import { useToast } from "../hooks/use-toast";
 import { Receipt } from "../lib/game-state";
-import { Ticket, Share2, Sparkles } from "lucide-react";
-import { cn } from "../lib/utils";
+import { Ticket, Share2, Sparkles, CheckCircle2 } from "lucide-react";
 
 export default function Receipts() {
   const { receipts, claimReceipt } = useGameState();
@@ -19,33 +18,35 @@ export default function Receipts() {
 
   const handleShare = () => {
     toast({
-      title: "COPIED TO CLIPBOARD",
-      description: "Receipt ID copied.",
+      title: "COPIED",
+      description: "Receipt ID copied to clipboard.",
     });
   };
 
   if (receipts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-        <div className="w-24 h-24 bg-black border-4 border-dashed border-gray-700 rounded-xl flex items-center justify-center mb-6">
-          <Ticket className="w-10 h-10 text-gray-600" />
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center max-w-lg mx-auto">
+        <div className="w-32 h-32 retro-panel bg-black rounded-2xl flex items-center justify-center mb-8 rotate-12">
+          <Ticket className="w-16 h-16 text-gray-600" />
         </div>
-        <h2 className="text-3xl font-black uppercase tracking-widest text-gray-500 mb-2">NO RECORDS FOUND</h2>
-        <p className="font-mono text-gray-600 text-sm">Deploy formations in Fever Board to generate match receipts.</p>
+        <h2 className="text-4xl font-black uppercase tracking-widest text-white mb-4">NO RECORDS</h2>
+        <p className="font-mono text-gray-400 text-lg bg-black p-4 rounded border-2 border-gray-800">
+          Deploy formations in the Fever Board to generate post-match receipts and claim rewards.
+        </p>
       </div>
     );
   }
 
   return (
     <div className="max-w-5xl mx-auto flex flex-col gap-8">
-      <div className="bg-black/80 border-b-4 border-white/20 p-6 flex items-center gap-4 shrink-0 rounded-t-xl">
-        <Ticket className="text-white w-8 h-8" />
-        <h1 className="text-3xl font-black uppercase tracking-widest text-white m-0 leading-none">
-          Match Receipts
+      <div className="retro-panel bg-black p-6 rounded-xl flex items-center gap-4">
+        <Ticket className="text-accent w-10 h-10" />
+        <h1 className="text-4xl font-black uppercase tracking-widest text-white m-0 leading-none">
+          MATCH RECEIPTS
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 gap-8">
+      <div className="grid grid-cols-1 gap-10">
         {receipts.map((receipt, index) => (
           <ReceiptCard 
             key={receipt.id} 
@@ -62,55 +63,46 @@ export default function Receipts() {
 
 function ReceiptCard({ receipt, isNew, onClaim, onShare }: { receipt: Receipt, isNew: boolean, onClaim: () => void, onShare: () => void }) {
   return (
-    <div className={cn(
-      "flex flex-col md:flex-row relative bg-white text-black font-mono shadow-2xl transform transition-transform",
-      isNew ? "animate-in slide-in-from-top-4 fade-in duration-500" : "opacity-90"
-    )}>
+    <div className={`flex flex-col md:flex-row shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform transition-all hover:scale-[1.01] ${isNew ? 'animate-in slide-in-from-top-8 fade-in duration-500' : ''}`}>
       
-      {/* Decorative stub edge (Left) */}
-      <div className="hidden md:flex flex-col justify-between w-6 bg-gray-200 border-r-2 border-dashed border-gray-400 overflow-hidden relative">
-         {[...Array(20)].map((_, i) => (
-           <div key={i} className="w-4 h-4 rounded-full bg-background absolute -left-2" style={{ top: `${i * 5}%` }} />
-         ))}
-      </div>
-
       {/* Main Ticket Body */}
-      <div className="flex-1 p-6 md:p-8 flex flex-col justify-between border-b-2 md:border-b-0 md:border-r-2 border-dashed border-gray-300">
+      <div className="flex-1 bg-white text-black p-8 flex flex-col justify-between border-4 border-gray-300 relative rounded-t-xl md:rounded-tr-none md:rounded-l-xl">
+        <div className="absolute top-0 left-0 w-full h-4 bg-[repeating-linear-gradient(90deg,transparent,transparent_10px,#e5e7eb_10px,#e5e7eb_20px)]" />
         
-        <div className="flex justify-between items-start border-b-4 border-black pb-4 mb-4">
+        <div className="flex justify-between items-start border-b-8 border-black pb-6 mb-6 mt-4">
           <div>
-            <div className="text-[10px] font-black uppercase tracking-widest text-gray-500">EVENT LOG</div>
-            <h3 className="font-black font-sans text-3xl uppercase leading-none mt-1">{receipt.event}</h3>
+            <div className="text-xs font-black uppercase tracking-widest text-gray-500 mb-1">OFFICIAL MATCH RECORD</div>
+            <h3 className="font-black font-sans text-5xl uppercase leading-none">{receipt.event}</h3>
           </div>
           <div className="text-right">
-            <div className="text-[10px] font-black uppercase tracking-widest text-gray-500">ID</div>
-            <div className="font-bold">{receipt.id.substring(2, 10).toUpperCase()}</div>
+            <div className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">RECEIPT ID</div>
+            <div className="font-mono text-2xl font-bold bg-gray-200 px-3 py-1 border-2 border-gray-400">{receipt.id.substring(2, 10).toUpperCase()}</div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
           <div>
-            <div className="text-[10px] font-black uppercase tracking-widest bg-black text-white inline-block px-2 py-0.5 mb-2">Formation Used</div>
-            <div className="flex flex-col gap-1">
+            <div className="text-xs font-black uppercase tracking-widest bg-black text-white inline-block px-3 py-1 mb-4">DEPLOYED ASSETS</div>
+            <div className="flex flex-col gap-2 font-mono">
               {receipt.formation.map(c => (
-                <div key={c.id} className="text-sm font-bold flex items-center justify-between border-b border-gray-200 pb-1">
+                <div key={c.id} className="text-lg font-bold flex items-center justify-between border-b-2 border-dashed border-gray-300 pb-2">
                   <span>{c.name}</span>
-                  <span className="text-xs text-gray-500">LVL {c.level}</span>
+                  <span className="text-sm bg-gray-200 px-2 py-0.5">LVL {c.level}</span>
                 </div>
               ))}
             </div>
           </div>
 
           <div>
-             <div className="text-[10px] font-black uppercase tracking-widest bg-black text-white inline-block px-2 py-0.5 mb-2">Card Impact</div>
-             <div className="flex flex-col gap-1">
+            <div className="text-xs font-black uppercase tracking-widest bg-black text-white inline-block px-3 py-1 mb-4">ASSET IMPACT</div>
+            <div className="flex flex-col gap-2 font-mono">
               {Object.entries(receipt.cardImpact).map(([cardId, impact]) => {
                 const card = receipt.formation.find(c => c.id === cardId);
                 if (!card) return null;
                 return (
-                  <div key={cardId} className="text-sm font-bold flex items-center justify-between border-b border-gray-200 pb-1">
+                  <div key={cardId} className="text-lg font-bold flex items-center justify-between border-b-2 border-dashed border-gray-300 pb-2">
                     <span className="truncate pr-2">{card.name}</span>
-                    <span className={impact.change < 0 ? "text-red-600" : "text-green-600"}>
+                    <span className={`px-2 py-0.5 text-sm ${impact.change < 0 ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"}`}>
                       {impact.change > 0 ? '+' : ''}{impact.change} {impact.stat}
                     </span>
                   </div>
@@ -120,39 +112,47 @@ function ReceiptCard({ receipt, isNew, onClaim, onShare }: { receipt: Receipt, i
           </div>
         </div>
 
-        <Barcode />
+        <div className="flex h-12 w-full bg-black mt-auto opacity-80 mix-blend-multiply rounded-sm">
+          {[...Array(50)].map((_, i) => (
+            <div key={i} className="h-full bg-white" style={{ width: `${Math.random() * 4 + 1}px`, marginLeft: `${Math.random() * 3 + 1}px` }} />
+          ))}
+        </div>
       </div>
 
       {/* Claim/Result Stub (Right) */}
-      <div className="w-full md:w-64 bg-gray-100 p-6 flex flex-col justify-between shrink-0">
+      <div className="w-full md:w-80 bg-gray-200 p-8 flex flex-col justify-between border-y-4 border-r-4 border-gray-300 md:border-l-4 md:border-l-dashed border-dashed rounded-b-xl md:rounded-bl-none md:rounded-r-xl">
         <div>
-          <div className="text-center border-b-2 border-gray-300 pb-4 mb-4">
-            <div className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">STADIUM OUTPUT</div>
-            <div className="text-4xl font-black font-sans text-green-600">+{receipt.rewards.pitchPoints}</div>
-            <div className="text-xs font-bold mt-1">PITCH POINTS</div>
+          <div className="text-center border-b-4 border-gray-400 pb-6 mb-6">
+            <div className="text-xs font-black uppercase tracking-widest text-gray-500 mb-2">STADIUM OUTPUT</div>
+            <div className="text-6xl font-black font-mono text-primary drop-shadow-md">+{receipt.rewards.pitchPoints}</div>
+            <div className="text-sm font-black mt-2 bg-white inline-block px-3 py-1 border-2 border-gray-300">PITCH POINTS</div>
           </div>
           
           {receipt.rewards.mutation && (
-             <div className="text-center text-purple-600 border-2 border-purple-600 p-2 font-bold text-xs uppercase bg-purple-100 mb-4 flex items-center justify-center gap-1">
-               <Sparkles className="w-3 h-3" /> {receipt.rewards.mutation}
+             <div className="text-center text-purple-700 border-4 border-purple-700 p-3 font-black text-sm uppercase bg-purple-100 mb-6 flex items-center justify-center gap-2 shadow-inner">
+               <Sparkles className="w-5 h-5" /> {receipt.rewards.mutation}
              </div>
           )}
 
-          <div className="text-center mb-6">
-            <div className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">STATUS</div>
+          <div className="text-center mb-8">
+            <div className="text-xs font-black uppercase tracking-widest text-gray-500 mb-2">STATUS</div>
             {receipt.claimed ? (
-               <div className="font-bold text-gray-400 border-2 border-gray-400 py-1 rounded">SETTLED</div>
+               <div className="font-black text-gray-500 border-4 border-gray-400 py-2 bg-gray-300 flex items-center justify-center gap-2">
+                 <CheckCircle2 className="w-5 h-5" /> SETTLED
+               </div>
             ) : (
-               <div className="font-bold text-blue-600 border-2 border-blue-600 py-1 rounded animate-pulse">PENDING CLAIM</div>
+               <div className="font-black text-secondary border-4 border-secondary py-2 bg-blue-100 animate-pulse">
+                 PENDING CLAIM
+               </div>
             )}
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
           {!receipt.claimed && (
             <Button 
               onClick={onClaim}
-              className="btn-arcade bg-green-600 text-white border-green-800 hover:bg-green-500 rounded-none h-12 w-full font-black text-lg"
+              className="btn-arcade btn-primary-arcade h-16 text-2xl w-full"
             >
                CLAIM REWARD
             </Button>
@@ -160,23 +160,13 @@ function ReceiptCard({ receipt, isNew, onClaim, onShare }: { receipt: Receipt, i
           <Button 
             variant="outline"
             onClick={onShare}
-            className="rounded-none border-2 border-black text-black font-black uppercase hover:bg-gray-200"
+            className="btn-arcade bg-white border-gray-400 text-black hover:bg-gray-100 h-12 text-lg w-full"
           >
-            <Share2 className="w-4 h-4 mr-2" /> Share Result
+            <Share2 className="w-5 h-5 mr-2" /> SHARE
           </Button>
         </div>
       </div>
 
-    </div>
-  );
-}
-
-function Barcode() {
-  return (
-    <div className="flex h-8 w-full bg-white opacity-80 mix-blend-multiply">
-      {[...Array(40)].map((_, i) => (
-        <div key={i} className="h-full bg-black" style={{ width: `${Math.random() * 4 + 1}px`, marginRight: `${Math.random() * 3 + 1}px` }} />
-      ))}
     </div>
   );
 }

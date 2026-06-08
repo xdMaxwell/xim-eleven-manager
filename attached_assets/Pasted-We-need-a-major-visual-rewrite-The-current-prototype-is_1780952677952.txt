@@ -1,0 +1,326 @@
+We need a major visual rewrite.
+
+The current prototype is still too stiff, too AI-looking, too dashboard-like, and not game-like enough.
+
+New direction:
+Make the frontend feel like a retro PS1 / PS2 football game menu, with some anime arcade football energy.
+Think:
+- retro football game
+- low-poly / fake 3D stadium
+- isometric game objects
+- chunky game UI
+- colorful arcade menu
+- animated game scene
+- football game atmosphere
+- not a SaaS dashboard
+- not a modern admin panel
+
+Important:
+Do NOT copy official IP directly.
+Do NOT use FIFA branding, World Cup branding, real player images, official crests, or real jerseys.
+We only want the visual language:
+- retro football game
+- anime football game energy
+- PS1 / PS2 era sports game menu
+- arcade football interface
+- fake 3D / low-poly / isometric visual feel
+
+Main visual goals:
+1. Add a visible stadium scene.
+2. Add fake 3D / low-poly style visuals.
+3. Add animation and motion.
+4. Make the app feel like a retro football game menu.
+5. Replace stiff dashboard layout with a game menu layout.
+
+Do not focus on backend or new features.
+Focus on visual language, layout, scene-building, and animation.
+
+TECHNICAL APPROACH:
+Use React + CSS.
+You may also use inline SVG for stadium/pitch objects.
+Do NOT depend on backend.
+Do NOT use heavy real 3D libraries yet unless necessary.
+Prefer “fake 3D” using:
+- CSS perspective
+- CSS transforms
+- layered divs
+- isometric blocks
+- gradients
+- shadow layers
+- animated highlights
+- sprite-like UI styling
+
+DESIGN SYSTEM:
+Style should feel like a retro football console game.
+
+Use:
+- dark navy / green / blue backgrounds
+- bold yellow, cyan, green, orange accents
+- thick borders
+- bevels
+- shadows
+- retro score panels
+- game HUD bars
+- pixel-ish or arcade-like supporting elements
+- big CTA buttons
+- stylized tabs
+- animated icons
+- pitch stripes and field markings
+
+Avoid:
+- thin minimalist UI
+- plain rectangles
+- empty dark areas
+- generic dashboard cards
+- too much neon glow only
+- purely flat web layout
+
+GLOBAL LAYOUT CHANGES:
+1. Remove the admin/dashboard feeling.
+2. Replace the current shell with a game-menu shell.
+3. Top area = retro scoreboard HUD.
+4. Main area = active game scene.
+5. Bottom area = chunky game tabs/menu buttons.
+
+Use a full-screen game layout with atmosphere.
+
+TOP HUD:
+- Title: STADIUM FEVER
+- resource counters: Pitch Points / Roar Power / Heat / Phase
+- ticker text like:
+  “NIGHT MATCH FEVER LIVE”
+  “UNDERDOG NOISE ACTIVE”
+  “PACK READY”
+- Make it feel like a game broadcast overlay.
+
+BOTTOM MENU:
+Use big chunky console-style tabs:
+- STADIUM
+- PACKS
+- LOCKER
+- FEVER
+- RECEIPTS
+- SEASON
+
+Make it feel like a PS2 game menu selector, not a website nav.
+
+PRIORITY SCREENS TO REBUILD:
+1. Stadium HQ
+2. Fever Board
+3. Packs
+
+These 3 must be visually strong first.
+
+SCREEN 1: STADIUM HQ
+Completely redesign it.
+
+Must include:
+- a large visible stadium object in fake 3D / isometric style
+- football pitch visible
+- seating layers visible
+- floodlights visible
+- animated crowd/light atmosphere
+- card bench / active formation visible
+- claim points button integrated into scene
+- right-side live event panel
+- upgrade panel integrated into scene
+
+Do not use a big empty hero box with just text.
+
+Build the stadium object manually using CSS/SVG:
+- oval or semi-isometric stadium
+- green pitch center
+- seating rings
+- tiny flags
+- glowing floodlights
+- crowd dots or crowd strip
+- subtle animated shimmer
+- subtle moving light sweep
+
+Add animations:
+- crowd/floodlight pulse
+- floating “+450 PP” when claim is clicked
+- stadium light pulse on upgrade
+- slight parallax movement if possible
+- subtle hover on active card slots
+
+The user must instantly feel:
+“I own a football stadium.”
+
+SCREEN 2: PACKS
+Redesign as a retro football arcade pack room.
+
+Visual direction:
+- tunnel / locker room / reward chamber
+- one large central pack
+- fake 3D pack object
+- animated shine
+- pack shake before opening
+- reward burst on reveal
+- reward card appears large in center
+
+Layout:
+- center = pack scene
+- bottom = small pack selector carousel
+- side panel = pack contents
+- show:
+  Country Card
+  Stadium Part
+  Fever Ticket
+  Boost Item
+  Mutation Shard
+
+Button text:
+- RIP PACK
+
+Do not make it look like two product pricing cards.
+It must feel like a game reward screen.
+
+SCREEN 3: LOCKER
+Redesign as a team/card room.
+
+Visual direction:
+- active selected card large
+- card binder or horizontal card strip
+- active formation slots
+- stats board
+- upgrade and overcharge controls
+- subtle football locker room backdrop
+
+Cards must feel more game-like:
+- thick frames
+- rarity ribbons
+- low-poly / emblem-based look
+- abstract football nation emblems
+- not plain abstract placeholders only
+
+Use abstract emblem shapes like:
+- shield
+- sun
+- wave
+- wing
+- crown
+- star
+- flame
+
+Keep names:
+- Verde Nation
+- Azul Nation
+- Golden Nation
+- Crimson Nation
+- Nordic Nation
+- Shadow Nation
+
+Add card polish:
+- foil shine
+- glow
+- hover lift
+- tilt effect
+- level badge
+- stat chips
+
+SCREEN 4: FEVER BOARD
+Redesign as a retro football event board.
+
+Must feel like:
+- live match screen
+- event board
+- arcade mission selector
+- football game event screen
+
+Layout:
+- top big “FEVER BOARD” sign
+- featured event large in center
+- mini isometric pitch or formation preview inside event
+- side heat meter
+- countdown
+- secondary smaller events around it
+- LIVE / LOCKED / SETTLING status lights
+
+Avoid simple website cards.
+
+Make the featured live event feel like a playable mode.
+
+Button:
+- ENTER FEVER
+
+Use more game wording:
+- Deploy Formation
+- Match Impact
+- Stadium Output
+- Fever Active
+
+FORMATION BUILDER
+Make it look like a tactics screen.
+
+Layout:
+- green pitch visible
+- 2–4 large placement slots
+- bottom bench with available cards
+- total roar power meter
+- animated deploy button
+
+After deploy:
+- show short loading/impact animation
+- then route to receipt
+
+SCREEN 5: RECEIPTS
+Make it look like a match ticket/result screen.
+
+Use:
+- receipt ticket
+- scoreboard result
+- impact summary
+- reward panel
+
+Not a simple list UI.
+
+SCREEN 6: SEASON
+Make it feel like a retro progression map.
+
+Use:
+- phase gates
+- stadium checkpoints
+- tournament path
+- locked sections
+- glowing active phase
+
+NOT a boring roadmap.
+
+ANIMATION REQUIREMENTS:
+Add motion across the app:
+- stadium light pulse
+- crowd shimmer
+- button bounce/press
+- tab hover glow
+- pack shake and reveal
+- event panel pulse for LIVE
+- card hover tilt
+- floating reward text
+- subtle scanline or CRT-style layer optional
+- slight idle animation on scene objects
+
+STYLE NOTES:
+- Retro, playful, game-like
+- Slightly noisy / textured
+- Bold and colorful
+- Not too clean/corporate
+- Not too sterile
+- Not too empty
+- More “world”, less “dashboard”
+
+IMPORTANT:
+Keep the existing fake gameplay logic:
+- Claim Pitch Points
+- Upgrade Stadium
+- Open Pack
+- Equip Card
+- Upgrade Card
+- Overcharge Card
+- Enter Fever
+- Generate Receipt
+
+But completely rewrite the visual presentation.
+
+Final bar:
+When I open the prototype, it should feel like a retro football console game menu with a fake-3D stadium scene, not a crypto dashboard.
