@@ -1,0 +1,151 @@
+STOP polishing the current UI.
+
+The current result is still wrong because it only changed fonts/colors/borders.
+It still looks like web panels, not a pixel football game.
+
+I want a DESTRUCTIVE VISUAL REWRITE for STADIUM HQ ONLY.
+
+Do not touch backend.
+Do not add features.
+Do not redesign all pages.
+Focus only on the Stadium/HQ screen until it looks like a real pixel football game scene.
+
+CRITICAL:
+The Stadium HQ screen must NOT look like:
+- web dashboard
+- admin panel
+- centered boxes
+- UI panels floating on empty background
+- form/layout app
+- rectangle-based SaaS
+
+It must look like:
+- a 2D pixel football stadium base
+- game scene
+- playable football arcade hub
+- dense pixel environment
+- stadium management game
+
+For this task:
+1. Replace the current Stadium HQ layout completely.
+2. Do not reuse the current centered panel structure.
+3. Build a full-screen pixel scene.
+4. Keep the existing state/actions: claim points, upgrade stadium, equipped slots.
+5. But visually, rebuild from zero.
+
+STADIUM HQ NEW LAYOUT
+
+Create a full-screen pixel game scene with:
+
+TOP HUD:
+- Pixel scoreboard strip.
+- Title: STADIUM FEVER
+- PP / ROAR / HEAT / PHASE counters.
+- Scrolling ticker.
+- Make it compact and game-like.
+
+MAIN SCENE:
+This must take most of the screen.
+
+Build a pixel stadium base manually with CSS/HTML/SVG.
+
+Required visible objects:
+- Large stadium bowl, not just a small pitch.
+- Green football pitch inside stadium.
+- Stands/seating around the pitch.
+- Crowd pixels/dots.
+- Floodlight towers.
+- Small flags/banners.
+- Tunnel/gate entrance.
+- Scoreboard sign.
+- Small props: cones, ball, benches, signs, crates.
+- Pixel grass/ground texture.
+- Animated lights/crowd flicker.
+
+The stadium should be the main hero object and cover at least 50-60% of the visible screen width.
+
+Do NOT put a tiny pitch in the center.
+
+LEFT SIDE WORLD PANEL:
+Integrate as pixel signboard, not SaaS card:
+- Stadium name: Arcade Ground
+- Level
+- Roar meter
+- Output status
+
+RIGHT SIDE WORLD PANEL:
+Integrate as pixel signboard:
+- Live Fever Event
+- Night Match Fever
+- Enter button
+
+BOTTOM SCENE AREA:
+- Active Formation Bench with 3 card slots.
+- Upgrade booth/module.
+- Claim machine/button.
+
+The Claim button should feel like part of the scene:
+- “EXTRACT PITCH POINTS”
+- chunky pixel button
+- floating +450 PP animation when clicked
+
+BOTTOM NAV:
+Keep navigation, but make it look like pixel game menu tabs.
+
+VISUAL STYLE:
+Use pixel-art inspired CSS:
+- chunky outlines
+- hard shadows
+- blocky shapes
+- no smooth glassmorphism
+- no modern SaaS panel look
+- no excessive empty space
+- no thin borders
+- no centered dashboard card layout
+
+Color:
+- football green
+- dark navy
+- sky/cyan
+- yellow/gold
+- red/orange for live heat
+- black/white pixel outlines
+
+ANIMATION:
+Add visible idle animations:
+- floodlights pulse
+- crowd flicker
+- ticker moves
+- flags wave slightly
+- claim reward floats up
+- stadium pulse on upgrade
+
+DENSITY RULE:
+Above the fold, I must see at least:
+- stadium
+- pitch
+- crowd
+- floodlights
+- banners
+- active formation
+- claim/extract button
+- live fever sign
+- upgrade booth
+- resource HUD
+
+If the screen still looks like panels on a dark background, it is wrong.
+
+Implementation:
+You may create new components:
+- PixelStadiumScene
+- PixelHud
+- PixelBottomMenu
+- PixelFormationBench
+- PixelUpgradeBooth
+- PixelLiveEventSign
+
+You may rewrite the CSS heavily.
+It is okay to ignore old layout CSS for this screen.
+
+Success condition:
+When I open Stadium HQ, it should look like a 2D pixel football stadium management game, not a web app.
