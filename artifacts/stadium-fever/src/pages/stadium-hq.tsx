@@ -15,7 +15,11 @@ import { useGameState } from "../lib/game-state";
 import { EVENTS, type CountryCard } from "../lib/constants";
 import { useToast } from "../hooks/use-toast";
 
-const FORMATION_ROLES = ["LW", "ST", "RW"];
+const FORMATION_ROLES = [
+  { slot: "Slot 1", role: "LW" },
+  { slot: "Slot 2", role: "ST" },
+  { slot: "Slot 3", role: "RW" },
+];
 
 export default function StadiumHQ() {
   const {
@@ -74,17 +78,31 @@ export default function StadiumHQ() {
         </div>
 
         <div className="stadium-bowl" aria-hidden="true">
+          <div className="stadium-roof-arc" />
+          <div className="stadium-arc-shadow" />
+          <div className="stadium-depth-shadow" />
           <div className="stadium-stands stadium-stands-back" />
           <div className="crowd-ring crowd-ring-back" />
+          <div className="stadium-tier stadium-tier-upper" />
           <div className="stadium-stands stadium-stands-mid" />
           <div className="crowd-ring crowd-ring-mid" />
+          <div className="stadium-tier stadium-tier-lower" />
           <div className="stadium-stands stadium-stands-front" />
+          <div className="crowd-ring crowd-ring-front" />
           <div className="pitch-3d">
             <div className="pitch-line pitch-line-outer" />
             <div className="pitch-line pitch-line-half" />
             <div className="pitch-line pitch-line-circle" />
             <div className="pitch-line pitch-line-box pitch-line-box-left" />
             <div className="pitch-line pitch-line-box pitch-line-box-right" />
+            <div className="pitch-output-glow" />
+            <div className="tactical-marker tactical-marker-1" />
+            <div className="tactical-marker tactical-marker-2" />
+            <div className="tactical-marker tactical-marker-3" />
+            <div className="formation-dot formation-dot-1" />
+            <div className="formation-dot formation-dot-2" />
+            <div className="formation-dot formation-dot-3" />
+            <div className="formation-dot formation-dot-4" />
           </div>
           <div className="grass-foreground" />
         </div>
@@ -157,7 +175,13 @@ export default function StadiumHQ() {
 
         <div className="stadium-title-lockup">
           <span>Premium Football HQ</span>
-          <h2>Build your stadium. Deploy your XI. Capture match-day heat.</h2>
+          <h2>
+            <span>Build your stadium.</span>
+            {" "}
+            <span>Deploy your XI.</span>
+            {" "}
+            <span>Capture match-day heat.</span>
+          </h2>
         </div>
 
         <div className="pitch-cta-wrap">
@@ -168,72 +192,77 @@ export default function StadiumHQ() {
           </button>
           <p>Stadium roar converts into match output</p>
         </div>
-      </section>
 
-      <section className="stadium-hq-dock">
-        <div className="formation-bench">
-          <div className="bench-header">
-            <div>
-              <span>Active XI Bench</span>
-              <h2>Squad Slots</h2>
+        <section className="stadium-hq-dock">
+          <div className="formation-bench">
+            <div className="bench-header">
+              <div>
+                <span>Active XI Bench</span>
+                <h2>Formation Slots</h2>
+              </div>
+              <Link href="/locker">
+                <button className="btn btn-ghost bench-edit">
+                  Edit Squad <ChevronRight className="w-4 h-4" />
+                </button>
+              </Link>
             </div>
-            <Link href="/locker">
-              <button className="btn btn-ghost bench-edit">
-                Edit Squad <ChevronRight className="w-4 h-4" />
-              </button>
-            </Link>
+            <div className="bench-slots">
+              {FORMATION_ROLES.map(({ slot, role }, index) => {
+                const card = equipped[index];
+                return (
+                  <div key={slot} className={`squad-slot ${card ? "has-card" : "is-empty"}`}>
+                    <div className="squad-slot-topline">
+                      <span className="squad-slot-role">{slot}</span>
+                      <span className="squad-slot-position">{role}</span>
+                    </div>
+                    {card ? (
+                      <BenchMiniCard card={card} />
+                    ) : (
+                      <Link href="/locker" className="empty-squad-link">
+                        <span className="empty-card-shell">
+                          <Plus className="w-6 h-6" />
+                        </span>
+                        <span>Assign Card</span>
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <div className="bench-footer">
+              <Trophy className="w-4 h-4" />
+              <span>{equippedCount} of 3 nation cards active</span>
+            </div>
           </div>
-          <div className="bench-slots">
-            {FORMATION_ROLES.map((role, index) => {
-              const card = equipped[index];
-              return (
-                <div key={role} className={`squad-slot ${card ? "has-card" : "is-empty"}`}>
-                  <div className="squad-slot-role">{role}</div>
-                  {card ? (
-                    <BenchMiniCard card={card} />
-                  ) : (
-                    <Link href="/locker" className="empty-squad-link">
-                      <Plus className="w-7 h-7" />
-                      <span>Assign Card</span>
-                    </Link>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          <div className="bench-footer">
-            <Trophy className="w-4 h-4" />
-            <span>{equippedCount} of 3 nation cards active</span>
-          </div>
-        </div>
 
-        <div className="upgrade-module">
-          <div className="upgrade-module-top">
-            <ArrowUpCircle className="w-6 h-6" />
-            <div>
-              <span>Infrastructure</span>
-              <h2>Stadium Upgrade</h2>
+          <div className="upgrade-module">
+            <div className="upgrade-module-top">
+              <ArrowUpCircle className="w-6 h-6" />
+              <div>
+                <span>Infrastructure</span>
+                <h2>Stadium Upgrade</h2>
+              </div>
             </div>
-          </div>
-          <div className="upgrade-level-grid">
-            <div>
-              <span>Stadium Level</span>
-              <strong>{stadiumLevel}</strong>
+            <div className="upgrade-level-grid">
+              <div>
+                <span>Stadium Level</span>
+                <strong>{stadiumLevel}</strong>
+              </div>
+              <div>
+                <span>Next Upgrade</span>
+                <strong>{stadiumLevel + 1}</strong>
+              </div>
             </div>
-            <div>
-              <span>Next Upgrade</span>
-              <strong>{stadiumLevel + 1}</strong>
+            <div className="upgrade-bonus">
+              <span>Bonus</span>
+              <strong>+80 Roar Power</strong>
             </div>
+            <button className="btn btn-accent upgrade-cta" onClick={handleUpgrade}>
+              Upgrade Stadium
+              <span>500 PP</span>
+            </button>
           </div>
-          <div className="upgrade-bonus">
-            <span>Bonus</span>
-            <strong>+80 Roar Power</strong>
-          </div>
-          <button className="btn btn-accent upgrade-cta" onClick={handleUpgrade}>
-            Upgrade Stadium
-            <span>500 PP</span>
-          </button>
-        </div>
+        </section>
       </section>
     </main>
   );
