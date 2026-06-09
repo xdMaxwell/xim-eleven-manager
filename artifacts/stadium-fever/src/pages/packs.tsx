@@ -3,13 +3,8 @@ import { useGameState } from "../lib/game-state";
 import { CountryCard, PACK_REWARDS } from "../lib/constants";
 import { CardComponent } from "../components/card-component";
 import { useToast } from "../hooks/use-toast";
-import { StadiumBackdrop } from "../components/stadium-backdrop";
+import { ximAssets } from "../lib/assets";
 import { Sparkles, Lock, Zap, ArrowRight } from "lucide-react";
-
-const PACK_ASSETS = {
-  starter: "/assets/xim/packs/starter-pack.png",
-  fever: "/assets/xim/packs/fever-pack.png",
-} as const;
 
 const PACK_LABELS = {
   starter: "Starter Pack",
@@ -44,16 +39,13 @@ export default function Packs() {
   };
 
   const hasPacks = packs[selectedPack] > 0;
-  const selectedPackAsset = PACK_ASSETS[selectedPack];
+  const selectedPackAsset = ximAssets.packs[selectedPack];
   const selectedPackLabel = PACK_LABELS[selectedPack];
+  const pulledRarityClass = pulledCard ? `rarity-reveal-${pulledCard.rarity.toLowerCase()}` : "";
 
   return (
-    <div className="p-3 md:p-5 h-full min-h-[calc(100vh-140px)] flex flex-col relative">
-      {/* Ambient tunnel / locker room vibe */}
-      <div className="absolute inset-0 -z-10 rounded-3xl overflow-hidden pointer-events-none">
-        <StadiumBackdrop intensity={0.5} />
-        <div className="absolute inset-0 bg-black/60" />
-      </div>
+    <div className="pack-page-shell p-3 md:p-5 h-full min-h-[calc(100vh-140px)] flex flex-col relative">
+      <div className="pack-page-ambient absolute inset-0 -z-10 rounded-3xl overflow-hidden pointer-events-none" />
 
       <div className="flex items-center justify-between mb-4 md:mb-6 px-2">
         <div>
@@ -83,7 +75,7 @@ export default function Packs() {
                 }`}
               >
                 <div className="pack-selector-content">
-                  <img className="pack-selector-thumb" src={PACK_ASSETS.starter} alt="" />
+                  <img className="pack-selector-thumb" src={ximAssets.packs.starter} alt="" />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between mb-1 gap-2">
                       <div className="display text-lg text-white">Starter Pack</div>
@@ -106,7 +98,7 @@ export default function Packs() {
                 }`}
               >
                 <div className="pack-selector-content">
-                  <img className="pack-selector-thumb" src={PACK_ASSETS.fever} alt="" />
+                  <img className="pack-selector-thumb" src={ximAssets.packs.fever} alt="" />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between mb-1 gap-2">
                       <div className="display text-lg text-white">Fever Pack</div>
@@ -154,7 +146,7 @@ export default function Packs() {
           </div>
 
           {/* Central Area: Big Pack Display */}
-          <div className="glass-strong rounded-3xl p-6 flex flex-col items-center justify-start relative overflow-hidden pack-stage-panel">
+          <div className="glass-strong rounded-3xl p-6 flex flex-col items-center justify-start relative overflow-hidden pack-stage pack-stage-panel">
             {/* Ambient spotlights behind pack */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[80%] opacity-40 blur-[100px] pointer-events-none"
               style={{ background: selectedPack === "starter" ? "var(--color-primary)" : "var(--color-destructive)" }}
@@ -163,7 +155,7 @@ export default function Packs() {
             {/* The Pack Object */}
             <div 
               onClick={() => hasPacks && handleOpen(selectedPack)}
-              className={`xim-pack-display ${selectedPack === "starter" ? "is-starter" : "is-fever"} ${hasPacks ? 'cursor-pointer hover:-translate-y-2 hover:scale-105 fcard-tilt fcard-shine' : 'opacity-60 grayscale cursor-not-allowed'}`}
+              className={`pack-product xim-pack-display pack-product--${selectedPack} ${selectedPack === "starter" ? "is-starter" : "is-fever"} ${hasPacks ? 'cursor-pointer fcard-shine' : 'is-sold-out cursor-not-allowed'}`}
             >
               <img className="xim-pack-art" src={selectedPackAsset} alt={`${selectedPackLabel} artwork`} />
 
@@ -190,10 +182,11 @@ export default function Packs() {
 
       {/* Opening Animation State */}
       {opening && (
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <div className={`xim-pack-display xim-pack-opening ${selectedPack === "starter" ? "is-starter" : "is-fever"}`}>
+        <div className="pack-stage pack-stage--opening flex-1 flex flex-col items-center justify-center">
+          <div className={`pack-product xim-pack-display pack-product--${selectedPack} pack-opening pack-flip ${selectedPack === "starter" ? "is-starter" : "is-fever"}`}>
             <img className="xim-pack-art" src={selectedPackAsset} alt="" />
             <div className="pack-opening-flare" />
+            <div className="pack-burst" />
           </div>
           <h2 className="mt-12 display text-3xl text-white uppercase tracking-widest animate-blink">Opening Pack...</h2>
         </div>
@@ -201,7 +194,7 @@ export default function Packs() {
 
       {/* Reveal State */}
       {pulledCard && !opening && (
-        <div className="flex-1 flex flex-col items-center justify-center relative">
+        <div className={`reward-reveal ${pulledRarityClass} flex-1 flex flex-col items-center justify-center relative`}>
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="w-[300px] h-[300px] rounded-full bg-white/20 blur-[80px] anim-burst" />
           </div>
@@ -210,7 +203,7 @@ export default function Packs() {
             Asset Acquired
           </h2>
           
-          <div className="mb-12 anim-reveal scale-110 md:scale-125" style={{ animationDelay: "0.4s" }}>
+          <div className="reward-card-enter mb-12 scale-110 md:scale-125" style={{ animationDelay: "0.4s" }}>
             <CardComponent card={pulledCard} size="lg" />
           </div>
           
