@@ -21,6 +21,19 @@ const FORMATION_ROLES = [
   { slot: "Slot 3", role: "RW" },
 ];
 
+const CARD_FRAME_ASSETS = {
+  Common: "/assets/xim/cards/card-common.png",
+  Rare: "/assets/xim/cards/card-rare.png",
+  Epic: "/assets/xim/cards/card-epic.png",
+  Mythic: "/assets/xim/cards/card-mythic.png",
+} as const;
+
+function getStadiumAsset(level: number) {
+  if (level >= 3) return "/assets/xim/stadium/stadium-level-3.png";
+  if (level >= 2) return "/assets/xim/stadium/stadium-level-2.png";
+  return "/assets/xim/stadium/stadium-level-1.png";
+}
+
 export default function StadiumHQ() {
   const {
     pitchPoints,
@@ -60,12 +73,15 @@ export default function StadiumHQ() {
   const liveEvent = EVENTS.find((event) => event.status === "LIVE");
   const roarPct = Math.min(100, (roarPower / 1000) * 100);
   const equippedCount = equipped.filter(Boolean).length;
+  const stadiumAsset = getStadiumAsset(stadiumLevel);
 
   return (
     <main className="stadium-cinematic">
       <section className={`stadium-scene ${stadiumPulse ? "is-upgrading" : ""}`}>
         <div className="stadium-night" />
-        <div className="stadium-hero-image" aria-hidden="true" />
+        <div className="stadium-hero-image" aria-hidden="true">
+          <img className="stadium-hero-asset" src={stadiumAsset} alt="" />
+        </div>
         <div className="stadium-haze" />
         <div className="floodlight floodlight-left">
           <span />
@@ -273,7 +289,10 @@ function StatusPill({ icon, label, value }: { icon: ReactNode; label: string; va
 }
 
 function BenchMiniCard({ card }: { card: CountryCard }) {
-  const cardStyle = { "--nation-color": card.color } as CSSProperties;
+  const cardStyle = {
+    "--nation-color": card.color,
+    "--bench-frame-url": `url("${CARD_FRAME_ASSETS[card.rarity]}")`,
+  } as CSSProperties;
 
   return (
     <div className="bench-mini-card" style={cardStyle}>
