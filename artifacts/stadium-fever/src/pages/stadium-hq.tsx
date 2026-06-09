@@ -65,6 +65,7 @@ export default function StadiumHQ() {
     <main className="stadium-cinematic">
       <section className={`stadium-scene ${stadiumPulse ? "is-upgrading" : ""}`}>
         <div className="stadium-night" />
+        <div className="stadium-hero-image" aria-hidden="true" />
         <div className="stadium-haze" />
         <div className="floodlight floodlight-left">
           <span />
