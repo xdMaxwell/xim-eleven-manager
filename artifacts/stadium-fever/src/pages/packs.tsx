@@ -4,7 +4,17 @@ import { CountryCard, PACK_REWARDS } from "../lib/constants";
 import { CardComponent } from "../components/card-component";
 import { useToast } from "../hooks/use-toast";
 import { StadiumBackdrop } from "../components/stadium-backdrop";
-import { PackageOpen, Sparkles, Lock, Zap, ArrowRight } from "lucide-react";
+import { Sparkles, Lock, Zap, ArrowRight } from "lucide-react";
+
+const PACK_ASSETS = {
+  starter: "/assets/xim/packs/starter-pack.png",
+  fever: "/assets/xim/packs/fever-pack.png",
+} as const;
+
+const PACK_LABELS = {
+  starter: "Starter Pack",
+  fever: "Fever Pack",
+} as const;
 
 export default function Packs() {
   const { packs, openPack } = useGameState();
@@ -34,6 +44,8 @@ export default function Packs() {
   };
 
   const hasPacks = packs[selectedPack] > 0;
+  const selectedPackAsset = PACK_ASSETS[selectedPack];
+  const selectedPackLabel = PACK_LABELS[selectedPack];
 
   return (
     <div className="p-3 md:p-5 h-full min-h-[calc(100vh-140px)] flex flex-col relative">
@@ -70,11 +82,16 @@ export default function Packs() {
                   : "bg-black/40 border-white/10 hover:bg-white/5"
                 }`}
               >
-                <div className="flex items-start justify-between mb-1">
-                  <div className="display text-lg text-white">Starter Pack</div>
-                  <div className="chip bg-primary/20 text-primary border-primary/30">x{packs.starter}</div>
+                <div className="pack-selector-content">
+                  <img className="pack-selector-thumb" src={PACK_ASSETS.starter} alt="" />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between mb-1 gap-2">
+                      <div className="display text-lg text-white">Starter Pack</div>
+                      <div className="chip bg-primary/20 text-primary border-primary/30">x{packs.starter}</div>
+                    </div>
+                    <div className="text-[11px] text-muted-foreground uppercase tracking-wide">Base Nations</div>
+                  </div>
                 </div>
-                <div className="text-[11px] text-muted-foreground uppercase tracking-wide">Base Nations</div>
                 {selectedPack === "starter" && (
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary glow-primary" />
                 )}
@@ -88,11 +105,16 @@ export default function Packs() {
                   : "bg-black/40 border-white/10 hover:bg-white/5"
                 }`}
               >
-                <div className="flex items-start justify-between mb-1">
-                  <div className="display text-lg text-white">Fever Pack</div>
-                  <div className="chip bg-destructive/20 text-destructive border-destructive/30">x{packs.fever}</div>
+                <div className="pack-selector-content">
+                  <img className="pack-selector-thumb" src={PACK_ASSETS.fever} alt="" />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between mb-1 gap-2">
+                      <div className="display text-lg text-white">Fever Pack</div>
+                      <div className="chip bg-destructive/20 text-destructive border-destructive/30">x{packs.fever}</div>
+                    </div>
+                    <div className="text-[11px] text-muted-foreground uppercase tracking-wide">High Output Potential</div>
+                  </div>
                 </div>
-                <div className="text-[11px] text-muted-foreground uppercase tracking-wide">High Output Potential</div>
                 {selectedPack === "fever" && (
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-destructive glow-heat" />
                 )}
@@ -132,7 +154,7 @@ export default function Packs() {
           </div>
 
           {/* Central Area: Big Pack Display */}
-          <div className="glass-strong rounded-3xl p-6 flex flex-col items-center justify-center relative overflow-hidden">
+          <div className="glass-strong rounded-3xl p-6 flex flex-col items-center justify-start relative overflow-hidden pack-stage-panel">
             {/* Ambient spotlights behind pack */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[80%] opacity-40 blur-[100px] pointer-events-none"
               style={{ background: selectedPack === "starter" ? "var(--color-primary)" : "var(--color-destructive)" }}
@@ -141,23 +163,9 @@ export default function Packs() {
             {/* The Pack Object */}
             <div 
               onClick={() => hasPacks && handleOpen(selectedPack)}
-              className={`relative w-48 h-72 md:w-64 md:h-[22rem] rounded-[20px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.9)] flex flex-col items-center justify-center isolate overflow-hidden transition-transform duration-300 ${hasPacks ? 'cursor-pointer hover:-translate-y-2 hover:scale-105 fcard-tilt fcard-shine' : 'opacity-60 grayscale cursor-not-allowed'}`}
-              style={{ 
-                background: selectedPack === "starter" 
-                  ? "linear-gradient(145deg, #1f2d3d 0%, #0d141e 100%)" 
-                  : "linear-gradient(145deg, #3d1c1a 0%, #1a0a09 100%)",
-                border: selectedPack === "starter" ? "2px solid rgba(34,211,120,0.4)" : "2px solid rgba(245,158,11,0.4)"
-              }}
+              className={`xim-pack-display ${selectedPack === "starter" ? "is-starter" : "is-fever"} ${hasPacks ? 'cursor-pointer hover:-translate-y-2 hover:scale-105 fcard-tilt fcard-shine' : 'opacity-60 grayscale cursor-not-allowed'}`}
             >
-              {/* Pack details / foil texture */}
-              <div className="absolute inset-0 opacity-30" style={{ background: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px)" }} />
-              
-              <PackageOpen className={`w-16 h-16 md:w-20 md:h-20 mb-4 opacity-80 ${selectedPack === "starter" ? "text-primary text-glow-primary" : "text-destructive text-glow-heat"}`} />
-              
-              <h2 className="display text-3xl md:text-4xl text-white uppercase text-center leading-none tracking-tight z-10 px-4">
-                {selectedPack} <br/>
-                <span className={`text-xl md:text-2xl ${selectedPack === "starter" ? "text-primary" : "text-destructive"}`}>Pack</span>
-              </h2>
+              <img className="xim-pack-art" src={selectedPackAsset} alt={`${selectedPackLabel} artwork`} />
 
               {!hasPacks && (
                 <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-[2px]">
@@ -167,7 +175,7 @@ export default function Packs() {
             </div>
 
             {/* Action Area */}
-            <div className="mt-10 w-full max-w-sm text-center">
+            <div className="mt-6 w-full max-w-sm text-center">
               <button 
                 onClick={() => handleOpen(selectedPack)}
                 disabled={!hasPacks}
@@ -183,16 +191,11 @@ export default function Packs() {
       {/* Opening Animation State */}
       {opening && (
         <div className="flex-1 flex flex-col items-center justify-center">
-          <div className="relative w-48 h-72 md:w-64 md:h-[22rem] rounded-[20px] shadow-[0_0_80px_rgba(255,255,255,0.2)] anim-spin-slow isolate overflow-hidden"
-            style={{ 
-              background: selectedPack === "starter" 
-                ? "linear-gradient(145deg, #1f2d3d 0%, #0d141e 100%)" 
-                : "linear-gradient(145deg, #3d1c1a 0%, #1a0a09 100%)"
-            }}
-          >
-             <div className="absolute inset-0 bg-white/20 animate-pulse" />
+          <div className={`xim-pack-display xim-pack-opening ${selectedPack === "starter" ? "is-starter" : "is-fever"}`}>
+            <img className="xim-pack-art" src={selectedPackAsset} alt="" />
+            <div className="pack-opening-flare" />
           </div>
-          <h2 className="mt-12 display text-3xl text-white uppercase tracking-widest animate-blink">Decrypting Asset...</h2>
+          <h2 className="mt-12 display text-3xl text-white uppercase tracking-widest animate-blink">Opening Pack...</h2>
         </div>
       )}
 

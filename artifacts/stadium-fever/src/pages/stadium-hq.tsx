@@ -21,6 +21,19 @@ const FORMATION_ROLES = [
   { slot: "Slot 3", role: "RW" },
 ];
 
+const CARD_FRAME_ASSETS = {
+  Common: "/assets/xim/cards/card-common.png",
+  Rare: "/assets/xim/cards/card-rare.png",
+  Epic: "/assets/xim/cards/card-epic.png",
+  Mythic: "/assets/xim/cards/card-mythic.png",
+} as const;
+
+function getStadiumAsset(level: number) {
+  if (level >= 3) return "/assets/xim/stadium/stadium-level-3.png";
+  if (level >= 2) return "/assets/xim/stadium/stadium-level-2.png";
+  return "/assets/xim/stadium/stadium-level-1.png";
+}
+
 export default function StadiumHQ() {
   const {
     pitchPoints,
@@ -60,12 +73,15 @@ export default function StadiumHQ() {
   const liveEvent = EVENTS.find((event) => event.status === "LIVE");
   const roarPct = Math.min(100, (roarPower / 1000) * 100);
   const equippedCount = equipped.filter(Boolean).length;
+  const stadiumAsset = getStadiumAsset(stadiumLevel);
 
   return (
     <main className="stadium-cinematic">
       <section className={`stadium-scene ${stadiumPulse ? "is-upgrading" : ""}`}>
         <div className="stadium-night" />
-        <div className="stadium-hero-image" aria-hidden="true" />
+        <div className="stadium-hero-image" aria-hidden="true">
+          <img className="stadium-hero-asset" src={stadiumAsset} alt="" />
+        </div>
         <div className="stadium-haze" />
         <div className="floodlight floodlight-left">
           <span />
@@ -176,13 +192,6 @@ export default function StadiumHQ() {
 
         <div className="stadium-title-lockup">
           <span>Premium Football HQ</span>
-          <h2>
-            <span>Build your stadium.</span>
-            {" "}
-            <span>Deploy your XI.</span>
-            {" "}
-            <span>Capture match-day heat.</span>
-          </h2>
         </div>
 
         <div className="pitch-cta-wrap">
@@ -193,77 +202,77 @@ export default function StadiumHQ() {
           </button>
           <p>Stadium roar converts into match output</p>
         </div>
+      </section>
 
-        <section className="stadium-hq-dock">
-          <div className="formation-bench">
-            <div className="bench-header">
-              <div>
-                <span>Active XI Bench</span>
-                <h2>Formation Slots</h2>
-              </div>
-              <Link href="/locker">
-                <button className="btn btn-ghost bench-edit">
-                  Edit Squad <ChevronRight className="w-4 h-4" />
-                </button>
-              </Link>
+      <section className="stadium-hq-dock">
+        <div className="formation-bench">
+          <div className="bench-header">
+            <div>
+              <span>Active XI Bench</span>
+              <h2>Formation Slots</h2>
             </div>
-            <div className="bench-slots">
-              {FORMATION_ROLES.map(({ slot, role }, index) => {
-                const card = equipped[index];
-                return (
-                  <div key={slot} className={`squad-slot ${card ? "has-card" : "is-empty"}`}>
-                    <div className="squad-slot-topline">
-                      <span className="squad-slot-role">{slot}</span>
-                      <span className="squad-slot-position">{role}</span>
-                    </div>
-                    {card ? (
-                      <BenchMiniCard card={card} />
-                    ) : (
-                      <Link href="/locker" className="empty-squad-link">
-                        <span className="empty-card-shell">
-                          <Plus className="w-6 h-6" />
-                        </span>
-                        <span>Assign Card</span>
-                      </Link>
-                    )}
+            <Link href="/locker">
+              <button className="btn btn-ghost bench-edit">
+                Edit Squad <ChevronRight className="w-4 h-4" />
+              </button>
+            </Link>
+          </div>
+          <div className="bench-slots">
+            {FORMATION_ROLES.map(({ slot, role }, index) => {
+              const card = equipped[index];
+              return (
+                <div key={slot} className={`squad-slot ${card ? "has-card" : "is-empty"}`}>
+                  <div className="squad-slot-topline">
+                    <span className="squad-slot-role">{slot}</span>
+                    <span className="squad-slot-position">{role}</span>
                   </div>
-                );
-              })}
-            </div>
-            <div className="bench-footer">
-              <Trophy className="w-4 h-4" />
-              <span>{equippedCount} of 3 nation cards active</span>
-            </div>
+                  {card ? (
+                    <BenchMiniCard card={card} />
+                  ) : (
+                    <Link href="/locker" className="empty-squad-link">
+                      <span className="empty-card-shell">
+                        <Plus className="w-6 h-6" />
+                      </span>
+                      <span>Assign Card</span>
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
           </div>
+          <div className="bench-footer">
+            <Trophy className="w-4 h-4" />
+            <span>{equippedCount} of 3 nation cards active</span>
+          </div>
+        </div>
 
-          <div className="upgrade-module">
-            <div className="upgrade-module-top">
-              <ArrowUpCircle className="w-6 h-6" />
-              <div>
-                <span>Infrastructure</span>
-                <h2>Stadium Upgrade</h2>
-              </div>
+        <div className="upgrade-module">
+          <div className="upgrade-module-top">
+            <ArrowUpCircle className="w-6 h-6" />
+            <div>
+              <span>Infrastructure</span>
+              <h2>Stadium Upgrade</h2>
             </div>
-            <div className="upgrade-level-grid">
-              <div>
-                <span>Stadium Level</span>
-                <strong>{stadiumLevel}</strong>
-              </div>
-              <div>
-                <span>Next Upgrade</span>
-                <strong>{stadiumLevel + 1}</strong>
-              </div>
-            </div>
-            <div className="upgrade-bonus">
-              <span>Bonus</span>
-              <strong>+80 Roar Power</strong>
-            </div>
-            <button className="btn btn-accent upgrade-cta" onClick={handleUpgrade}>
-              Upgrade Stadium
-              <span>500 PP</span>
-            </button>
           </div>
-        </section>
+          <div className="upgrade-level-grid">
+            <div>
+              <span>Stadium Level</span>
+              <strong>{stadiumLevel}</strong>
+            </div>
+            <div>
+              <span>Next Upgrade</span>
+              <strong>{stadiumLevel + 1}</strong>
+            </div>
+          </div>
+          <div className="upgrade-bonus">
+            <span>Bonus</span>
+            <strong>+80 Roar Power</strong>
+          </div>
+          <button className="btn btn-accent upgrade-cta" onClick={handleUpgrade}>
+            Upgrade Stadium
+            <span>500 PP</span>
+          </button>
+        </div>
       </section>
     </main>
   );
@@ -280,7 +289,10 @@ function StatusPill({ icon, label, value }: { icon: ReactNode; label: string; va
 }
 
 function BenchMiniCard({ card }: { card: CountryCard }) {
-  const cardStyle = { "--nation-color": card.color } as CSSProperties;
+  const cardStyle = {
+    "--nation-color": card.color,
+    "--bench-frame-url": `url("${CARD_FRAME_ASSETS[card.rarity]}")`,
+  } as CSSProperties;
 
   return (
     <div className="bench-mini-card" style={cardStyle}>

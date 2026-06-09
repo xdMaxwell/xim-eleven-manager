@@ -17,10 +17,10 @@ interface CardComponentProps {
 }
 
 const RARITY: Record<Rarity, { frame: string; tag: string; glow: string; sheen: string }> = {
-  Common: { frame: "linear-gradient(160deg,#aebacd,#566378)", tag: "#cbd5e1", glow: "rgba(174,186,205,0.45)", sheen: "rgba(174,186,205,0.25)" },
-  Rare: { frame: "linear-gradient(160deg,#67d3ff,#1f6fd6)", tag: "#7dd3fc", glow: "rgba(56,160,255,0.55)", sheen: "rgba(56,160,255,0.3)" },
-  Epic: { frame: "linear-gradient(160deg,#caa3ff,#7c3aed)", tag: "#c4b5fd", glow: "rgba(139,92,246,0.6)", sheen: "rgba(139,92,246,0.32)" },
-  Mythic: { frame: "linear-gradient(160deg,#ffe488,#f59e0b)", tag: "#fde68a", glow: "rgba(245,158,11,0.65)", sheen: "rgba(245,158,11,0.34)" },
+  Common: { frame: "/assets/xim/cards/card-common.png", tag: "#cbd5e1", glow: "rgba(174,186,205,0.45)", sheen: "rgba(174,186,205,0.18)" },
+  Rare: { frame: "/assets/xim/cards/card-rare.png", tag: "#7dd3fc", glow: "rgba(56,160,255,0.55)", sheen: "rgba(56,160,255,0.22)" },
+  Epic: { frame: "/assets/xim/cards/card-epic.png", tag: "#c4b5fd", glow: "rgba(139,92,246,0.62)", sheen: "rgba(139,92,246,0.24)" },
+  Mythic: { frame: "/assets/xim/cards/card-mythic.png", tag: "#d8b4fe", glow: "rgba(168,85,247,0.68)", sheen: "rgba(168,85,247,0.26)" },
 };
 
 const SIZES = {
@@ -60,16 +60,15 @@ export function CardComponent({ card, selected, onClick, className, size = "md",
   return (
     <div
       onClick={onClick}
-      className={`fcard fcard-shine ${tilt ? "fcard-tilt" : ""} ${s.w} ${s.h} ${onClick ? "cursor-pointer" : ""} ${selected ? "ring-2 ring-white -translate-y-1.5" : ""} ${className || ""}`}
-      style={{ padding: 3, background: r.frame, boxShadow: selected ? `0 0 0 2px #fff, 0 0 50px -6px ${r.glow}` : `0 24px 50px -22px rgba(0,0,0,0.85), 0 0 36px -16px ${r.glow}` }}
+      className={`fcard xim-card fcard-shine ${tilt ? "fcard-tilt" : ""} ${s.w} ${s.h} ${onClick ? "cursor-pointer" : ""} ${selected ? "ring-2 ring-white -translate-y-1.5" : ""} ${className || ""}`}
+      style={{ boxShadow: selected ? `0 0 0 2px #fff, 0 0 52px -4px ${r.glow}` : `0 24px 50px -22px rgba(0,0,0,0.85), 0 0 36px -16px ${r.glow}` }}
     >
-      <div className="relative w-full h-full rounded-[15px] overflow-hidden flex flex-col" style={{ background: "linear-gradient(170deg,#101a2e 0%,#070c16 70%)" }}>
-        {/* tinted ambiance */}
-        <div className="absolute inset-0" style={{ background: `radial-gradient(120% 80% at 50% 0%, ${r.sheen}, transparent 60%)` }} />
-        <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-24 blur-2xl opacity-50" style={{ background: color }} />
+      <img className="xim-card-frame-art" src={r.frame} alt="" aria-hidden="true" />
+      <div className="xim-card-overlay" style={{ background: `radial-gradient(96% 58% at 50% 23%, ${r.sheen}, transparent 66%)` }} />
+      <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-24 blur-2xl opacity-45" style={{ background: color }} />
 
-        {/* header */}
-        <div className="relative z-10 flex items-start justify-between px-2.5 pt-2">
+      <div className="xim-card-content">
+        <div className="xim-card-header">
           <div className="leading-none">
             <div className={`num ${s.lvl} text-white leading-none`}>{level.toString().padStart(2, "0")}</div>
             <div className="text-[9px] uppercase tracking-widest" style={{ color: r.tag }}>{rarity}</div>
@@ -79,24 +78,21 @@ export function CardComponent({ card, selected, onClick, className, size = "md",
           </div>
         </div>
 
-        {/* crest */}
-        <div className="relative z-10 flex-1 grid place-items-center">
+        <div className="xim-card-crest">
           <Crest color={color} rarity={rarity} size={s.crest} />
         </div>
 
         {mutated && (
-          <div className="absolute z-20 top-1/2 left-0 right-0 -translate-y-1/2 text-center py-1 text-[10px] font-display font-extrabold uppercase tracking-[0.25em] text-white" style={{ background: "linear-gradient(90deg,transparent,rgba(139,92,246,0.95),transparent)" }}>
+          <div className="xim-card-mutated" style={{ background: "linear-gradient(90deg,transparent,rgba(139,92,246,0.95),transparent)" }}>
             Mutated
           </div>
         )}
 
-        {/* name */}
-        <div className="relative z-10 px-2.5">
+        <div className="xim-card-nameplate">
           <h3 className={`display ${s.name} text-center uppercase truncate text-white`}>{name}</h3>
         </div>
 
-        {/* stats */}
-        <div className="relative z-10 grid grid-cols-4 gap-1 p-2">
+        <div className="xim-card-stat-grid">
           <Stat label="ROA" value={stats.roar} cls="text-primary" size={s.stat} />
           <Stat label="FRM" value={stats.form} cls="text-secondary" size={s.stat} />
           <Stat label="HET" value={stats.heat} cls="text-destructive" size={s.stat} />
