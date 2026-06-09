@@ -176,13 +176,6 @@ export default function StadiumHQ() {
 
         <div className="stadium-title-lockup">
           <span>Premium Football HQ</span>
-          <h2>
-            <span>Build your stadium.</span>
-            {" "}
-            <span>Deploy your XI.</span>
-            {" "}
-            <span>Capture match-day heat.</span>
-          </h2>
         </div>
 
         <div className="pitch-cta-wrap">
@@ -193,77 +186,77 @@ export default function StadiumHQ() {
           </button>
           <p>Stadium roar converts into match output</p>
         </div>
+      </section>
 
-        <section className="stadium-hq-dock">
-          <div className="formation-bench">
-            <div className="bench-header">
-              <div>
-                <span>Active XI Bench</span>
-                <h2>Formation Slots</h2>
-              </div>
-              <Link href="/locker">
-                <button className="btn btn-ghost bench-edit">
-                  Edit Squad <ChevronRight className="w-4 h-4" />
-                </button>
-              </Link>
+      <section className="stadium-hq-dock">
+        <div className="formation-bench">
+          <div className="bench-header">
+            <div>
+              <span>Active XI Bench</span>
+              <h2>Formation Slots</h2>
             </div>
-            <div className="bench-slots">
-              {FORMATION_ROLES.map(({ slot, role }, index) => {
-                const card = equipped[index];
-                return (
-                  <div key={slot} className={`squad-slot ${card ? "has-card" : "is-empty"}`}>
-                    <div className="squad-slot-topline">
-                      <span className="squad-slot-role">{slot}</span>
-                      <span className="squad-slot-position">{role}</span>
-                    </div>
-                    {card ? (
-                      <BenchMiniCard card={card} />
-                    ) : (
-                      <Link href="/locker" className="empty-squad-link">
-                        <span className="empty-card-shell">
-                          <Plus className="w-6 h-6" />
-                        </span>
-                        <span>Assign Card</span>
-                      </Link>
-                    )}
+            <Link href="/locker">
+              <button className="btn btn-ghost bench-edit">
+                Edit Squad <ChevronRight className="w-4 h-4" />
+              </button>
+            </Link>
+          </div>
+          <div className="bench-slots">
+            {FORMATION_ROLES.map(({ slot, role }, index) => {
+              const card = equipped[index];
+              return (
+                <div key={slot} className={`squad-slot ${card ? "has-card" : "is-empty"}`}>
+                  <div className="squad-slot-topline">
+                    <span className="squad-slot-role">{slot}</span>
+                    <span className="squad-slot-position">{role}</span>
                   </div>
-                );
-              })}
-            </div>
-            <div className="bench-footer">
-              <Trophy className="w-4 h-4" />
-              <span>{equippedCount} of 3 nation cards active</span>
-            </div>
+                  {card ? (
+                    <BenchMiniCard card={card} />
+                  ) : (
+                    <Link href="/locker" className="empty-squad-link">
+                      <span className="empty-card-shell">
+                        <Plus className="w-6 h-6" />
+                      </span>
+                      <span>Assign Card</span>
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
           </div>
+          <div className="bench-footer">
+            <Trophy className="w-4 h-4" />
+            <span>{equippedCount} of 3 nation cards active</span>
+          </div>
+        </div>
 
-          <div className="upgrade-module">
-            <div className="upgrade-module-top">
-              <ArrowUpCircle className="w-6 h-6" />
-              <div>
-                <span>Infrastructure</span>
-                <h2>Stadium Upgrade</h2>
-              </div>
+        <div className="upgrade-module">
+          <div className="upgrade-module-top">
+            <ArrowUpCircle className="w-6 h-6" />
+            <div>
+              <span>Infrastructure</span>
+              <h2>Stadium Upgrade</h2>
             </div>
-            <div className="upgrade-level-grid">
-              <div>
-                <span>Stadium Level</span>
-                <strong>{stadiumLevel}</strong>
-              </div>
-              <div>
-                <span>Next Upgrade</span>
-                <strong>{stadiumLevel + 1}</strong>
-              </div>
-            </div>
-            <div className="upgrade-bonus">
-              <span>Bonus</span>
-              <strong>+80 Roar Power</strong>
-            </div>
-            <button className="btn btn-accent upgrade-cta" onClick={handleUpgrade}>
-              Upgrade Stadium
-              <span>500 PP</span>
-            </button>
           </div>
-        </section>
+          <div className="upgrade-level-grid">
+            <div>
+              <span>Stadium Level</span>
+              <strong>{stadiumLevel}</strong>
+            </div>
+            <div>
+              <span>Next Upgrade</span>
+              <strong>{stadiumLevel + 1}</strong>
+            </div>
+          </div>
+          <div className="upgrade-bonus">
+            <span>Bonus</span>
+            <strong>+80 Roar Power</strong>
+          </div>
+          <button className="btn btn-accent upgrade-cta" onClick={handleUpgrade}>
+            Upgrade Stadium
+            <span>500 PP</span>
+          </button>
+        </div>
       </section>
     </main>
   );

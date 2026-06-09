@@ -214,25 +214,27 @@
 
 /* ---------------- Stadium HQ cinematic rebuild ---------------- */
 .stadium-cinematic {
-  padding: 14px;
+  width: min(100%, 1240px);
+  margin: 0 auto;
+  padding: 14px 14px 128px;
   min-height: calc(100svh - 120px);
 }
 
 .stadium-scene {
   position: relative;
-  min-height: clamp(700px, calc(100svh - 136px), 900px);
+  height: clamp(340px, 43svh, 500px);
+  min-height: 340px;
   overflow: hidden;
   isolation: isolate;
-  border-radius: 28px;
+  border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background:
-    radial-gradient(900px 520px at 50% 18%, rgba(48, 130, 255, 0.14), transparent 62%),
-    radial-gradient(760px 320px at 50% 78%, rgba(41, 255, 128, 0.1), transparent 58%),
-    linear-gradient(180deg, #07111f 0%, #0b1c31 42%, #07101d 100%);
+    radial-gradient(760px 460px at 50% 12%, rgba(48, 130, 255, 0.08), transparent 66%),
+    linear-gradient(180deg, #07111f 0%, #091727 54%, #050b13 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -70px 120px rgba(0, 0, 0, 0.42),
-    0 34px 90px -38px rgba(0, 0, 0, 0.9);
+    inset 0 -96px 130px rgba(0, 0, 0, 0.54),
+    0 26px 72px -42px rgba(0, 0, 0, 0.92);
 }
 
 .stadium-scene::before {
@@ -241,9 +243,9 @@
   inset: -16% -30%;
   z-index: 15;
   pointer-events: none;
-  background: linear-gradient(100deg, transparent 33%, rgba(255, 255, 255, 0.18) 48%, transparent 63%);
+  background: linear-gradient(100deg, transparent 36%, rgba(255, 255, 255, 0.12) 48%, transparent 60%);
   mix-blend-mode: screen;
-  opacity: 0.38;
+  opacity: 0.24;
   animation: stadium-light-sweep 7s ease-in-out infinite;
 }
 
@@ -254,8 +256,9 @@
   z-index: 35;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 18%),
-    radial-gradient(ellipse at 50% 61%, transparent 0 42%, rgba(0, 0, 0, 0.26) 72%, rgba(0, 0, 0, 0.68) 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 20%),
+    radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.08) 0 34%, rgba(0, 0, 0, 0.26) 78%, rgba(0, 0, 0, 0.72) 100%),
+    linear-gradient(180deg, transparent 46%, rgba(3, 9, 9, 0.58) 78%, rgba(3, 7, 8, 0.92) 100%);
 }
 
 .stadium-scene.is-upgrading .stadium-bowl,
@@ -278,13 +281,13 @@
   inset: 0;
   z-index: 1;
   background-image:
-    linear-gradient(180deg, rgba(4, 8, 15, 0.22) 0%, rgba(4, 8, 15, 0.04) 24%, rgba(4, 8, 15, 0.1) 64%, rgba(3, 8, 12, 0.46) 100%),
-    radial-gradient(ellipse at 50% 48%, rgba(255, 255, 255, 0.06), transparent 44%),
+    linear-gradient(180deg, rgba(2, 6, 12, 0.5) 0%, rgba(3, 8, 14, 0.18) 32%, rgba(3, 8, 13, 0.28) 58%, rgba(2, 8, 9, 0.78) 100%),
+    radial-gradient(ellipse at 50% 42%, transparent 0 36%, rgba(0, 0, 0, 0.26) 75%, rgba(0, 0, 0, 0.58) 100%),
     url("/assets/xim-stadium-hero.png");
-  background-position: center top, center, center top;
+  background-position: center, center, center 38%;
   background-size: cover, cover, cover;
   background-repeat: no-repeat;
-  filter: saturate(1.14) contrast(1.04) brightness(1.02);
+  filter: saturate(0.98) contrast(0.9) brightness(0.78);
 }
 
 .stadium-hero-image::after {
@@ -292,8 +295,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(2, 6, 12, 0.34), transparent 24%, transparent 76%, rgba(2, 6, 12, 0.34)),
-    linear-gradient(180deg, rgba(3, 6, 12, 0.08), transparent 48%, rgba(7, 18, 14, 0.28) 100%);
+    linear-gradient(90deg, rgba(2, 6, 12, 0.58), transparent 28%, transparent 72%, rgba(2, 6, 12, 0.58)),
+    linear-gradient(180deg, rgba(3, 6, 12, 0.2), transparent 38%, rgba(2, 8, 7, 0.5) 74%, rgba(2, 5, 6, 0.9) 100%);
   pointer-events: none;
 }
 
@@ -303,8 +306,8 @@
   z-index: 14;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 44%, rgba(190, 220, 255, 0.09), transparent 42%),
-    linear-gradient(180deg, transparent 0%, rgba(172, 217, 255, 0.05) 42%, transparent 76%);
+    radial-gradient(ellipse at 50% 44%, rgba(190, 220, 255, 0.06), transparent 42%),
+    linear-gradient(180deg, transparent 0%, rgba(172, 217, 255, 0.03) 42%, transparent 76%);
   filter: blur(0.5px);
   animation: stadium-haze-drift 8s ease-in-out infinite;
 }
@@ -336,11 +339,11 @@
   transform-origin: top center;
   clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 252, 220, 0.7), rgba(255, 252, 220, 0.28) 16%, transparent 64%),
-    linear-gradient(180deg, rgba(255, 252, 220, 0.3), transparent 78%);
-  filter: blur(6px);
+    radial-gradient(circle at 50% 0%, rgba(255, 252, 220, 0.58), rgba(255, 252, 220, 0.2) 16%, transparent 64%),
+    linear-gradient(180deg, rgba(255, 252, 220, 0.2), transparent 78%);
+  filter: blur(7px);
   mix-blend-mode: screen;
-  opacity: 0.46;
+  opacity: 0.3;
   animation: floodlight-breathe 3.5s ease-in-out infinite;
 }
 
@@ -367,7 +370,7 @@
   z-index: 5;
   perspective: 1200px;
   transform-style: preserve-3d;
-  opacity: 0.42;
+  opacity: 0.18;
   mix-blend-mode: screen;
 }
 
@@ -517,9 +520,9 @@
 .pitch-3d {
   position: absolute;
   left: 50%;
-  bottom: 29%;
-  width: min(1040px, 92%);
-  height: 34%;
+  bottom: 10%;
+  width: min(980px, 88%);
+  height: 32%;
   transform: translateX(-50%) rotateX(64deg) translateZ(-20px);
   transform-origin: bottom center;
   clip-path: polygon(11% 0, 89% 0, 100% 100%, 0 100%);
@@ -685,10 +688,10 @@
   right: -5%;
   bottom: 0;
   z-index: 8;
-  height: 16%;
+  height: 24%;
   background:
-    repeating-linear-gradient(102deg, rgba(173, 255, 183, 0.16) 0 2px, transparent 2px 7px),
-    linear-gradient(180deg, rgba(13, 91, 39, 0), rgba(8, 48, 22, 0.5) 50%, rgba(3, 16, 10, 0.82) 100%);
+    repeating-linear-gradient(102deg, rgba(173, 255, 183, 0.08) 0 2px, transparent 2px 7px),
+    linear-gradient(180deg, rgba(13, 91, 39, 0), rgba(8, 48, 22, 0.42) 42%, rgba(2, 9, 7, 0.92) 100%);
   filter: blur(0.2px);
 }
 
@@ -698,8 +701,8 @@
   z-index: 34;
   pointer-events: none;
   box-shadow:
-    inset 0 0 126px rgba(0, 0, 0, 0.54),
-    inset 0 -92px 110px rgba(0, 0, 0, 0.58);
+    inset 0 0 142px rgba(0, 0, 0, 0.6),
+    inset 0 -132px 132px rgba(0, 0, 0, 0.72);
 }
 
 .broadcast-scorebug {
@@ -781,25 +784,25 @@
 .live-event-card,
 .formation-bench,
 .upgrade-module {
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   background:
-    linear-gradient(145deg, rgba(18, 29, 50, 0.82), rgba(4, 8, 16, 0.78)),
-    radial-gradient(circle at 18% 0%, rgba(68, 255, 147, 0.14), transparent 34%);
+    linear-gradient(145deg, rgba(13, 22, 37, 0.9), rgba(4, 8, 15, 0.88)),
+    radial-gradient(circle at 16% 0%, rgba(68, 255, 147, 0.08), transparent 34%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    0 28px 64px rgba(0, 0, 0, 0.48);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 20px 48px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .club-card {
   position: absolute;
-  top: 86px;
-  left: 30px;
+  top: 88px;
+  left: 24px;
   z-index: 40;
-  width: 300px;
+  width: min(300px, calc(50% - 70px));
   padding: 14px;
-  border-radius: 20px;
+  border-radius: 18px;
 }
 
 .club-card::before,
@@ -812,7 +815,7 @@
   pointer-events: none;
   border-radius: inherit;
   background: linear-gradient(120deg, rgba(255, 255, 255, 0.16), transparent 32%, transparent 72%, rgba(255, 255, 255, 0.08));
-  opacity: 0.72;
+  opacity: 0.44;
 }
 
 .club-card-header,
@@ -976,15 +979,15 @@
 
 .live-event-card {
   position: absolute;
-  top: 86px;
-  right: 30px;
+  top: 88px;
+  right: 24px;
   z-index: 40;
-  width: 310px;
+  width: min(304px, calc(50% - 70px));
   padding: 14px;
-  border-radius: 20px;
+  border-radius: 18px;
   background:
-    linear-gradient(145deg, rgba(47, 21, 20, 0.8), rgba(5, 8, 17, 0.82)),
-    radial-gradient(circle at 82% 0%, rgba(255, 112, 48, 0.2), transparent 36%);
+    linear-gradient(145deg, rgba(39, 20, 19, 0.88), rgba(5, 8, 16, 0.9)),
+    radial-gradient(circle at 84% 0%, rgba(255, 112, 48, 0.12), transparent 38%);
 }
 
 .live-event-top {
@@ -1043,10 +1046,10 @@
 
 .stadium-title-lockup {
   position: absolute;
-  top: 23%;
+  top: 105px;
   left: 50%;
   z-index: 30;
-  width: min(300px, 30%);
+  width: auto;
   transform: translate(-50%, -50%);
   text-align: center;
   text-shadow: 0 16px 36px rgba(0, 0, 0, 0.9);
@@ -1054,30 +1057,23 @@
 
 .stadium-title-lockup > span {
   display: inline-flex;
-  margin-bottom: 7px;
-  padding: 5px 9px;
+  margin-bottom: 0;
+  padding: 7px 11px;
   border-radius: 999px;
-  color: hsl(var(--accent));
-  background: rgba(0, 0, 0, 0.32);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.82);
+  background: rgba(4, 8, 15, 0.44);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   font-family: var(--font-mono);
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .stadium-title-lockup h2 {
-  display: grid;
-  gap: 2px;
-  margin: 0;
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: 0.86rem;
-  font-weight: 900;
-  line-height: 1.04;
-  letter-spacing: 0;
-  text-transform: uppercase;
+  display: none;
 }
 
 .stadium-title-lockup h2 span {
@@ -1087,7 +1083,7 @@
 .pitch-cta-wrap {
   position: absolute;
   left: 50%;
-  bottom: 58%;
+  bottom: 42px;
   z-index: 42;
   display: flex;
   flex-direction: column;
@@ -1096,8 +1092,8 @@
 }
 
 .pitch-cta-wrap p {
-  margin-top: 8px;
-  color: rgba(255, 255, 255, 0.72);
+  margin-top: 9px;
+  color: rgba(255, 255, 255, 0.7);
   font-family: var(--font-mono);
   font-size: 0.66rem;
   font-weight: 700;
@@ -1113,9 +1109,9 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-width: 250px;
-  min-height: 58px;
-  padding: 0 24px;
+  min-width: 242px;
+  min-height: 56px;
+  padding: 0 22px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.42);
   border-radius: 16px;
@@ -1124,7 +1120,7 @@
     linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 42%),
     linear-gradient(180deg, hsl(96 96% 64%), hsl(107 84% 46%));
   box-shadow:
-    0 18px 48px rgba(38, 255, 112, 0.38),
+    0 18px 42px rgba(38, 255, 112, 0.32),
     0 7px 0 rgba(7, 80, 28, 0.82),
     inset 0 1px 0 rgba(255, 255, 255, 0.72);
   font-family: var(--font-display);
@@ -1187,26 +1183,25 @@
 }
 
 .stadium-hq-dock {
-  position: absolute;
-  left: 24px;
-  right: 24px;
-  bottom: clamp(172px, 27svh, 204px);
-  z-index: 47;
+  position: relative;
+  z-index: 5;
   display: grid;
-  grid-template-columns: minmax(0, 1.16fr) minmax(280px, 0.84fr);
+  grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.75fr);
+  align-items: stretch;
   gap: 12px;
-  margin-top: 0;
+  margin-top: 10px;
 }
 
 .formation-bench,
 .upgrade-module {
   position: relative;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 16px;
+  min-height: 172px;
 }
 
 .formation-bench {
-  padding: 10px;
+  padding: 13px;
 }
 
 .bench-header,
@@ -1219,8 +1214,8 @@
 
 .bench-header h2,
 .upgrade-module-top h2 {
-  margin-top: 2px;
-  font-size: 0.9rem;
+  margin-top: 3px;
+  font-size: 0.96rem;
 }
 
 .bench-edit {
@@ -1235,34 +1230,33 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(3, minmax(102px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
   margin-top: 8px;
 }
 
 .squad-slot {
   position: relative;
-  min-height: 88px;
-  padding: 28px 8px 8px;
+  min-height: 82px;
+  padding: 27px 10px 8px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
   background:
-    radial-gradient(circle at 50% 0%, rgba(143, 255, 177, 0.2), transparent 32%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
+    radial-gradient(circle at 50% 0%, rgba(143, 255, 177, 0.1), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(0, 0, 0, 0.24));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -28px 42px rgba(0, 0, 0, 0.28),
-    0 16px 34px rgba(0, 0, 0, 0.34),
-    0 0 26px rgba(91, 255, 133, 0.08);
-  clip-path: polygon(12% 0, 88% 0, 100% 13%, 100% 100%, 0 100%, 0 13%);
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -24px 38px rgba(0, 0, 0, 0.24),
+    0 14px 28px rgba(0, 0, 0, 0.28);
+  clip-path: polygon(9% 0, 91% 0, 100% 11%, 100% 100%, 0 100%, 0 11%);
 }
 
 .squad-slot::before {
   content: "";
   position: absolute;
   inset: 19px 12px 9px;
-  border: 1px solid rgba(176, 255, 194, 0.2);
+  border: 1px solid rgba(176, 255, 194, 0.14);
   border-radius: 999px 999px 18px 18px / 60% 60% 18px 18px;
   pointer-events: none;
 }
@@ -1305,11 +1299,12 @@
   display: grid;
   place-items: center;
   align-content: center;
-  gap: 7px;
+  gap: 5px;
   height: 100%;
   color: rgba(255, 255, 255, 0.58);
   font-family: var(--font-display);
-  font-size: 0.68rem;
+  font-size: 0.62rem;
+  line-height: 1;
   font-weight: 900;
   text-align: center;
   text-transform: uppercase;
@@ -1319,8 +1314,8 @@
 .empty-card-shell {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 48px;
+  width: 34px;
+  height: 40px;
   clip-path: polygon(14% 0, 86% 0, 100% 16%, 100% 100%, 0 100%, 0 16%);
   border: 1px solid rgba(255, 255, 255, 0.28);
   background:
@@ -1341,7 +1336,7 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  min-height: 66px;
+  min-height: 70px;
   height: 100%;
   overflow: hidden;
   border: 2px solid color-mix(in srgb, var(--nation-color) 64%, white 20%);
@@ -1350,8 +1345,8 @@
     radial-gradient(circle at 50% 8%, color-mix(in srgb, var(--nation-color) 34%, transparent), transparent 48%),
     linear-gradient(160deg, rgba(17, 25, 42, 0.95), rgba(4, 8, 16, 0.96));
   box-shadow:
-    0 16px 34px rgba(0, 0, 0, 0.46),
-    0 0 32px color-mix(in srgb, var(--nation-color) 34%, transparent),
+    0 14px 28px rgba(0, 0, 0, 0.42),
+    0 0 22px color-mix(in srgb, var(--nation-color) 24%, transparent),
     inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
@@ -1401,7 +1396,7 @@
 
 .bench-card-crest div {
   width: 30px;
-  height: 34px;
+  height: 35px;
   clip-path: polygon(50% 0, 92% 16%, 88% 66%, 50% 100%, 12% 66%, 8% 16%);
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.24) 0 18%, transparent 18% 50%, rgba(0, 0, 0, 0.18) 50% 68%, transparent 68%),
@@ -1417,7 +1412,7 @@
   padding: 0 8px;
   color: #fff;
   font-family: var(--font-display);
-  font-size: 0.58rem;
+  font-size: 0.64rem;
   font-weight: 900;
   letter-spacing: 0;
   line-height: 1;
@@ -1449,23 +1444,31 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 6px;
+  position: absolute;
+  right: 13px;
+  bottom: 11px;
+  z-index: 2;
+  margin-top: 0;
   color: rgba(255, 255, 255, 0.58);
   font-size: 0.64rem;
   font-weight: 700;
 }
 
 .upgrade-module {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(132px, 0.9fr);
+  grid-template-areas:
+    "top bonus"
+    "levels cta";
+  gap: 7px;
+  padding: 13px;
   background:
-    linear-gradient(145deg, rgba(43, 31, 7, 0.82), rgba(5, 8, 17, 0.84)),
-    radial-gradient(circle at 80% 0%, rgba(255, 194, 62, 0.22), transparent 42%);
+    linear-gradient(145deg, rgba(34, 26, 11, 0.9), rgba(5, 8, 16, 0.9)),
+    radial-gradient(circle at 80% 0%, rgba(255, 194, 62, 0.12), transparent 42%);
 }
 
 .upgrade-module-top {
+  grid-area: top;
   justify-content: flex-start;
   color: hsl(var(--accent));
 }
@@ -1475,19 +1478,20 @@
 }
 
 .upgrade-level-grid {
+  grid-area: levels;
   position: relative;
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 10px;
 }
 
 .upgrade-level-grid div,
 .upgrade-bonus {
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.22);
-  padding: 7px;
+  background: rgba(0, 0, 0, 0.18);
+  padding: 9px;
 }
 
 .upgrade-level-grid span {
@@ -1509,6 +1513,7 @@
 }
 
 .upgrade-bonus {
+  grid-area: bonus;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1524,13 +1529,15 @@
 }
 
 .upgrade-cta {
+  grid-area: cta;
+  align-self: stretch;
   position: relative;
   z-index: 1;
   width: 100%;
-  margin-top: auto;
-  min-height: 38px;
-  padding: 0.45rem 0.76rem;
-  font-size: 0.66rem;
+  margin-top: 0;
+  min-height: 42px;
+  padding: 0.48rem 0.86rem;
+  font-size: 0.68rem;
 }
 
 .upgrade-cta span {
@@ -1649,6 +1656,10 @@
 .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 @media (max-width: 1100px) {
+  .stadium-cinematic {
+    width: min(100%, 1040px);
+  }
+
   .broadcast-scorebug {
     left: 18px;
     right: 18px;
@@ -1664,8 +1675,8 @@
 
   .club-card,
   .live-event-card {
-    top: 104px;
-    width: 292px;
+    top: 96px;
+    width: min(284px, calc(50% - 56px));
   }
 
   .club-card {
@@ -1677,29 +1688,28 @@
   }
 
   .stadium-title-lockup {
-    top: 42%;
-    width: min(300px, 36%);
-  }
-
-  .stadium-title-lockup h2 {
-    font-size: 0.94rem;
+    top: 306px;
   }
 
   .stadium-hq-dock {
-    left: 18px;
-    right: 18px;
-    grid-template-columns: minmax(0, 1fr) minmax(250px, 300px);
+    grid-template-columns: minmax(0, 1.2fr) minmax(264px, 0.8fr);
   }
 }
 
 @media (max-width: 780px) {
   .stadium-cinematic {
-    padding: 10px;
+    width: 100%;
+    padding: 10px 10px 128px;
   }
 
   .stadium-scene {
-    min-height: 1540px;
+    height: 760px;
+    min-height: 760px;
     border-radius: 22px;
+  }
+
+  .stadium-hero-image {
+    background-position: center, center, center top;
   }
 
   .broadcast-scorebug {
@@ -1726,11 +1736,11 @@
   }
 
   .club-card {
-    top: 96px;
+    top: 92px;
   }
 
   .live-event-card {
-    top: 348px;
+    top: 320px;
   }
 
   .club-card h1,
@@ -1749,26 +1759,11 @@
   }
 
   .stadium-title-lockup {
-    top: 535px;
-    left: 22px;
-    right: 22px;
-    width: auto;
-    transform: none;
-    text-align: left;
-  }
-
-  .stadium-title-lockup h2 {
-    max-width: 360px;
-    font-size: 1.18rem;
-    line-height: 1.05;
-  }
-
-  .stadium-title-lockup > span {
     display: none;
   }
 
   .pitch-cta-wrap {
-    top: 604px;
+    top: 548px;
     bottom: auto;
     width: calc(100% - 28px);
   }
@@ -1787,46 +1782,46 @@
   }
 
   .stadium-stands-back {
-    top: 43%;
+    top: 36%;
     width: 150%;
     height: 26%;
   }
 
   .stadium-stands-mid {
-    top: 50%;
+    top: 44%;
     width: 128%;
     height: 22%;
   }
 
   .stadium-stands-front {
-    top: 58%;
+    top: 52%;
     width: 112%;
     height: 16%;
   }
 
   .crowd-ring-back {
-    top: 45%;
+    top: 38%;
     width: 148%;
     height: 22%;
   }
 
   .crowd-ring-mid {
-    top: 53%;
+    top: 46%;
     width: 128%;
     height: 17%;
   }
 
   .crowd-ring-front {
-    top: 62%;
+    top: 55%;
     width: 112%;
     height: 12%;
   }
 
   .pitch-3d {
-    top: 646px;
+    top: 535px;
     bottom: auto;
     width: 116%;
-    height: 34%;
+    height: 30%;
     transform: translateX(-50%) rotateX(56deg);
   }
 
@@ -1840,13 +1835,10 @@
   }
 
   .stadium-hq-dock {
-    top: 820px;
-    bottom: auto;
-    left: 12px;
-    right: 12px;
+    position: relative;
     grid-template-columns: 1fr;
     gap: 12px;
-    margin-top: 0;
+    margin-top: 12px;
   }
 
   .formation-bench,
@@ -1865,7 +1857,7 @@
   }
 
   .squad-slot {
-    min-height: 150px;
+    min-height: 144px;
     padding: 34px 8px 8px;
   }
 
