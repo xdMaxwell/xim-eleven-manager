@@ -4,7 +4,7 @@ import { CountryCard, PACK_REWARDS } from "../lib/constants";
 import { CardComponent } from "../components/card-component";
 import { useToast } from "../hooks/use-toast";
 import { ximAssets } from "../lib/assets";
-import { Sparkles, Lock, Zap, ArrowRight } from "lucide-react";
+import { CheckCircle2, Lock, Share2, Sparkles, Zap } from "lucide-react";
 
 const PACK_LABELS = {
   starter: "Starter Pack",
@@ -23,7 +23,7 @@ export default function Packs() {
     if (packs[type] <= 0) {
       toast({
         title: "Out of packs",
-        description: "Acquire more packs to rip.",
+        description: "Acquire more packs to open.",
         variant: "destructive"
       });
       return;
@@ -38,10 +38,30 @@ export default function Packs() {
     }, 2000);
   };
 
+  const handleSharePull = () => {
+    if (!pulledCard) return;
+
+    const shareText = `XIM pull: ${pulledCard.name} (${pulledCard.rarity})`;
+    if (navigator.clipboard?.writeText) {
+      void navigator.clipboard.writeText(shareText).then(() => {
+        toast({
+          title: "Pull copied",
+          description: `${pulledCard.name} is ready to share.`,
+        });
+      });
+      return;
+    }
+
+    toast({
+      title: "Pull ready",
+      description: `${pulledCard.name} is in your locker.`,
+    });
+  };
+
   const hasPacks = packs[selectedPack] > 0;
   const selectedPackAsset = ximAssets.packs[selectedPack];
   const selectedPackLabel = PACK_LABELS[selectedPack];
-  const pulledRarityClass = pulledCard ? `rarity-reveal-${pulledCard.rarity.toLowerCase()}` : "";
+  const pulledRarity = pulledCard?.rarity.toLowerCase() ?? "common";
 
   return (
     <div className="pack-page-shell p-3 md:p-5 h-full min-h-[calc(100vh-140px)] flex flex-col relative">
@@ -59,7 +79,7 @@ export default function Packs() {
       </div>
 
       {!opening && !pulledCard && (
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4 md:gap-6">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)_280px] gap-4 md:gap-6">
           
           {/* Left sidebar: Inventory & Selector */}
           <div className="flex flex-col gap-4">
@@ -112,37 +132,6 @@ export default function Packs() {
                 )}
               </button>
             </div>
-
-            <div className="glass rounded-2xl p-4 flex-1">
-              <div className="flex items-center gap-2 mb-3">
-                <Sparkles className="w-4 h-4 text-accent" />
-                <h3 className="display text-sm text-white uppercase text-glow-accent">Possible Pulls</h3>
-              </div>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {PACK_REWARDS.map((r) => (
-                  <span key={r} className="chip bg-white/5 border-white/10 text-white/70 text-[10px]">{r}</span>
-                ))}
-              </div>
-              <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Card Rarity</div>
-              <ul className="flex flex-col gap-2">
-                <li className="flex justify-between items-center bg-black/30 p-2 rounded-lg border border-white/5">
-                  <span className="text-[11px] uppercase text-white/70">Common</span>
-                  <span className="w-2 h-2 rounded-full bg-slate-300" />
-                </li>
-                <li className="flex justify-between items-center bg-black/30 p-2 rounded-lg border border-white/5">
-                  <span className="text-[11px] uppercase text-white/70">Rare</span>
-                  <span className="w-2 h-2 rounded-full bg-blue-400 glow-secondary" />
-                </li>
-                <li className="flex justify-between items-center bg-black/30 p-2 rounded-lg border border-white/5">
-                  <span className="text-[11px] uppercase text-white/70">Epic</span>
-                  <span className="w-2 h-2 rounded-full bg-purple-400" />
-                </li>
-                <li className="flex justify-between items-center bg-black/30 p-2 rounded-lg border border-white/5">
-                  <span className="text-[11px] uppercase text-white/70">Mythic</span>
-                  <span className="w-2 h-2 rounded-full bg-amber-400 glow-accent" />
-                </li>
-              </ul>
-            </div>
           </div>
 
           {/* Central Area: Big Pack Display */}
@@ -173,47 +162,89 @@ export default function Packs() {
                 disabled={!hasPacks}
                 className={`btn w-full py-4 text-lg ${selectedPack === "starter" ? "btn-primary glow-primary" : "btn-heat glow-heat"}`}
               >
-                {hasPacks ? "Rip Pack" : "Sold Out"} <Zap className="w-5 h-5 ml-2" />
+                {hasPacks ? "Open Pack" : "Sold Out"} <Zap className="w-5 h-5 ml-2" />
               </button>
             </div>
+          </div>
+
+          <div className="glass rounded-2xl p-4 flex flex-col pack-reward-panel">
+            <div className="flex items-center gap-2 mb-3">
+              <Sparkles className="w-4 h-4 text-accent" />
+              <h3 className="display text-sm text-white uppercase text-glow-accent">Possible Pulls</h3>
+            </div>
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {PACK_REWARDS.map((r) => (
+                <span key={r} className="chip bg-white/5 border-white/10 text-white/70 text-[10px]">{r}</span>
+              ))}
+            </div>
+            <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Card Rarity</div>
+            <ul className="flex flex-col gap-2">
+              <li className="flex justify-between items-center bg-black/30 p-2 rounded-lg border border-white/5">
+                <span className="text-[11px] uppercase text-white/70">Common</span>
+                <span className="w-2 h-2 rounded-full bg-slate-300" />
+              </li>
+              <li className="flex justify-between items-center bg-black/30 p-2 rounded-lg border border-white/5">
+                <span className="text-[11px] uppercase text-white/70">Rare</span>
+                <span className="w-2 h-2 rounded-full bg-blue-400 glow-secondary" />
+              </li>
+              <li className="flex justify-between items-center bg-black/30 p-2 rounded-lg border border-white/5">
+                <span className="text-[11px] uppercase text-white/70">Epic</span>
+                <span className="w-2 h-2 rounded-full bg-purple-400" />
+              </li>
+              <li className="flex justify-between items-center bg-black/30 p-2 rounded-lg border border-white/5">
+                <span className="text-[11px] uppercase text-white/70">Mythic</span>
+                <span className="w-2 h-2 rounded-full bg-amber-400 glow-accent" />
+              </li>
+            </ul>
           </div>
         </div>
       )}
 
       {/* Opening Animation State */}
       {opening && (
-        <div className="pack-stage pack-stage--opening flex-1 flex flex-col items-center justify-center">
-          <div className={`pack-product xim-pack-display pack-product--${selectedPack} pack-opening pack-flip ${selectedPack === "starter" ? "is-starter" : "is-fever"}`}>
-            <img className="xim-pack-art" src={selectedPackAsset} alt="" />
-            <div className="pack-opening-flare" />
-            <div className="pack-burst" />
+        <div className="pack-reveal-overlay" role="status" aria-live="polite">
+          <div className="pack-reveal-stage">
+            <div className={`pack-reveal-pack pack-product--${selectedPack} pack-reveal-pack--opening ${selectedPack === "starter" ? "is-starter" : "is-fever"}`}>
+              <img className="xim-pack-art" src={selectedPackAsset} alt="" />
+              <div className="pack-opening-flare" />
+              <div className="pack-reveal-burst" />
+            </div>
+            <div className="pack-reveal-status">
+              <span>Pack Machine</span>
+              <strong>Opening Pack</strong>
+            </div>
           </div>
-          <h2 className="mt-12 display text-3xl text-white uppercase tracking-widest animate-blink">Opening Pack...</h2>
         </div>
       )}
 
       {/* Reveal State */}
       {pulledCard && !opening && (
-        <div className={`reward-reveal ${pulledRarityClass} flex-1 flex flex-col items-center justify-center relative`}>
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-[300px] h-[300px] rounded-full bg-white/20 blur-[80px] anim-burst" />
-          </div>
-          
-          <h2 className="display text-3xl md:text-5xl text-white uppercase mb-8 text-glow-primary anim-reveal" style={{ animationDelay: "0.2s" }}>
-            Asset Acquired
-          </h2>
-          
-          <div className="reward-card-enter mb-12 scale-110 md:scale-125" style={{ animationDelay: "0.4s" }}>
-            <CardComponent card={pulledCard} size="lg" />
-          </div>
-          
-          <div className="anim-reveal" style={{ animationDelay: "0.8s" }}>
-            <button 
-              onClick={() => setPulledCard(null)}
-              className="btn btn-secondary px-8 py-4 glow-secondary text-lg"
-            >
-              Continue <ArrowRight className="w-5 h-5 ml-2" />
-            </button>
+        <div className={`pack-reveal-overlay pack-reveal-overlay--reward rarity-${pulledRarity}`} role="dialog" aria-label="Pack reward">
+          <div className="pack-reveal-stage">
+            <div className="pack-reveal-copy">
+              <span>Reward Acquired</span>
+              <h2>{pulledCard.name}</h2>
+              <p>{pulledCard.rarity} Nation Card</p>
+            </div>
+
+            <div className={`pack-reveal-card pack-reveal-card--enter rarity-${pulledRarity}`}>
+              <CardComponent card={pulledCard} size="lg" />
+            </div>
+
+            <div className="pack-reveal-actions">
+              <button 
+                onClick={() => setPulledCard(null)}
+                className="btn btn-primary px-7 py-3 glow-primary"
+              >
+                Add to Locker <CheckCircle2 className="w-5 h-5 ml-2" />
+              </button>
+              <button 
+                onClick={handleSharePull}
+                className="btn btn-secondary px-7 py-3"
+              >
+                Share Pull <Share2 className="w-5 h-5 ml-2" />
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -454,11 +454,108 @@
   filter: saturate(1.04) contrast(1.02);
 }
 
-.pack-opening {
+.pack-reward-panel {
+  align-self: start;
+}
+
+.pack-reveal-overlay {
+  --reveal-rgb: 57 255 20;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 44px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgb(var(--reveal-rgb) / 0.18), transparent 30%),
+    radial-gradient(circle at 50% 72%, rgba(0, 229, 255, 0.11), transparent 34%),
+    linear-gradient(180deg, rgba(1, 5, 13, 0.76), rgba(1, 4, 10, 0.95));
+  backdrop-filter: blur(14px) saturate(1.08);
+  -webkit-backdrop-filter: blur(14px) saturate(1.08);
+}
+
+.pack-reveal-overlay::before,
+.pack-reveal-overlay::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.pack-reveal-overlay::before {
+  inset: -12%;
+  background:
+    linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.16) 49%, transparent 62%),
+    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.14), transparent 38%);
+  mix-blend-mode: screen;
+  opacity: 0.62;
+}
+
+.pack-reveal-overlay::after {
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.58), transparent 28%, transparent 72%, rgba(0, 0, 0, 0.58)),
+    radial-gradient(ellipse at 50% 50%, transparent 0 34%, rgba(0, 0, 0, 0.68) 100%);
+}
+
+.pack-reveal-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 3vw, 30px);
+  width: min(680px, 100%);
+  min-height: min(720px, 82svh);
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.pack-reveal-pack {
+  position: relative;
+  width: min(20rem, 58vw, 340px);
+  aspect-ratio: 2 / 3;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(95, 230, 255, 0.18), transparent 46%),
+    linear-gradient(180deg, #071222, #020610);
+  box-shadow:
+    0 44px 92px -30px rgba(0, 0, 0, 0.94),
+    0 0 96px -30px rgb(var(--reveal-rgb) / 0.88);
+  transform-style: preserve-3d;
+}
+
+.pack-reveal-pack::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.28), transparent 28%, transparent 68%, rgba(255, 255, 255, 0.12)),
+    linear-gradient(180deg, transparent 58%, rgba(1, 5, 12, 0.28));
+  mix-blend-mode: screen;
+}
+
+.pack-reveal-pack.is-starter,
+.pack-reveal-pack.pack-product--starter {
+  --reveal-rgb: 57 255 20;
+}
+
+.pack-reveal-pack.is-fever,
+.pack-reveal-pack.pack-product--fever {
+  --reveal-rgb: 255 119 37;
+}
+
+.pack-reveal-pack--opening {
   animation: pack-open-sequence 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.pack-flip .xim-pack-art {
+.pack-reveal-pack--opening .xim-pack-art {
   animation: pack-art-flash 2s ease forwards;
 }
 
@@ -474,7 +571,7 @@
   pointer-events: none;
 }
 
-.pack-burst {
+.pack-reveal-burst {
   position: absolute;
   inset: -35%;
   z-index: 4;
@@ -486,24 +583,88 @@
   animation: pack-burst-sequence 2s ease forwards;
 }
 
-.reward-reveal::before {
-  content: "";
-  position: absolute;
-  inset: 8% 0 auto;
-  height: 46%;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 58%);
-  filter: blur(18px);
+.pack-reveal-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  text-align: center;
 }
 
-.reward-card-enter {
+.pack-reveal-status span,
+.pack-reveal-copy span {
+  color: rgb(var(--reveal-rgb) / 0.9);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.pack-reveal-status strong,
+.pack-reveal-copy h2 {
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-shadow: 0 16px 44px rgba(0, 0, 0, 0.78);
+}
+
+.pack-reveal-status strong {
+  font-size: clamp(1.6rem, 5vw, 3.2rem);
+}
+
+.pack-reveal-copy {
+  display: grid;
+  gap: 8px;
+  text-align: center;
+}
+
+.pack-reveal-copy h2 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 4.6rem);
+  line-height: 0.9;
+}
+
+.pack-reveal-copy p {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.pack-reveal-card {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.pack-reveal-card::before {
+  content: "";
+  position: absolute;
+  inset: -38px;
+  z-index: -1;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgb(var(--reveal-rgb) / 0.32), transparent 62%);
+  filter: blur(10px);
+}
+
+.pack-reveal-card--enter {
   animation: reward-card-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
 
-.rarity-reveal-common::before { background: radial-gradient(circle, rgba(57, 255, 20, 0.2), transparent 58%); }
-.rarity-reveal-rare::before { background: radial-gradient(circle, rgba(0, 229, 255, 0.22), transparent 58%); }
-.rarity-reveal-epic::before { background: radial-gradient(circle, rgba(255, 154, 0, 0.22), transparent 58%); }
-.rarity-reveal-mythic::before { background: radial-gradient(circle, rgba(168, 85, 247, 0.28), transparent 58%); }
+.pack-reveal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.rarity-common { --reveal-rgb: 57 255 20; }
+.rarity-rare { --reveal-rgb: 0 229 255; }
+.rarity-epic { --reveal-rgb: 251 191 36; }
+.rarity-mythic { --reveal-rgb: 168 85 247; }
 
 /* ---------------- Stadium HQ cinematic rebuild ---------------- */
 .stadium-cinematic {
@@ -536,9 +697,9 @@
   inset: -16% -30%;
   z-index: 15;
   pointer-events: none;
-  background: linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.1) 49%, transparent 61%);
+  background: linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.07) 49%, transparent 61%);
   mix-blend-mode: screen;
-  opacity: 0.2;
+  opacity: 0.14;
   animation: stadium-light-sweep 9s ease-in-out infinite;
 }
 
@@ -575,8 +736,8 @@
   z-index: 1;
   overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(2, 6, 12, 0.5) 0%, rgba(3, 8, 14, 0.18) 32%, rgba(3, 8, 13, 0.28) 58%, rgba(2, 8, 9, 0.78) 100%),
-    radial-gradient(ellipse at 50% 42%, transparent 0 36%, rgba(0, 0, 0, 0.26) 75%, rgba(0, 0, 0, 0.58) 100%);
+    linear-gradient(180deg, rgba(2, 6, 12, 0.38) 0%, rgba(3, 8, 14, 0.1) 34%, rgba(3, 8, 13, 0.18) 58%, rgba(2, 8, 9, 0.82) 100%),
+    radial-gradient(ellipse at 50% 42%, transparent 0 40%, rgba(0, 0, 0, 0.2) 76%, rgba(0, 0, 0, 0.52) 100%);
 }
 
 .stadium-hero-asset {
@@ -587,7 +748,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center 42%;
-  filter: saturate(0.98) contrast(0.9) brightness(0.78);
+  filter: saturate(0.98) contrast(0.92) brightness(0.88);
   transform: scale(1.01);
   animation: stadium-asset-depth 20s ease-in-out infinite;
 }
@@ -598,8 +759,8 @@
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(2, 6, 12, 0.5) 0%, rgba(3, 8, 14, 0.18) 32%, rgba(3, 8, 13, 0.28) 58%, rgba(2, 8, 9, 0.78) 100%),
-    radial-gradient(ellipse at 50% 42%, transparent 0 36%, rgba(0, 0, 0, 0.26) 75%, rgba(0, 0, 0, 0.58) 100%);
+    linear-gradient(180deg, rgba(2, 6, 12, 0.38) 0%, rgba(3, 8, 14, 0.1) 34%, rgba(3, 8, 13, 0.18) 58%, rgba(2, 8, 9, 0.82) 100%),
+    radial-gradient(ellipse at 50% 42%, transparent 0 40%, rgba(0, 0, 0, 0.2) 76%, rgba(0, 0, 0, 0.52) 100%);
   pointer-events: none;
 }
 
@@ -609,8 +770,8 @@
   inset: 0;
   z-index: 2;
   background:
-    linear-gradient(90deg, rgba(2, 6, 12, 0.58), transparent 28%, transparent 72%, rgba(2, 6, 12, 0.58)),
-    linear-gradient(180deg, rgba(3, 6, 12, 0.2), transparent 38%, rgba(2, 8, 7, 0.5) 74%, rgba(2, 5, 6, 0.9) 100%);
+    linear-gradient(90deg, rgba(2, 6, 12, 0.48), transparent 28%, transparent 72%, rgba(2, 6, 12, 0.48)),
+    linear-gradient(180deg, rgba(3, 6, 12, 0.14), transparent 38%, rgba(2, 8, 7, 0.52) 74%, rgba(2, 5, 6, 0.94) 100%);
   pointer-events: none;
 }
 
@@ -620,8 +781,8 @@
   z-index: 14;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 44%, rgba(190, 220, 255, 0.045), transparent 42%),
-    linear-gradient(180deg, transparent 0%, rgba(172, 217, 255, 0.024) 42%, transparent 76%);
+    radial-gradient(ellipse at 50% 44%, rgba(190, 220, 255, 0.028), transparent 42%),
+    linear-gradient(180deg, transparent 0%, rgba(172, 217, 255, 0.014) 42%, transparent 76%);
   filter: blur(0.5px);
   animation: stadium-haze-drift 8s ease-in-out infinite;
 }
@@ -653,11 +814,11 @@
   transform-origin: top center;
   clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 252, 220, 0.58), rgba(255, 252, 220, 0.2) 16%, transparent 64%),
-    linear-gradient(180deg, rgba(255, 252, 220, 0.2), transparent 78%);
+    radial-gradient(circle at 50% 0%, rgba(255, 252, 220, 0.46), rgba(255, 252, 220, 0.16) 16%, transparent 64%),
+    linear-gradient(180deg, rgba(255, 252, 220, 0.14), transparent 78%);
   filter: blur(7px);
   mix-blend-mode: screen;
-  opacity: 0.24;
+  opacity: 0.18;
   animation: floodlight-breathe 5.5s ease-in-out infinite;
 }
 
@@ -684,7 +845,7 @@
   z-index: 5;
   perspective: 1200px;
   transform-style: preserve-3d;
-  opacity: 0.18;
+  opacity: 0.1;
   mix-blend-mode: screen;
 }
 
@@ -812,14 +973,14 @@
   top: 18%;
   width: 110%;
   height: 34%;
-  opacity: 0.2;
+  opacity: 0.12;
 }
 
 .crowd-ring-mid {
   top: 29%;
   width: 96%;
   height: 25%;
-  opacity: 0.28;
+  opacity: 0.16;
   animation-delay: 0.7s;
 }
 
@@ -827,7 +988,7 @@
   top: 42%;
   width: 78%;
   height: 14%;
-  opacity: 0.3;
+  opacity: 0.18;
   animation-delay: 1.1s;
 }
 
@@ -1017,8 +1178,8 @@
   z-index: 34;
   pointer-events: none;
   box-shadow:
-    inset 0 0 142px rgba(0, 0, 0, 0.6),
-    inset 0 -132px 132px rgba(0, 0, 0, 0.72);
+    inset 0 0 120px rgba(0, 0, 0, 0.54),
+    inset 0 -146px 142px rgba(0, 0, 0, 0.78);
 }
 
 .broadcast-scorebug {
@@ -1881,9 +2042,9 @@
 @keyframes card-shine { to { transform: translateX(120%); } }
 
 @keyframes stadium-light-sweep {
-  0% { transform: translateX(-30%) rotate(3deg); opacity: 0.12; }
-  45% { opacity: 0.34; }
-  100% { transform: translateX(30%) rotate(3deg); opacity: 0.12; }
+  0% { transform: translateX(-30%) rotate(3deg); opacity: 0.08; }
+  45% { opacity: 0.2; }
+  100% { transform: translateX(30%) rotate(3deg); opacity: 0.08; }
 }
 
 @keyframes stadium-asset-depth {
@@ -1892,18 +2053,18 @@
 }
 
 @keyframes stadium-haze-drift {
-  0%, 100% { transform: translate3d(-0.8%, 0, 0); opacity: 0.5; }
-  50% { transform: translate3d(0.8%, -0.8%, 0); opacity: 0.74; }
+  0%, 100% { transform: translate3d(-0.8%, 0, 0); opacity: 0.36; }
+  50% { transform: translate3d(0.8%, -0.8%, 0); opacity: 0.54; }
 }
 
 @keyframes floodlight-breathe {
-  0%, 100% { opacity: 0.24; }
-  50% { opacity: 0.4; }
+  0%, 100% { opacity: 0.16; }
+  50% { opacity: 0.28; }
 }
 
 @keyframes crowd-ring-pulse {
-  0%, 100% { opacity: 0.18; filter: saturate(1); }
-  50% { opacity: 0.32; filter: saturate(1.18); }
+  0%, 100% { opacity: 0.08; filter: saturate(1); }
+  50% { opacity: 0.18; filter: saturate(1.12); }
 }
 
 @keyframes pitch-shimmer {
@@ -2087,6 +2248,22 @@
 
   .xim-pack-display {
     width: min(12rem, 58vw);
+  }
+
+  .pack-reveal-stage {
+    min-height: 78svh;
+  }
+
+  .pack-reveal-pack {
+    width: min(15.5rem, 62vw);
+  }
+
+  .pack-reveal-actions {
+    width: 100%;
+  }
+
+  .pack-reveal-actions .btn {
+    flex: 1 1 180px;
   }
 
   .stadium-cinematic {
@@ -2314,7 +2491,8 @@
   .stadium-scene::before, .stadium-haze, .floodlight span, .crowd-ring, .live-dot, .live-badge,
   .stadium-hero-asset, .pitch-3d::before, .pitch-output-glow, .game-cta::before, .reward-float,
   .stadium-scene.is-upgrading .stadium-bowl, .stadium-scene.is-upgrading .pitch-3d,
-  .pack-opening, .pack-flip .xim-pack-art, .pack-opening-flare, .pack-burst, .reward-card-enter {
+  .pack-reveal-pack--opening, .pack-reveal-pack--opening .xim-pack-art, .pack-opening-flare,
+  .pack-reveal-burst, .pack-reveal-card--enter {
     animation: none !important;
   }
   .fcard-tilt:hover { transform: none; }
