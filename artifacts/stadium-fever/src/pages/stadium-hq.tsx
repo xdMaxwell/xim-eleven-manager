@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useGameState } from "../lib/game-state";
 import { EVENTS, type CountryCard } from "../lib/constants";
+import { getCardFrameAsset, getStadiumAsset } from "../lib/assets";
 import { useToast } from "../hooks/use-toast";
 
 const FORMATION_ROLES = [
@@ -20,19 +21,6 @@ const FORMATION_ROLES = [
   { slot: "Slot 2", role: "ST" },
   { slot: "Slot 3", role: "RW" },
 ];
-
-const CARD_FRAME_ASSETS = {
-  Common: "/assets/xim/cards/card-common.png",
-  Rare: "/assets/xim/cards/card-rare.png",
-  Epic: "/assets/xim/cards/card-epic.png",
-  Mythic: "/assets/xim/cards/card-mythic.png",
-} as const;
-
-function getStadiumAsset(level: number) {
-  if (level >= 3) return "/assets/xim/stadium/stadium-level-3.png";
-  if (level >= 2) return "/assets/xim/stadium/stadium-level-2.png";
-  return "/assets/xim/stadium/stadium-level-1.png";
-}
 
 export default function StadiumHQ() {
   const {
@@ -80,7 +68,7 @@ export default function StadiumHQ() {
       <section className={`stadium-scene ${stadiumPulse ? "is-upgrading" : ""}`}>
         <div className="stadium-night" />
         <div className="stadium-hero-image" aria-hidden="true">
-          <img className="stadium-hero-asset" src={stadiumAsset} alt="" />
+          <img className="stadium-hero-asset" src={stadiumAsset} alt="" onError={(event) => { event.currentTarget.hidden = true; }} />
         </div>
         <div className="stadium-haze" />
         <div className="floodlight floodlight-left">
@@ -291,7 +279,7 @@ function StatusPill({ icon, label, value }: { icon: ReactNode; label: string; va
 function BenchMiniCard({ card }: { card: CountryCard }) {
   const cardStyle = {
     "--nation-color": card.color,
-    "--bench-frame-url": `url("${CARD_FRAME_ASSETS[card.rarity]}")`,
+    "--bench-frame-url": `url("${getCardFrameAsset(card.rarity)}")`,
   } as CSSProperties;
 
   return (

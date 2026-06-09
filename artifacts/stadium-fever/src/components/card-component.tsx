@@ -1,4 +1,5 @@
 import { Rarity } from "../lib/constants";
+import { getCardFrameAsset } from "../lib/assets";
 
 interface CardComponentProps {
   card: {
@@ -17,10 +18,10 @@ interface CardComponentProps {
 }
 
 const RARITY: Record<Rarity, { frame: string; tag: string; glow: string; sheen: string }> = {
-  Common: { frame: "/assets/xim/cards/card-common.png", tag: "#cbd5e1", glow: "rgba(174,186,205,0.45)", sheen: "rgba(174,186,205,0.18)" },
-  Rare: { frame: "/assets/xim/cards/card-rare.png", tag: "#7dd3fc", glow: "rgba(56,160,255,0.55)", sheen: "rgba(56,160,255,0.22)" },
-  Epic: { frame: "/assets/xim/cards/card-epic.png", tag: "#c4b5fd", glow: "rgba(139,92,246,0.62)", sheen: "rgba(139,92,246,0.24)" },
-  Mythic: { frame: "/assets/xim/cards/card-mythic.png", tag: "#d8b4fe", glow: "rgba(168,85,247,0.68)", sheen: "rgba(168,85,247,0.26)" },
+  Common: { frame: getCardFrameAsset("Common"), tag: "#a3ff5f", glow: "rgba(57,255,20,0.42)", sheen: "rgba(57,255,20,0.16)" },
+  Rare: { frame: getCardFrameAsset("Rare"), tag: "#7dd3fc", glow: "rgba(0,229,255,0.55)", sheen: "rgba(0,229,255,0.2)" },
+  Epic: { frame: getCardFrameAsset("Epic"), tag: "#fbbf24", glow: "rgba(255,154,0,0.56)", sheen: "rgba(255,154,0,0.2)" },
+  Mythic: { frame: getCardFrameAsset("Mythic"), tag: "#d8b4fe", glow: "rgba(168,85,247,0.68)", sheen: "rgba(168,85,247,0.24)" },
 };
 
 const SIZES = {
@@ -61,6 +62,7 @@ export function CardComponent({ card, selected, onClick, className, size = "md",
     <div
       onClick={onClick}
       className={`fcard xim-card fcard-shine ${tilt ? "fcard-tilt" : ""} ${s.w} ${s.h} ${onClick ? "cursor-pointer" : ""} ${selected ? "ring-2 ring-white -translate-y-1.5" : ""} ${className || ""}`}
+      data-rarity={rarity.toLowerCase()}
       style={{ boxShadow: selected ? `0 0 0 2px #fff, 0 0 52px -4px ${r.glow}` : `0 24px 50px -22px rgba(0,0,0,0.85), 0 0 36px -16px ${r.glow}` }}
     >
       <img className="xim-card-frame-art" src={r.frame} alt="" aria-hidden="true" />

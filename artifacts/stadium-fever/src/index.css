@@ -194,7 +194,12 @@
   transform-style: preserve-3d;
   box-shadow: 0 24px 50px -22px rgba(0, 0, 0, 0.85);
 }
-.fcard-tilt:hover { transform: perspective(900px) rotateX(6deg) rotateY(-7deg) translateY(-6px) scale(1.03); }
+
+@media (hover: hover) and (pointer: fine) {
+  .fcard-tilt:hover {
+    transform: perspective(900px) rotateX(5deg) rotateY(-6deg) translateY(-5px) scale(1.025);
+  }
+}
 .fcard-shine::after {
   content: "";
   position: absolute;
@@ -229,9 +234,11 @@
 
 .xim-card-overlay {
   z-index: 1;
+  background-blend-mode: screen, normal;
   box-shadow:
-    inset 0 0 42px rgba(0, 0, 0, 0.34),
-    inset 0 -32px 40px rgba(2, 7, 13, 0.34);
+    inset 0 84px 64px rgba(1, 6, 14, 0.42),
+    inset 0 -112px 70px rgba(2, 7, 13, 0.78),
+    inset 0 0 42px rgba(0, 0, 0, 0.24);
 }
 
 .xim-card-content {
@@ -249,7 +256,12 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
+  padding: 5px 7px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(1, 6, 13, 0.74), rgba(3, 14, 27, 0.34));
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .xim-card-crest {
@@ -282,11 +294,12 @@
 .xim-card-nameplate {
   position: absolute;
   left: 14%;
-  right: 22%;
+  right: 14%;
   bottom: 21%;
-  padding: 4px 6px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(1, 5, 12, 0.72), rgba(6, 18, 31, 0.42));
+  padding: 5px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(180, 230, 255, 0.12);
+  background: linear-gradient(90deg, rgba(1, 5, 12, 0.84), rgba(6, 18, 31, 0.58));
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.86);
 }
 
@@ -303,10 +316,15 @@
 .xim-card-stat-grid > div {
   min-width: 0;
   border-color: rgba(185, 235, 255, 0.14);
-  background: rgba(2, 8, 17, 0.5);
+  background: rgba(2, 8, 17, 0.68);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
+
+.xim-card[data-rarity="common"] .xim-card-stat-grid > div { border-color: rgba(57, 255, 20, 0.18); }
+.xim-card[data-rarity="rare"] .xim-card-stat-grid > div { border-color: rgba(0, 229, 255, 0.2); }
+.xim-card[data-rarity="epic"] .xim-card-stat-grid > div { border-color: rgba(255, 154, 0, 0.22); }
+.xim-card[data-rarity="mythic"] .xim-card-stat-grid > div { border-color: rgba(168, 85, 247, 0.24); }
 
 /* ---------------- Pitch / stadium textures ---------------- */
 .pitch-stripes {
@@ -315,6 +333,30 @@
 }
 
 /* ---------------- XIM pack assets ---------------- */
+.pack-page-shell {
+  isolation: isolate;
+}
+
+.pack-page-ambient {
+  background:
+    radial-gradient(760px 420px at 62% 12%, rgba(0, 229, 255, 0.09), transparent 64%),
+    radial-gradient(620px 360px at 18% 34%, rgba(57, 255, 20, 0.05), transparent 70%),
+    linear-gradient(180deg, rgba(3, 10, 20, 0.96), rgba(2, 5, 12, 0.98));
+}
+
+.pack-page-ambient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at 50% 18%, #000, transparent 76%);
+  -webkit-mask-image: radial-gradient(circle at 50% 18%, #000, transparent 76%);
+  opacity: 0.36;
+}
+
 .pack-selector-content {
   position: relative;
   z-index: 1;
@@ -340,6 +382,11 @@
   padding-bottom: 104px;
 }
 
+.pack-stage {
+  perspective: 1100px;
+  transform-style: preserve-3d;
+}
+
 .xim-pack-display {
   position: relative;
   width: min(13rem, 64vw);
@@ -354,6 +401,21 @@
     0 34px 78px -26px rgba(0, 0, 0, 0.94),
     0 0 66px -28px rgba(55, 210, 255, 0.7);
   transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pack-product {
+  transform: translateZ(0) rotateX(0deg) rotateY(0deg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pack-product:not(.is-sold-out):hover {
+    transform: perspective(900px) rotateX(4deg) rotateY(-7deg) translateY(-8px) scale(1.04);
+    filter: brightness(1.05);
+  }
+}
+
+.pack-product.is-sold-out {
+  filter: grayscale(0.85) brightness(0.68);
 }
 
 .xim-pack-display.is-starter {
@@ -392,8 +454,12 @@
   filter: saturate(1.04) contrast(1.02);
 }
 
-.xim-pack-opening {
-  animation: pack-premium-open 1.15s ease-in-out infinite;
+.pack-opening {
+  animation: pack-open-sequence 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pack-flip .xim-pack-art {
+  animation: pack-art-flash 2s ease forwards;
 }
 
 .pack-opening-flare {
@@ -404,9 +470,40 @@
     radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.36), transparent 34%),
     linear-gradient(110deg, transparent 26%, rgba(255, 255, 255, 0.42) 46%, transparent 62%);
   mix-blend-mode: screen;
-  animation: cta-button-sheen 0.9s ease-in-out infinite;
+  animation: pack-flare-sequence 2s ease forwards;
   pointer-events: none;
 }
+
+.pack-burst {
+  position: absolute;
+  inset: -35%;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.92) 0 7%, rgba(121, 255, 182, 0.36) 18%, rgba(0, 229, 255, 0.1) 32%, transparent 54%);
+  opacity: 0;
+  transform: scale(0.28);
+  animation: pack-burst-sequence 2s ease forwards;
+}
+
+.reward-reveal::before {
+  content: "";
+  position: absolute;
+  inset: 8% 0 auto;
+  height: 46%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 58%);
+  filter: blur(18px);
+}
+
+.reward-card-enter {
+  animation: reward-card-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+
+.rarity-reveal-common::before { background: radial-gradient(circle, rgba(57, 255, 20, 0.2), transparent 58%); }
+.rarity-reveal-rare::before { background: radial-gradient(circle, rgba(0, 229, 255, 0.22), transparent 58%); }
+.rarity-reveal-epic::before { background: radial-gradient(circle, rgba(255, 154, 0, 0.22), transparent 58%); }
+.rarity-reveal-mythic::before { background: radial-gradient(circle, rgba(168, 85, 247, 0.28), transparent 58%); }
 
 /* ---------------- Stadium HQ cinematic rebuild ---------------- */
 .stadium-cinematic {
@@ -439,10 +536,10 @@
   inset: -16% -30%;
   z-index: 15;
   pointer-events: none;
-  background: linear-gradient(100deg, transparent 36%, rgba(255, 255, 255, 0.12) 48%, transparent 60%);
+  background: linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.1) 49%, transparent 61%);
   mix-blend-mode: screen;
-  opacity: 0.24;
-  animation: stadium-light-sweep 7s ease-in-out infinite;
+  opacity: 0.2;
+  animation: stadium-light-sweep 9s ease-in-out infinite;
 }
 
 .stadium-scene::after {
@@ -492,6 +589,7 @@
   object-position: center 42%;
   filter: saturate(0.98) contrast(0.9) brightness(0.78);
   transform: scale(1.01);
+  animation: stadium-asset-depth 20s ease-in-out infinite;
 }
 
 .stadium-hero-image::before {
@@ -522,8 +620,8 @@
   z-index: 14;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 44%, rgba(190, 220, 255, 0.06), transparent 42%),
-    linear-gradient(180deg, transparent 0%, rgba(172, 217, 255, 0.03) 42%, transparent 76%);
+    radial-gradient(ellipse at 50% 44%, rgba(190, 220, 255, 0.045), transparent 42%),
+    linear-gradient(180deg, transparent 0%, rgba(172, 217, 255, 0.024) 42%, transparent 76%);
   filter: blur(0.5px);
   animation: stadium-haze-drift 8s ease-in-out infinite;
 }
@@ -559,8 +657,8 @@
     linear-gradient(180deg, rgba(255, 252, 220, 0.2), transparent 78%);
   filter: blur(7px);
   mix-blend-mode: screen;
-  opacity: 0.3;
-  animation: floodlight-breathe 3.5s ease-in-out infinite;
+  opacity: 0.24;
+  animation: floodlight-breathe 5.5s ease-in-out infinite;
 }
 
 .floodlight span:nth-child(1) {
@@ -707,7 +805,7 @@
   mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 72%, transparent 100%);
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 72%, transparent 100%);
   mix-blend-mode: screen;
-  animation: crowd-ring-pulse 2.8s ease-in-out infinite;
+  animation: crowd-ring-pulse 4.8s ease-in-out infinite;
 }
 
 .crowd-ring-back {
@@ -765,6 +863,7 @@
     radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, 0.18), transparent 44%),
     linear-gradient(90deg, rgba(9, 85, 38, 0.18), transparent 18%, transparent 82%, rgba(9, 85, 38, 0.18));
   mix-blend-mode: screen;
+  animation: pitch-shimmer 7s ease-in-out infinite;
 }
 
 .pitch-3d::after {
@@ -835,6 +934,7 @@
   background: radial-gradient(ellipse, rgba(138, 255, 87, 0.34), rgba(38, 255, 112, 0.14) 42%, transparent 72%);
   filter: blur(8px);
   mix-blend-mode: screen;
+  animation: stadium-center-pulse 4.6s ease-in-out infinite;
 }
 
 .tactical-marker,
@@ -1781,24 +1881,39 @@
 @keyframes card-shine { to { transform: translateX(120%); } }
 
 @keyframes stadium-light-sweep {
-  0% { transform: translateX(-34%) rotate(4deg); opacity: 0.18; }
-  45% { opacity: 0.55; }
-  100% { transform: translateX(34%) rotate(4deg); opacity: 0.18; }
+  0% { transform: translateX(-30%) rotate(3deg); opacity: 0.12; }
+  45% { opacity: 0.34; }
+  100% { transform: translateX(30%) rotate(3deg); opacity: 0.12; }
+}
+
+@keyframes stadium-asset-depth {
+  0%, 100% { transform: scale(1.01) translate3d(0, 0, 0); }
+  50% { transform: scale(1.035) translate3d(0, -0.6%, 0); }
 }
 
 @keyframes stadium-haze-drift {
-  0%, 100% { transform: translate3d(-1%, 0, 0); opacity: 0.62; }
-  50% { transform: translate3d(1%, -1%, 0); opacity: 0.9; }
+  0%, 100% { transform: translate3d(-0.8%, 0, 0); opacity: 0.5; }
+  50% { transform: translate3d(0.8%, -0.8%, 0); opacity: 0.74; }
 }
 
 @keyframes floodlight-breathe {
-  0%, 100% { opacity: 0.42; }
-  50% { opacity: 0.68; }
+  0%, 100% { opacity: 0.24; }
+  50% { opacity: 0.4; }
 }
 
 @keyframes crowd-ring-pulse {
-  0%, 100% { opacity: 0.28; filter: saturate(1); }
-  50% { opacity: 0.58; filter: saturate(1.35); }
+  0%, 100% { opacity: 0.18; filter: saturate(1); }
+  50% { opacity: 0.32; filter: saturate(1.18); }
+}
+
+@keyframes pitch-shimmer {
+  0%, 100% { opacity: 0.58; transform: translateX(-1.2%); }
+  50% { opacity: 0.86; transform: translateX(1.2%); }
+}
+
+@keyframes stadium-center-pulse {
+  0%, 100% { opacity: 0.72; transform: translate(-50%, -50%) scale(0.98); }
+  50% { opacity: 0.95; transform: translate(-50%, -50%) scale(1.06); }
 }
 
 @keyframes live-badge-pulse {
@@ -1815,9 +1930,40 @@
   to { transform: translateX(130%); }
 }
 
-@keyframes pack-premium-open {
-  0%, 100% { transform: translateY(0) rotateY(-3deg) scale(1); filter: brightness(1); }
-  50% { transform: translateY(-12px) rotateY(3deg) scale(1.04); filter: brightness(1.18); }
+@keyframes pack-open-sequence {
+  0% { transform: translateY(0) rotateX(0deg) rotateY(0deg) scale(1); filter: brightness(1); opacity: 1; }
+  14% { transform: translateY(-14px) rotateX(4deg) rotateY(-5deg) scale(1.03); filter: brightness(1.08); }
+  28% { transform: translateY(-16px) rotateX(-3deg) rotateY(5deg) scale(1.035); }
+  38% { transform: translateY(-15px) rotateX(2deg) rotateY(-4deg) scale(1.04); }
+  52% { transform: translateY(-18px) rotateX(8deg) rotateY(74deg) scale(1.05); filter: brightness(1.18); }
+  66% { transform: translateY(-16px) rotateX(2deg) rotateY(156deg) scale(1.04); filter: brightness(1.35); }
+  78% { transform: translateY(-20px) rotateX(0deg) rotateY(182deg) scale(1.08); opacity: 1; }
+  100% { transform: translateY(-24px) rotateX(0deg) rotateY(190deg) scale(0.92); filter: brightness(1.8); opacity: 0; }
+}
+
+@keyframes pack-art-flash {
+  0%, 42% { filter: saturate(1.04) contrast(1.02); }
+  66% { filter: saturate(1.35) contrast(1.08) brightness(1.18); }
+  100% { filter: saturate(1.1) contrast(1.04) brightness(1.45); }
+}
+
+@keyframes pack-flare-sequence {
+  0%, 22% { opacity: 0; transform: translateX(-90%) scaleX(0.8); }
+  42% { opacity: 0.65; transform: translateX(-12%) scaleX(1); }
+  72% { opacity: 0.95; transform: translateX(26%) scaleX(1.1); }
+  100% { opacity: 0; transform: translateX(90%) scaleX(0.9); }
+}
+
+@keyframes pack-burst-sequence {
+  0%, 58% { opacity: 0; transform: scale(0.25); }
+  74% { opacity: 0.9; transform: scale(0.78); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+@keyframes reward-card-enter {
+  0% { opacity: 0; transform: perspective(900px) translateY(34px) rotateX(18deg) scale(0.88); filter: brightness(1.35); }
+  58% { opacity: 1; transform: perspective(900px) translateY(-8px) rotateX(-3deg) scale(1.04); }
+  100% { opacity: 1; transform: perspective(900px) translateY(0) rotateX(0deg) scale(1); filter: brightness(1); }
 }
 
 @keyframes reward-float-rise {
@@ -1933,6 +2079,16 @@
 }
 
 @media (max-width: 780px) {
+  .pack-stage-panel {
+    order: -1;
+    padding-top: 18px;
+    padding-bottom: 24px;
+  }
+
+  .xim-pack-display {
+    width: min(12rem, 58vw);
+  }
+
   .stadium-cinematic {
     width: 100%;
     padding: 10px 10px 128px;
@@ -2156,8 +2312,9 @@
   .anim-sweep, .anim-crowd, .anim-live, .animate-marquee, .anim-reward, .animate-float,
   .animate-blink, .anim-burst, .anim-reveal, .anim-stadium-pulse, .anim-spin-slow, .anim-beacon,
   .stadium-scene::before, .stadium-haze, .floodlight span, .crowd-ring, .live-dot, .live-badge,
-  .game-cta::before, .reward-float, .stadium-scene.is-upgrading .stadium-bowl,
-  .stadium-scene.is-upgrading .pitch-3d, .xim-pack-opening, .pack-opening-flare {
+  .stadium-hero-asset, .pitch-3d::before, .pitch-output-glow, .game-cta::before, .reward-float,
+  .stadium-scene.is-upgrading .stadium-bowl, .stadium-scene.is-upgrading .pitch-3d,
+  .pack-opening, .pack-flip .xim-pack-art, .pack-opening-flare, .pack-burst, .reward-card-enter {
     animation: none !important;
   }
   .fcard-tilt:hover { transform: none; }
